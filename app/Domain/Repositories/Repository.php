@@ -50,13 +50,8 @@ abstract class Repository implements RepositoryInterface
         return $this->where($where)->delete();
     }
 
-    /**
-     * 
-     * @param string|int $id Айди организации
-     * @param string $iin ИИН сотрудника
-     */
-    public function getByIdAndIin($id, $iin)
+    public function getByEmail($email)
     {
-        return $this->model->where('organization_id', $id)->where('iin', $iin)->first();
+        return $this->model->where('email', $email)->first();
     }
 }

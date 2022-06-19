@@ -16,5 +16,20 @@ Route::group([
     'prefix' => '{locale}', 
     'where' => ['locale' => '[a-zA-Z]{2}'], 
     'middleware' => 'setlocale'], function() {
+        Route::group(['prefix' => 'super-admin', 'as' => 'super-admin.'], function() {
+
+            Route::post('/sign-in', \App\Mrt\SuperAdmin\Actions\SignInAction::class);
+
+            Route::middleware([ParseJWTToken::class])->group(function () {
+
+                Route::group(['prefix' => 'branche'], function() {
+
+                    Route::get('/', \App\Mrt\Branche\Actions\ListAction::class);
+
+                });
+
+            });
+
+        });
 
     });

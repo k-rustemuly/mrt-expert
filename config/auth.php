@@ -14,7 +14,7 @@ return [
     */
 
     'defaults' => [
-        'guard' => 'department',
+        'guard' => 'super_admin',
         'passwords' => 'users',
     ],
 
@@ -36,19 +36,13 @@ return [
     */
 
     'guards' => [
-        'web' => [
-            'driver' => 'session',
-            'provider' => 'users',
-        ],
-        
-        'department' => [
+        'super_admin' => [
             'driver' => 'jwt',
-            'provider' => 'department',
+            'provider' => 'super_admin',
         ],
-        
-        'organization' => [
+        'admin' => [
             'driver' => 'jwt',
-            'provider' => 'organization',
+            'provider' => 'admin',
         ],
     ],
 
@@ -70,16 +64,10 @@ return [
     */
 
     'providers' => [
-        'department' => [
+        'super_admin' => [
             'driver' => 'eloquent',
-            'model' => App\Edus\Departments\Domain\Models\Department::class,
-            'table' => 'education_department',
-        ],
-
-        'organization' => [
-            'driver' => 'eloquent',
-            'model' => App\Edus\OrganizationAdmin\Domain\Models\Admin::class,
-            'table' => 'organization',
+            'model' => App\Mrt\SuperAdmin\Domain\Models\SuperAdmin::class,
+            'table' => 'super_admin',
         ],
     ],
 
