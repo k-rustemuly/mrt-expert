@@ -30,6 +30,11 @@ abstract class Repository implements RepositoryInterface
         });
     }
 
+    public function updateById($id, array $attributes)
+    {
+        return $this->where(["id" => $id])->update($attributes);
+    }
+
     public function updateWhere(array $where, array $attributes)
     {
         return $this->where($where)->update($attributes);

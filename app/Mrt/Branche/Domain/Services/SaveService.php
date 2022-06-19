@@ -6,10 +6,8 @@ use App\Mrt\Branche\Domain\Repositories\BrancheRepository as Repository;
 use App\Domain\Payloads\SuccessPayload;
 use App\Exceptions\MainException;
 
-class AddService
+class SaveService
 {
-    public $name = "branche";
-
     protected $repository;
 
     public function __construct(Repository $repository)
@@ -17,13 +15,13 @@ class AddService
         $this->repository = $repository;
     }
 
-    public function handle($data = [])
+    public function handle($branche_id = 0 , $data = [])
     {
-        $branche = $this->repository->create($data);
+        $branche = $this->repository->updateById($branche_id, $data);
         if($branche != null)
-            return new SuccessPayload(__("New branche success added"));
+            return new SuccessPayload(__("Branche success saved"));
 
-        throw new MainException("Error to add");
+        throw new MainException("Error saving");
     }
 
 }

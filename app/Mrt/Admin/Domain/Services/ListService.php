@@ -1,19 +1,18 @@
 <?php
 
-namespace App\Mrt\Branche\Domain\Services;
+namespace App\Mrt\Admin\Domain\Services;
 
 use App\Domain\Services\TableType;
-use App\Mrt\Branche\Domain\Repositories\BrancheRepository as Repository;
-use App\Helpers\FieldTypes\Reference;
-use App\Helpers\FieldTypes\Number;
+use App\Mrt\Admin\Domain\Repositories\AdminRepository as Repository;
+use App\Helpers\FieldTypes\Email;
 use App\Helpers\FieldTypes\Text;
-use App\Helpers\FieldTypes\Boolean;
 use App\Helpers\FieldTypes\DateTime;
+use App\Helpers\FieldTypes\Boolean;
 use App\Helpers\Field;
 
 class ListService extends TableType
 {
-    public $name = "branche";
+    public $name = "admin";
 
     protected $repository;
 
@@ -26,10 +25,10 @@ class ListService extends TableType
         $this->repository = $repository;
     }
 
-    public function handle()
+    public function handle($branche_id = 0)
     {
         $this->headers = $this->getHeader();
-        $this->datas = $this->repository->getList();
+        $this->datas = $this->repository->getList($branche_id);
         return $this->getData();
     }
 
@@ -41,26 +40,23 @@ class ListService extends TableType
     private function getHeader()
     {
         return [
-            "punkt_id" => Field::_()
-                                ->init(new Reference("punkt"))
-                                ->key("punkt")
-                                ->onCreate("visible", true)
-                                ->render(),
-            "name_kk" => Field::_()
+            "full_name" => Field::_()
                                 ->init(new Text())
                                 ->onCreate("visible", true)
                                 ->onUpdate("visible", true)
                                 ->maxLength(255)
                                 ->render(),
-            "name_ru" => Field::_()
-                            ->init(new Text())
+            "email" => Field::_()
+                            ->init(new Email())
                             ->onCreate("visible", true)
-                            ->onUpdate("visible", true)
                             ->maxLength(255)
                             ->render(),
             "is_active" => Field::_()
-                                ->init(new Boolean())
-                                ->onUpdate("visible", true)
+                            ->init(new Boolean())
+                            ->onUpdate("visible", true)
+                            ->render(),
+            "last_visit" => Field::_()
+                                ->init(new DateTime())
                                 ->render(),
         ];
     }
