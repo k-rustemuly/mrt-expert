@@ -25,7 +25,7 @@
     "branche.header.name_ru.name" : "Наименование на русском",
     "branche.header.is_active.name" : "Есть ли доступ к системе?",
     "branche.header.is_active.hint" : " ",
-    "" : "",
+    "New branche success added" : "Новый филиал успешно добавлено в систему",
     "" : "",
     "" : "",
     "" : "",

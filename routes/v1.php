@@ -16,6 +16,7 @@ Route::group([
     'prefix' => '{locale}', 
     'where' => ['locale' => '[a-zA-Z]{2}'], 
     'middleware' => 'setlocale'], function() {
+
         Route::group(['prefix' => 'super-admin', 'as' => 'super-admin.'], function() {
 
             Route::post('/sign-in', \App\Mrt\SuperAdmin\Actions\SignInAction::class);
@@ -26,9 +27,17 @@ Route::group([
 
                     Route::get('/', \App\Mrt\Branche\Actions\ListAction::class);
 
+                    Route::post('/', \App\Mrt\Branche\Actions\AddAction::class);
+
                 });
 
             });
+
+        });
+
+        Route::group(['prefix' => 'reference'], function() {
+
+            Route::get('/punkt', \App\Mrt\Punkt\Actions\ListAction::class);
 
         });
 
