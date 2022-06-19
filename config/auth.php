@@ -44,6 +44,10 @@ return [
             'driver' => 'jwt',
             'provider' => 'branche_admin',
         ],
+        'assistant' => [
+            'driver' => 'jwt',
+            'provider' => 'assistant',
+        ],
     ],
 
     /*
@@ -73,6 +77,11 @@ return [
             'driver' => 'eloquent',
             'model' => App\Mrt\Admin\Domain\Models\Admin::class,
             'table' => 'branche_admin',
+        ],
+        'assistant' => [
+            'driver' => 'eloquent',
+            'model' => App\Mrt\Assistant\Domain\Models\Admin::class,
+            'table' => 'assistant',
         ],
     ],
 

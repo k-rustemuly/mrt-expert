@@ -68,6 +68,20 @@ Route::group([
 
                 });
 
+                Route::group(['prefix' => 'assistant', 'as' => 'assistant.'], function() {
+
+                    Route::get('/', \App\Mrt\Assistant\Actions\ListAction::class);
+
+                    Route::post('/', \App\Mrt\Assistant\Actions\AddAction::class);
+
+                    Route::group(['prefix' => '/{assistant_id}', 'where' => ['assistant_id' => '[0-9]+']], function() {
+
+                        Route::put('', \App\Mrt\Assistant\Actions\SaveAction::class)->name('save');
+
+                    });
+
+                });
+
             });
 
         });
