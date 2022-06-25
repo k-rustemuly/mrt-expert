@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Mrt\Branche\Domain\Requests;
+namespace App\Mrt\Branch\Domain\Requests;
 
 use App\Http\Requests\APIRequest;
 

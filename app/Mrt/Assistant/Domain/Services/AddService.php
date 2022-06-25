@@ -20,8 +20,8 @@ class AddService
 
     public function handle($data = [])
     {
-        $user = auth('branche_admin')->userOrFail();
-        $data["branche_id"] = $user->branche_id;
+        $user = auth('branch_admin')->userOrFail();
+        $data["branch_id"] = $user->branch_id;
         $password = Str::random(8);
         $data["password"] = Hash::make($password);
         $assistant = $this->repository->create($data);

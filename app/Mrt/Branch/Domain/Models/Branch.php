@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Mrt\Branche\Domain\Models;
+namespace App\Mrt\Branch\Domain\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Branche extends Model
+class Branch extends Model
 {
 
-    public $table = 'company_branches';
+    public $table = 'company_branchs';
 
     protected $guarded = ['id'];
 

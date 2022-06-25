@@ -9,7 +9,7 @@ class Action{
     public $etalon = array(
         "type" => "primary",
         "name" => null,
-        "hint" => null,
+        "hint" => "",
         "request_type" => "get",
         "request_url" => "null",
         "after_response" => "refresh",

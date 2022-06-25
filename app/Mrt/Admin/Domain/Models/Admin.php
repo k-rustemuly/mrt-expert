@@ -10,9 +10,9 @@ class Admin extends Authenticatable implements JWTSubject
 {
     use Notifiable;
 
-    protected $table = 'branche_admin';
+    protected $table = 'branch_admin';
 
-    protected $guard = "branche_admin";
+    protected $guard = "branch_admin";
 
     protected $guarded = ['id'];
 

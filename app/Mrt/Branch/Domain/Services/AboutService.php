@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Mrt\Branche\Domain\Services;
+namespace App\Mrt\Branch\Domain\Services;
 
 use App\Domain\Services\BlockType;
-use App\Mrt\Branche\Domain\Repositories\BrancheRepository as Repository;
+use App\Mrt\Branch\Domain\Repositories\BranchRepository as Repository;
 use App\Helpers\Action;
 use App\Helpers\Block;
 use App\Exceptions\MainException;
@@ -17,7 +17,7 @@ class AboutService extends BlockType
 
     protected $repository;
 
-    public $name = "one_branche";
+    public $name = "one_branch";
 
     public $blocks;
 
@@ -25,7 +25,7 @@ class AboutService extends BlockType
 
     public $headers;
 
-    public $branche_id;
+    public $branch_id;
 
     public function __construct(Repository $repository)
     {
@@ -33,20 +33,20 @@ class AboutService extends BlockType
     }
 
     /**
-     * @param string $branche_id ID 
+     * @param string $branch_id ID 
      */
-    public function handle($branche_id = 0)
+    public function handle($branch_id = 0)
     {
-        $this->branche_id = $branche_id;
+        $this->branch_id = $branch_id;
 
-        $aboutBranche = $this->repository->getById($branche_id);
-        if(empty($aboutBranche)) throw new MainException("You dont have permission or record not found");
+        $aboutBranch = $this->repository->getById($branch_id);
+        if(empty($aboutBranch)) throw new MainException("You dont have permission or record not found");
 
         $this->actions = $this->getActions();
-        $this->headers = $this->getHeader($aboutBranche);
+        $this->headers = $this->getHeader($aboutBranch);
         $this->blocks = array(
             "main_info" => Block::_()
-                        ->values($this->getMainBlock($aboutBranche))
+                        ->values($this->getMainBlock($aboutBranch))
             );
         return $this->getData();
     }
@@ -125,7 +125,7 @@ class AboutService extends BlockType
                 "edit" => 
                     Action::_()
                     ->requestType("put")
-                    ->requestUrl(route('super-admin.branche.save', ['locale' => App::currentLocale(), 'branche_id' => $this->branche_id]))
+                    ->requestUrl(route('super-admin.branch.update', ['locale' => App::currentLocale(), 'branch_id' => $this->branch_id]))
                     ->type()
                     ->render(),
             )

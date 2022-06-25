@@ -18,9 +18,9 @@ class AddService
         $this->repository = $repository;
     }
 
-    public function handle($branche_id = 0, $data = [])
+    public function handle($branch_id = 0, $data = [])
     {
-        $data["branche_id"] = $branche_id;
+        $data["branch_id"] = $branch_id;
         $password = Str::random(8);
         $data["password"] = Hash::make($password);
         $admin = $this->repository->create($data);

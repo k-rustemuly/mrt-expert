@@ -1,14 +1,14 @@
 <?php
 
-namespace App\Mrt\Branche\Domain\Services;
+namespace App\Mrt\Branch\Domain\Services;
 
-use App\Mrt\Branche\Domain\Repositories\BrancheRepository as Repository;
+use App\Mrt\Branch\Domain\Repositories\BranchRepository as Repository;
 use App\Domain\Payloads\SuccessPayload;
 use App\Exceptions\MainException;
 
 class AddService
 {
-    public $name = "branche";
+    public $name = "branch";
 
     protected $repository;
 
@@ -19,9 +19,9 @@ class AddService
 
     public function handle($data = [])
     {
-        $branche = $this->repository->create($data);
-        if($branche != null)
-            return new SuccessPayload(__("New branche success added"));
+        $branch = $this->repository->create($data);
+        if($branch != null)
+            return new SuccessPayload(__("New branch success added"));
 
         throw new MainException("Error to add");
     }

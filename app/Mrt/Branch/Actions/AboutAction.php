@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Mrt\Branche\Actions;
+namespace App\Mrt\Branch\Actions;
 
-use App\Mrt\Branche\Domain\Requests\AddFormRequest as Request;
-use App\Mrt\Branche\Domain\Services\AddService as Service;
+use App\Domain\Requests\DefaultRequest as Request;
+use App\Mrt\Branch\Domain\Services\AboutService as Service;
 use App\Responders\JsonResponder as Responder;
 
-class AddAction
+class AboutAction
 {
 
     public function __construct(Responder $responder, Service $service)
@@ -18,7 +18,7 @@ class AddAction
     public function __invoke(Request $request)
     {
         return $this->responder->withResponse(
-            $this->service->handle($request->validated())
+            $this->service->handle($request->branch_id)
         )->respond();
     }
 }

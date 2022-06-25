@@ -18,9 +18,9 @@ class SaveService
 
     public function handle($assistant_id = 0, $data = [])
     {
-        $user = auth('branche_admin')->userOrFail();
+        $user = auth('branch_admin')->userOrFail();
         $Assistant = $this->repository->getById($assistant_id);
-        if($Assistant->branche_id != $user->branche_id)
+        if($Assistant->branch_id != $user->branch_id)
         {
             throw new MainException("Error to save assistant");
         }

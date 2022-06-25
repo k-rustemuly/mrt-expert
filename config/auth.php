@@ -40,9 +40,9 @@ return [
             'driver' => 'jwt',
             'provider' => 'super_admin',
         ],
-        'branche_admin' => [
+        'branch_admin' => [
             'driver' => 'jwt',
-            'provider' => 'branche_admin',
+            'provider' => 'branch_admin',
         ],
         'assistant' => [
             'driver' => 'jwt',
@@ -73,10 +73,10 @@ return [
             'model' => App\Mrt\SuperAdmin\Domain\Models\SuperAdmin::class,
             'table' => 'super_admin',
         ],
-        'branche_admin' => [
+        'branch_admin' => [
             'driver' => 'eloquent',
             'model' => App\Mrt\Admin\Domain\Models\Admin::class,
-            'table' => 'branche_admin',
+            'table' => 'branch_admin',
         ],
         'assistant' => [
             'driver' => 'eloquent',

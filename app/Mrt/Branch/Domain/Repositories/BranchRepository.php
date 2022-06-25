@@ -1,11 +1,11 @@
 <?php
-namespace App\Mrt\Branche\Domain\Repositories;
+namespace App\Mrt\Branch\Domain\Repositories;
 
 use App\Domain\Repositories\Repository;
-use App\Mrt\Branche\Domain\Models\Branche as Model;
+use App\Mrt\Branch\Domain\Models\Branch as Model;
 use Illuminate\Support\Facades\App;
 
-class BrancheRepository extends Repository
+class BranchRepository extends Repository
 {
     protected $model;
 

@@ -18,9 +18,9 @@ class SaveService
 
     public function handle($reception_id = 0, $data = [])
     {
-        $user = auth('branche_admin')->userOrFail();
+        $user = auth('branch_admin')->userOrFail();
         $reception = $this->repository->getById($reception_id);
-        if($reception->branche_id != $user->branche_id)
+        if($reception->branch_id != $user->branch_id)
         {
             throw new MainException("Error to save Reception");
         }

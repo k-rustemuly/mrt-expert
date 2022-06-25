@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Mrt\Branche\Actions;
+namespace App\Mrt\Branch\Actions;
 
 use App\Domain\Requests\DefaultRequest as Request;
-use App\Mrt\Branche\Domain\Services\ListService as Service;
+use App\Mrt\Branch\Domain\Services\ListService as Service;
 use App\Responders\JsonResponder as Responder;
 
 class ListAction

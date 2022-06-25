@@ -1,25 +1,28 @@
 <?php
 
-namespace App\Mrt\Branche\Domain\Services;
+namespace App\Mrt\Branch\Domain\Services;
 
 use App\Domain\Services\TableType;
-use App\Mrt\Branche\Domain\Repositories\BrancheRepository as Repository;
+use App\Mrt\Branch\Domain\Repositories\BranchRepository as Repository;
 use App\Helpers\FieldTypes\Reference;
-use App\Helpers\FieldTypes\Number;
 use App\Helpers\FieldTypes\Text;
 use App\Helpers\FieldTypes\Boolean;
-use App\Helpers\FieldTypes\DateTime;
 use App\Helpers\Field;
+use Illuminate\Support\Facades\App;
+use App\Helpers\Action;
+
 
 class ListService extends TableType
 {
-    public $name = "branche";
+    public $name = "branch";
 
     protected $repository;
 
     public $headers;
 
     public $datas;
+
+    public $actions;
 
     public function __construct(Repository $repository)
     {
@@ -30,6 +33,7 @@ class ListService extends TableType
     {
         $this->headers = $this->getHeader();
         $this->datas = $this->repository->getList();
+        $this->actions = $this->getAction();
         return $this->getData();
     }
 
@@ -62,6 +66,40 @@ class ListService extends TableType
                                 ->init(new Boolean())
                                 ->onUpdate("visible", true)
                                 ->render(),
+        ];
+    }
+
+    /** 
+     * действия для каждой строки
+     * 
+     * @param string|int $branch_id Айди 
+     * 
+     * @return array<mixed>
+    */
+    public function action($branch_id = 0)
+    {
+        return [
+            "view" =>  Action::_()
+                ->requestType("put")
+                ->requestUrl(route('super-admin.branch.view', ['locale' => App::currentLocale(), 'branch_id' => $branch_id]))
+                ->type("info")
+                ->render(),
+        ];
+    }
+
+    /**
+     * Глабольные действии
+     * 
+     * @return array<mixed>
+     */
+    private function getAction()
+    {
+        return [
+            "create" =>  Action::_()
+                ->requestType("post")
+                ->requestUrl(route('super-admin.branch.create', ['locale' => App::currentLocale()]))
+                ->type("success")
+                ->render(),
         ];
     }
 

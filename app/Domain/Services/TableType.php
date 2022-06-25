@@ -7,6 +7,8 @@ abstract class TableType
 {
     abstract public function handle();
 
+    abstract public function action();
+
     public function getData()
     {
         $row = array();
@@ -15,6 +17,9 @@ abstract class TableType
         }
         if(isset($this->datas)){
             $row["data"] = $this->datas;
+        }
+        if(isset($this->actions)){
+            $row["action"] = $this->actions;
         }
         return new GenericPayload($this->parse($row));
     }
@@ -44,6 +49,7 @@ abstract class TableType
             $data = $row["data"];
             for($i=0; $i<count($data); $i++)
             {
+                $data[$i]["action"] = $this->action($data[$i]["id"]);
                 foreach ($optimize as $key => $arr)
                 {
                     foreach ($arr as $item)
@@ -52,15 +58,16 @@ abstract class TableType
                         {
                             if(isset($data[$i][$item."_id"]) && $data[$i][$item."_name"])
                             {
-                                $data[$i][$item."_id"] = array(
+                                $val = array(
                                     "id" => $data[$i][$item."_id"],
-                                    "value" => $data[$i][$item."_name"],
+                                    "name" => $data[$i][$item."_name"],
                                 );
                                 if(isset($data[$i][$item."_color"]))
                                 {
-                                    $data[$i][$item."_id"] = array_merge($data[$i][$item."_id"], array("color" => $data[$i][$item."_color"]));
+                                    $val["color"] = $data[$i][$item."_color"];
                                     unset($data[$i][$item."_color"]);
                                 } 
+                                $data[$i][$item."_id"] = array($val);
                                 unset($data[$i][$item."_name"]);
                             }
                         }
@@ -78,6 +85,14 @@ abstract class TableType
                 }
             }
             $row["data"] = $data;
+        }
+        if(isset($row["action"]))
+        {
+            foreach(array_keys($row["action"]) as $key)
+            {
+                $row["action"][$key]["name"] = __($name.".action.".$key.".name");
+                $row["action"][$key]["hint"] = __($name.".action.".$key.".hint");
+            }
         }
         return $row;
     }

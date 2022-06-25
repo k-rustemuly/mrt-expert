@@ -27,9 +27,9 @@ class ListService extends TableType
 
     public function handle()
     {
-        $user = auth('branche_admin')->userOrFail();
+        $user = auth('branch_admin')->userOrFail();
         $this->headers = $this->getHeader();
-        $this->datas = $this->repository->getList($user->branche_id);
+        $this->datas = $this->repository->getList($user->branch_id);
         return $this->getData();
     }
 

@@ -24,7 +24,7 @@ class SignInService extends Service
         if(!$user || !password_verify($password, $user->password)) throw new UnauthorizedException("Email or password is incorrect");
         if(!$user->is_active) throw new UnauthorizedException("You account is blocked");
 
-        if (! $token = auth('branche_admin')->login($user)) {
+        if (! $token = auth('branch_admin')->login($user)) {
             throw new UnauthorizedException("Email or password is incorrect");
         }
         $user->last_visit = date('Y-m-d H:i:s');

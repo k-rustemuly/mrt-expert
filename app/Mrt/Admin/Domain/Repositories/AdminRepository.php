@@ -22,10 +22,10 @@ class AdminRepository extends Repository
      * 
      * @return array<mixed>
      */
-    public function getList($branche_id)
+    public function getList($branch_id)
     {
         $query = $this->select('*')
-        ->where('branche_id', $branche_id);
+        ->where('branch_id', $branch_id);
         return $query->get()->all();
     }
 }

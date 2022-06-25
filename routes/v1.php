@@ -14,27 +14,27 @@ Route::group([
 
             Route::middleware([ParseJWTToken::class])->group(function () {
 
-                Route::group(['prefix' => 'branche', 'as' => 'branche.'], function() {
+                Route::group(['prefix' => 'branch', 'as' => 'branch.'], function() {
 
-                    Route::get('/', \App\Mrt\Branche\Actions\ListAction::class);
+                    Route::get('/', \App\Mrt\Branch\Actions\ListAction::class);
 
-                    Route::post('/', \App\Mrt\Branche\Actions\AddAction::class);
+                    Route::post('/', \App\Mrt\Branch\Actions\AddAction::class)->name('create');
 
-                    Route::group(['prefix' => '/{branche_id}', 'where' => ['branche_id' => '[0-9]+']], function() {
+                    Route::group(['prefix' => '/{branch_id}', 'where' => ['branch_id' => '[0-9]+']], function() {
 
-                        Route::get('', \App\Mrt\Branche\Actions\AboutAction::class);
+                        Route::get('', \App\Mrt\Branch\Actions\AboutAction::class)->name('view');
 
-                        Route::put('', \App\Mrt\Branche\Actions\SaveAction::class)->name('save');
+                        Route::put('', \App\Mrt\Branch\Actions\SaveAction::class)->name('update');
 
                         Route::group(['prefix' => 'admin', 'as' => 'admin.'], function() {
 
                             Route::get('/', \App\Mrt\Admin\Actions\ListAction::class);
 
-                            Route::post('/', \App\Mrt\Admin\Actions\AddAction::class);
+                            Route::post('/', \App\Mrt\Admin\Actions\AddAction::class)->name('create');
 
                             Route::group(['prefix' => '/{admin_id}', 'where' => ['admin_id' => '[0-9]+']], function() {
 
-                                Route::put('', \App\Mrt\Admin\Actions\SaveAction::class)->name('save');
+                                Route::put('', \App\Mrt\Admin\Actions\SaveAction::class)->name('update');
 
                             });
 
@@ -48,7 +48,7 @@ Route::group([
 
         });
 
-        Route::group(['prefix' => 'branche-admin', 'as' => 'branche-admin.'], function() {
+        Route::group(['prefix' => 'branch-admin', 'as' => 'branch-admin.'], function() {
 
             Route::post('/sign-in', \App\Mrt\Admin\Actions\SignInAction::class);
 
