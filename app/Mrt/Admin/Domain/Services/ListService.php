@@ -59,6 +59,13 @@ class ListService extends TableType
                             ->onCreate("visible", true)
                             ->maxLength(255)
                             ->render(),
+            "password" => Field::_()
+                            ->init(new Text())
+                            ->onCreate("visible", true)
+                            ->onView("invisible")
+                            ->minLength(6)
+                            ->maxLength(255)
+                            ->render(),
             "is_active" => Field::_()
                             ->init(new Boolean())
                             ->onUpdate("visible", true)

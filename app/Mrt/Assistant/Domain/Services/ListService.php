@@ -9,6 +9,8 @@ use App\Helpers\FieldTypes\Text;
 use App\Helpers\FieldTypes\DateTime;
 use App\Helpers\FieldTypes\Boolean;
 use App\Helpers\Field;
+use Illuminate\Support\Facades\App;
+use App\Helpers\Action;
 
 class ListService extends TableType
 {
@@ -20,6 +22,8 @@ class ListService extends TableType
 
     public $datas;
 
+    public $actions;
+
     public function __construct(Repository $repository)
     {
         $this->repository = $repository;
@@ -27,9 +31,10 @@ class ListService extends TableType
 
     public function handle()
     {
-        $user = auth('branch_admin')->userOrFail();
+        $user = auth('branch_admin')->user();
         $this->headers = $this->getHeader();
         $this->datas = $this->repository->getList($user->branch_id);
+        $this->actions = $this->getAction();
         return $this->getData();
     }
 
@@ -52,6 +57,13 @@ class ListService extends TableType
                             ->onCreate("visible", true)
                             ->maxLength(255)
                             ->render(),
+            "password" => Field::_()
+                            ->init(new Text())
+                            ->onCreate("visible", true)
+                            ->onView("invisible")
+                            ->minLength(6)
+                            ->maxLength(255)
+                            ->render(),
             "is_active" => Field::_()
                             ->init(new Boolean())
                             ->onUpdate("visible", true)
@@ -59,6 +71,40 @@ class ListService extends TableType
             "last_visit" => Field::_()
                                 ->init(new DateTime())
                                 ->render(),
+        ];
+    }
+
+    /** 
+     * действия для каждой строки
+     * 
+     * @param string|int $assistant_id Айди 
+     * 
+     * @return array<mixed>
+    */
+    public function action($assistant_id = 0)
+    {
+        return [
+            "update" =>  Action::_()
+                ->requestType("put")
+                ->requestUrl(route('branch-admin.assistant.update', ['locale' => App::currentLocale(), 'assistant_id' => $assistant_id]))
+                ->type("info")
+                ->render(),
+        ];
+    }
+
+    /**
+     * Глабольные действии
+     * 
+     * @return array<mixed>
+     */
+    private function getAction()
+    {
+        return [
+            "create" =>  Action::_()
+                ->requestType("post")
+                ->requestUrl(route('branch-admin.assistant.create', ['locale' => App::currentLocale()]))
+                ->type("success")
+                ->render(),
         ];
     }
 

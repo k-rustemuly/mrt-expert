@@ -58,11 +58,11 @@ Route::group([
 
                     Route::get('/', \App\Mrt\Reception\Actions\ListAction::class);
 
-                    Route::post('/', \App\Mrt\Reception\Actions\AddAction::class);
+                    Route::post('/', \App\Mrt\Reception\Actions\AddAction::class)->name('create');
 
                     Route::group(['prefix' => '/{reception_id}', 'where' => ['reception_id' => '[0-9]+']], function() {
 
-                        Route::put('', \App\Mrt\Reception\Actions\SaveAction::class)->name('save');
+                        Route::put('', \App\Mrt\Reception\Actions\SaveAction::class)->name('update');
 
                     });
 
@@ -72,11 +72,11 @@ Route::group([
 
                     Route::get('/', \App\Mrt\Assistant\Actions\ListAction::class);
 
-                    Route::post('/', \App\Mrt\Assistant\Actions\AddAction::class);
+                    Route::post('/', \App\Mrt\Assistant\Actions\AddAction::class)->name('create');
 
                     Route::group(['prefix' => '/{assistant_id}', 'where' => ['assistant_id' => '[0-9]+']], function() {
 
-                        Route::put('', \App\Mrt\Assistant\Actions\SaveAction::class)->name('save');
+                        Route::put('', \App\Mrt\Assistant\Actions\SaveAction::class)->name('update');
 
                     });
 
