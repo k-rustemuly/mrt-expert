@@ -126,6 +126,8 @@ Route::group([
 
             Route::get('/punkt', \App\Mrt\Punkt\Actions\ListAction::class);
 
+            Route::get('/subservice', \App\Mrt\Subservice\Actions\ListAction::class);
+
         });
 
     });

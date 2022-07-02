@@ -4,6 +4,7 @@ namespace App\Mrt\Doctor\Domain\Services;
 
 use App\Domain\Services\BlockType;
 use App\Mrt\Doctor\Domain\Repositories\DoctorRepository as Repository;
+use App\Mrt\Subservice\Domain\Repositories\SubserviceRepository;
 use App\Helpers\Action;
 use App\Helpers\Block;
 use App\Exceptions\MainException;
@@ -17,6 +18,8 @@ class AboutService extends BlockType
 
     protected $repository;
 
+    protected $subserviceRepository;
+
     public $name = "one_doctor";
 
     public $blocks;
@@ -27,9 +30,10 @@ class AboutService extends BlockType
 
     public $doctor_id;
 
-    public function __construct(Repository $repository)
+    public function __construct(Repository $repository, SubserviceRepository $subserviceRepository)
     {
         $this->repository = $repository;
+        $this->subserviceRepository = $subserviceRepository;
     }
 
     /**
@@ -66,6 +70,10 @@ class AboutService extends BlockType
                 ],
                 "email" => [
                     "value" => $values["email"],
+                ],
+                "subservices" => [
+                    "type" => "reference",
+                    "value" => $this->getSubservices($values["subservices"])
                 ],
                 "is_active" => [
                     "value" => __($values["is_active"] ? "yes" : "no"),
@@ -125,5 +133,37 @@ class AboutService extends BlockType
             )
         );
         return $actions[$type]??[];
+    }
+
+    private function parseSubservices(string $data = "")
+    {
+        $data_ids = array();
+        if($data == "" || $data == null) return $data_ids;
+        $ids = explode('@', $data);
+        if(is_array($ids))
+        {
+            foreach($ids as $id)
+            {
+                if($id > 0)
+                {
+                    $data_ids[] = (int)$id;
+                }
+            }
+        }
+        return $data_ids;
+    }
+
+    private function getSubservices($subservices = null)
+    {
+        $ids = $this->parseSubservices($subservices);
+        if(empty($ids)) return [];
+
+        $list = array();
+        $all = $this->subserviceRepository->getInList($ids);
+        foreach($all as $item)
+        {
+            $list[] = ["id" => $item["id"], "name" => $item["name"]];
+        }
+        return $list;
     }
 }
