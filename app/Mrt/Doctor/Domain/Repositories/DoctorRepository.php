@@ -13,8 +13,9 @@ class DoctorRepository extends Repository
         $this->model = $model;
     }
 
-    public function getList()
+    public function getById($id)
     {
-        
+        $result = $this->model->find($id);
+        return $result ? $result->toArray() : [];
     }
 }

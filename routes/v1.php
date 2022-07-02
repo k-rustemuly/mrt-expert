@@ -90,6 +90,8 @@ Route::group([
 
                     Route::group(['prefix' => '/{doctor_id}', 'where' => ['doctor_id' => '[0-9]+']], function() {
 
+                        Route::get('', \App\Mrt\Doctor\Actions\AboutAction::class)->name('view');
+
                         Route::put('', \App\Mrt\Doctor\Actions\SaveAction::class)->name('update');
 
                     });
