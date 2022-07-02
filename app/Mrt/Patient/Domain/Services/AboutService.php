@@ -107,7 +107,7 @@ class AboutService extends BlockType
                             ->render(),
                 "email" => Field::_()
                             ->init(new Email())
-                            ->onUpdate("visible", true)
+                            ->onUpdate("visible")
                             ->value($values["email"])
                             ->render(),
                 "phone_number" => Field::_()

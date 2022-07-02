@@ -142,7 +142,7 @@
     "one_patient.block.values.phone_number.name" : "Номер телефона",
     "Patient success saved" : "Данные пациента успешно сохранен",
     "Error to save Patient" : "Ошибка при сохранении данных пациента",
-    "" : "",
+    "one_patient.action.edit.name " : "Изменить данные пациента",
     "" : "",
     "" : "",
     "" : "",
