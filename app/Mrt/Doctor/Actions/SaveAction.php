@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Mrt\Assistant\Actions;
+namespace App\Mrt\Doctor\Actions; 
 
 use App\Mrt\Doctor\Domain\Requests\SaveFormRequest as Request;
 use App\Mrt\Doctor\Domain\Services\SaveService as Service;
