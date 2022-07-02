@@ -4,13 +4,12 @@ namespace App\Mrt\Subservice\Domain\Services;
 
 use App\Domain\Services\Service;
 use App\Mrt\Subservice\Domain\Repositories\SubserviceRepository as Repository;
+use App\Domain\Payloads\GenericPayload;
 
 class ListService extends Service
 {
 
     protected $repository;
-
-    public $reference;
 
     public function __construct(Repository $repository)
     {
@@ -19,8 +18,8 @@ class ListService extends Service
 
     public function handle($header = [])
     {
-        $this->reference = $this->repository->getAll();
-        return $this->getReference();
+        $data = $this->repository->getAll();
+        return new GenericPayload($data);
     }
 
 }
