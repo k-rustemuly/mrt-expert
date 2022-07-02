@@ -92,11 +92,11 @@ class ListService extends TableType
     private function getAction()
     {
         return [
-            "create" =>  Action::_()
-                ->requestType("post")
-                ->requestUrl(route('reception.patient.create', ['locale' => App::currentLocale()]))
-                ->type("success")
-                ->render(),
+            // "create" =>  Action::_()
+            //     ->requestType("post")
+            //     ->requestUrl(route('reception.patient.create', ['locale' => App::currentLocale()]))
+            //     ->type("success")
+            //     ->render(),
         ];
     }
 
