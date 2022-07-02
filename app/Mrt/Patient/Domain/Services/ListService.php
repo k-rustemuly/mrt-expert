@@ -46,29 +46,29 @@ class ListService extends TableType
     {
         return [
             "iin" => Field::_()
-                                ->init(new Number())
-                                ->onCreate("visible")
-                                ->onUpdate("visible")
-                                ->minLength(12)
-                                ->maxLength(12)
-                                ->render(),
+                        ->init(new Number())
+                        ->onCreate("visible")
+                        ->onUpdate("visible")
+                        ->minLength(12)
+                        ->maxLength(12)
+                        ->render(),
             "full_name" => Field::_()
-                                ->init(new Text())
-                                ->onCreate("visible", true)
-                                ->onUpdate("visible", true)
-                                ->maxLength(255)
-                                ->render(),
+                            ->init(new Text())
+                            ->onCreate("visible", true)
+                            ->onUpdate("visible", true)
+                            ->maxLength(255)
+                            ->render(),
             "phone_number" => Field::_()
                                 ->init(new PhoneNumber())
                                 ->onCreate("visible", true)
                                 ->onUpdate("visible", true)
                                 ->render(),
             "email" => Field::_()
-                            ->init(new Email())
-                            ->onCreate("visible")
-                            ->onUpdate("visible")
-                            ->maxLength(255)
-                            ->render(),
+                        ->init(new Email())
+                        ->onCreate("visible")
+                        ->onUpdate("visible")
+                        ->maxLength(255)
+                        ->render(),
         ];
     }
 
@@ -81,7 +81,13 @@ class ListService extends TableType
     */
     public function action($patient_id = 0)
     {
-        return [];
+        return [
+            "view" =>  Action::_()
+                ->requestType("get")
+                ->requestUrl(route('reception.patient.view', ['locale' => App::currentLocale(), 'patient_id' => $patient_id]))
+                ->type("info")
+                ->render(),
+        ];
     }
 
     /**

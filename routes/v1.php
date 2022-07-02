@@ -136,11 +136,11 @@ Route::group([
 
                     Route::post('/', \App\Mrt\Patient\Actions\AddAction::class)->name('create');
 
-                    // Route::group(['prefix' => '/{patient_id}', 'where' => ['patient_id' => '[0-9]+']], function() {
+                    Route::group(['prefix' => '/{patient_id}', 'where' => ['patient_id' => '[0-9]+']], function() {
 
-                    //     Route::put('', \App\Mrt\Patient\Actions\SaveAction::class)->name('update');
+                        Route::get('', \App\Mrt\Patient\Actions\AboutAction::class)->name('view');
 
-                    // });
+                    });
 
                 });
 
