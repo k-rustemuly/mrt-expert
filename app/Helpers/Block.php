@@ -11,6 +11,7 @@ class Block {
      * @var array<mixed>
      */
     public $etalon = array(
+        "type" => "block",
         "name" => null,
         "values" => null,
         "action" => null,
@@ -39,6 +40,17 @@ class Block {
         $this->etalon["status"]["id"] = $status_id;
         return $this;
     }
+
+    /**
+     * 
+     * @param string $type 
+     */
+    public function type(string $type = "")
+    {
+        $this->etalon["type"] = $type;
+        return $this;
+    }
+
 
     /**
      * 
