@@ -18,7 +18,7 @@ class SaveService
 
     public function handle($doctor_id = 0, $data = [])
     {
-        $data["subservices"] = "@".implode(', ', $data["subservices"])."@";
+        $data["subservices"] = "@".implode('@', $data["subservices"])."@";
         $doctor = $this->repository->updateById($doctor_id, $data);
         if($doctor != null)
             return new SuccessPayload(__("Doctor success saved"));
