@@ -52,6 +52,10 @@ return [
             'driver' => 'jwt',
             'provider' => 'patient',
         ],
+        'doctor' => [
+            'driver' => 'jwt',
+            'provider' => 'doctor',
+        ],
     ],
 
     /*
@@ -92,6 +96,11 @@ return [
             'model' => App\Mrt\Patient\Domain\Models\Login::class,
             'table' => 'patient_login',
         ],
+        'doctor' => [
+            'driver' => 'eloquent',
+            'model' => App\Mrt\Doctor\Domain\Models\Doctor::class,
+            'table' => 'doctor',
+        ]
     ],
 
     /*

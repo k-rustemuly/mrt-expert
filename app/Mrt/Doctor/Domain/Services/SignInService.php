@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Mrt\Patient\Domain\Services;
+namespace App\Mrt\Doctor\Domain\Services;
 
 use App\Domain\Payloads\GenericPayload;
 use App\Domain\Services\Service;
-use App\Mrt\Patient\Domain\Repositories\LoginRepository as Repository;
+use App\Mrt\Doctor\Domain\Repositories\DoctorRepository as Repository;
 use App\Exceptions\MainException;
 use App\Exceptions\UnauthorizedException;
 
@@ -19,14 +19,14 @@ class SignInService extends Service
 
     public function handle($data = [])
     {
-        $login = $data["login"];
+        $email = $data["email"];
         $password = $data["password"];
-        $user = $this->repository->getByLogin($login);
-        if(!$user || !password_verify($password, $user->password)) throw new UnauthorizedException("Login or password is incorrect");
+        $user = $this->repository->getByEmail($email);
+        if(!$user || !password_verify($password, $user->password)) throw new UnauthorizedException("Email or password is incorrect");
         if(!$user->is_active) throw new UnauthorizedException("You account is blocked");
 
-        if (! $token = auth('patient')->login($user)) {
-            throw new UnauthorizedException("Login or password is incorrect");
+        if (! $token = auth('doctor')->login($user)) {
+            throw new UnauthorizedException("Email or password is incorrect");
         }
         $user->last_visit = date('Y-m-d H:i:s');
         $user->update();
@@ -34,7 +34,7 @@ class SignInService extends Service
             array(
                 "user" => [
                     "name" => $user->full_name,
-                    "login" => $user->login
+                    "email" => $user->email
                 ],
                 "token" => $token
             )

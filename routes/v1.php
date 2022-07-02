@@ -95,6 +95,17 @@ Route::group([
             });
 
         });
+
+        Route::group(['prefix' => 'doctor', 'as' => 'doctor.'], function() {
+
+            Route::post('/sign-in', \App\Mrt\Doctor\Actions\SignInAction::class);
+
+            Route::middleware([ParseJWTToken::class])->group(function () {
+
+            });
+
+        });
+
         Route::group(['prefix' => 'reference'], function() {
 
             Route::get('/punkt', \App\Mrt\Punkt\Actions\ListAction::class);

@@ -17,6 +17,7 @@
     "File not deleted" : "Произошла ошибка при удалении файла",
     "Permission denied" : "У вас нет доступа",
     "Email or password is incorrect" : "Электронная почта или пароль неправильный",
+    "Login or password is incorrect" : "Логин или пароль неправильный",
     "You account is blocked" : "Ваш аккаунт заблокирован",
     "branch.header.punkt_id.name" : "Пункт",
     "branch.header.punkt_id.hint" : "Выберите к какому пункту относятся филиал",
