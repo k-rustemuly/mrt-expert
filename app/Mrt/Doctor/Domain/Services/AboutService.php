@@ -93,10 +93,6 @@ class AboutService extends BlockType
                             ->maxLength(255)
                             ->value($values["full_name"])
                             ->render(),
-                "email" => Field::_()
-                            ->init(new Text())
-                            ->value($values["email"])
-                            ->render(),
                 "is_active" => Field::_()
                                 ->init(new Boolean())
                                 ->onUpdate("visible", true)
