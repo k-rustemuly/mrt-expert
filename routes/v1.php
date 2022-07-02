@@ -112,6 +112,16 @@ Route::group([
 
         });
 
+        Route::group(['prefix' => 'assistant', 'as' => 'assistant.'], function() {
+
+            Route::post('/sign-in', \App\Mrt\Assistant\Actions\SignInAction::class);
+
+            Route::middleware([ParseJWTToken::class])->group(function () {
+
+            });
+
+        });
+
         Route::group(['prefix' => 'doctor', 'as' => 'doctor.'], function() {
 
             Route::post('/sign-in', \App\Mrt\Doctor\Actions\SignInAction::class);
@@ -127,6 +137,16 @@ Route::group([
             Route::get('/punkt', \App\Mrt\Punkt\Actions\ListAction::class);
 
             Route::get('/subservice', \App\Mrt\Subservice\Actions\ListAction::class);
+
+        });
+
+        Route::group(['prefix' => 'reception', 'as' => 'reception.'], function() {
+
+            Route::post('/sign-in', \App\Mrt\Reception\Actions\SignInAction::class);
+
+            Route::middleware([ParseJWTToken::class])->group(function () {
+
+            });
 
         });
 

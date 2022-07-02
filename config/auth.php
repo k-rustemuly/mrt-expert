@@ -56,6 +56,10 @@ return [
             'driver' => 'jwt',
             'provider' => 'doctor',
         ],
+        'reception' => [
+            'driver' => 'jwt',
+            'provider' => 'reception',
+        ],
     ],
 
     /*
@@ -100,6 +104,11 @@ return [
             'driver' => 'eloquent',
             'model' => App\Mrt\Doctor\Domain\Models\Doctor::class,
             'table' => 'doctor',
+        ],
+        'reception' => [
+            'driver' => 'eloquent',
+            'model' => App\Mrt\Reception\Domain\Models\Reception::class,
+            'table' => 'reception',
         ]
     ],
 
