@@ -57,6 +57,7 @@ class ListService extends TableType
                         ->init(new Boolean())
                         ->onCreate("visible")
                         ->onUpdate("visible")
+                        ->onView("invisible")
                         ->render(),
             "full_name" => Field::_()
                             ->init(new Text())
