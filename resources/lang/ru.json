@@ -120,7 +120,7 @@
     "one_doctor.header.full_name.hint" : " ",
     "one_doctor.header.is_active.name" : "Есть ли доступ к системе?",
     "one_doctor.header.is_active.hint" : " ",
-    "" : "",
+    "one_doctor.block.values.subservices.name" : "Оказываемые услуги",
     "" : "",
     "" : "",
     "" : "",

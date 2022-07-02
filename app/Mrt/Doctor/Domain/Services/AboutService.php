@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\App;
 use App\Helpers\Field;
 use App\Helpers\FieldTypes\Text;
 use App\Helpers\FieldTypes\Boolean;
+use App\Helpers\FieldTypes\Reference;
 
 class AboutService extends BlockType
 {
@@ -101,6 +102,12 @@ class AboutService extends BlockType
                             ->maxLength(255)
                             ->value($values["full_name"])
                             ->render(),
+                "subservices" => Field::_()
+                            ->init(new Reference("subservice"))
+                            ->maxSelect(-1)
+                            ->value($this->getSubservices($values["subservices"]))
+                            ->onUpdate("visible", true)
+                            ->render(),
                 "is_active" => Field::_()
                                 ->init(new Boolean())
                                 ->onUpdate("visible", true)
@@ -128,7 +135,6 @@ class AboutService extends BlockType
                     Action::_()
                     ->requestType("put")
                     ->requestUrl(route('branch-admin.doctor.update', ['locale' => App::currentLocale(), 'doctor_id' => $this->doctor_id]))
-                    ->type()
                     ->render(),
             )
         );
