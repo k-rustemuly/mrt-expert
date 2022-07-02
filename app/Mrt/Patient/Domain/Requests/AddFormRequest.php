@@ -13,7 +13,7 @@ class AddFormRequest extends APIRequest
             'full_name' => 'required|string|max:255',
             'iin' => 'nullable',
             'phone_number' => 'required|string|size:11',
-            'email' => 'required|email:rfc,dns',
+            'email' => 'somtimes|email:rfc,dns',
         ];
     }
 
