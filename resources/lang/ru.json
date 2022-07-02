@@ -131,6 +131,9 @@
     "patient.header.phone_number.hint" : " ",
     "patient.header.email.name" : "Email",
     "patient.header.email.hint" : " ",
+    "patient.header.whithout_iin.name" : "Без ИИН",
+    "patient.header.whithout_iin.hint" : " ",
+    
     "New patient success added" : "Новый пациент успешно добавлено в систему",
     "Error to add new patient" : "Ошибка при добавлении пациента",
     "patient.action.create.name" : "Добавить нового пациента",

@@ -8,6 +8,7 @@ use App\Helpers\FieldTypes\Email;
 use App\Helpers\FieldTypes\Text;
 use App\Helpers\FieldTypes\Number;
 use App\Helpers\FieldTypes\PhoneNumber;
+use App\Helpers\FieldTypes\Boolean;
 use App\Helpers\Field;
 use Illuminate\Support\Facades\App;
 use App\Helpers\Action;
@@ -51,6 +52,11 @@ class ListService extends TableType
                         ->onUpdate("visible")
                         ->minLength(12)
                         ->maxLength(12)
+                        ->render(),
+            "whithout_iin" => Field::_()
+                        ->init(new Boolean())
+                        ->onCreate("visible")
+                        ->onUpdate("visible")
                         ->render(),
             "full_name" => Field::_()
                             ->init(new Text())
