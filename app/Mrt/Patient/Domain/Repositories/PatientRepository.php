@@ -18,4 +18,10 @@ class PatientRepository extends Repository
         $result = $this->model->find($id);
         return $result ? $result->toArray() : [];
     }
+
+    public function getLastGeneratedIin(){
+        $search =  $this->model->select('iin')->where('is_iin_generated', true)->orderByDesc('iin')->limit(1);
+        if($search) return $search->iin+1;
+        return 1;
+    }
 }

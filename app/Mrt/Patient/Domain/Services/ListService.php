@@ -91,7 +91,6 @@ class ListService extends TableType
      */
     private function getAction()
     {
-        return[];
         return [
             "create" =>  Action::_()
                 ->requestType("post")
