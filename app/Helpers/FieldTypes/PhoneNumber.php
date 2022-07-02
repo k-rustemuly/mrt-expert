@@ -8,6 +8,6 @@ class PhoneNumber {
      */
     public $array = array(
         "type" => "phone_number",
-        "mask" => "+7(xxx)xxx-xx-xx",
+        "mask" => "+7(###)###-##-##",
     );
 }

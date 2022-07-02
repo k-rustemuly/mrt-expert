@@ -122,6 +122,30 @@ Route::group([
 
         });
 
+        Route::group(['prefix' => 'reception', 'as' => 'reception.'], function() {
+
+            Route::post('/sign-in', \App\Mrt\Reception\Actions\SignInAction::class);
+
+            Route::middleware([ParseJWTToken::class])->group(function () {
+
+                Route::group(['prefix' => 'patient', 'as' => 'patient.'], function() {
+
+                    Route::get('/', \App\Mrt\Patient\Actions\ListAction::class);
+
+                    Route::post('/', \App\Mrt\Patient\Actions\AddAction::class)->name('create');
+
+                    Route::group(['prefix' => '/{patient_id}', 'where' => ['patient_id' => '[0-9]+']], function() {
+
+                        Route::put('', \App\Mrt\Patient\Actions\SaveAction::class)->name('update');
+
+                    });
+
+                });
+
+            });
+
+        });
+
         Route::group(['prefix' => 'doctor', 'as' => 'doctor.'], function() {
 
             Route::post('/sign-in', \App\Mrt\Doctor\Actions\SignInAction::class);
@@ -137,16 +161,6 @@ Route::group([
             Route::get('/punkt', \App\Mrt\Punkt\Actions\ListAction::class);
 
             Route::get('/subservice', \App\Mrt\Subservice\Actions\ListAction::class);
-
-        });
-
-        Route::group(['prefix' => 'reception', 'as' => 'reception.'], function() {
-
-            Route::post('/sign-in', \App\Mrt\Reception\Actions\SignInAction::class);
-
-            Route::middleware([ParseJWTToken::class])->group(function () {
-
-            });
 
         });
 

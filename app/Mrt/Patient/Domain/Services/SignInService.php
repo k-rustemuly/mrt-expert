@@ -6,7 +6,6 @@ use App\Domain\Payloads\GenericPayload;
 use App\Domain\Services\Service;
 use App\Mrt\Patient\Domain\Repositories\LoginRepository as Repository;
 use App\Exceptions\MainException;
-use App\Exceptions\UnauthorizedException;
 
 class SignInService extends Service
 {
@@ -22,11 +21,11 @@ class SignInService extends Service
         $login = $data["login"];
         $password = $data["password"];
         $user = $this->repository->getByLogin($login);
-        if(!$user || !password_verify($password, $user->password)) throw new UnauthorizedException("Login or password is incorrect");
-        if(!$user->is_active) throw new UnauthorizedException("You account is blocked");
+        if(!$user || !password_verify($password, $user->password)) throw new MainException("Login or password is incorrect");
+        if(!$user->is_active) throw new MainException("You account is blocked");
 
         if (! $token = auth('patient')->login($user)) {
-            throw new UnauthorizedException("Login or password is incorrect");
+            throw new MainException("Login or password is incorrect");
         }
         $user->last_visit = date('Y-m-d H:i:s');
         $user->update();

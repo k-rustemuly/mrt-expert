@@ -5,7 +5,7 @@ namespace App\Mrt\Reception\Domain\Services;
 use App\Domain\Payloads\GenericPayload;
 use App\Domain\Services\Service;
 use App\Mrt\Reception\Domain\Repositories\ReceptionRepository as Repository;
-use App\Exceptions\UnauthorizedException;
+use App\Exceptions\MainException;
 
 class SignInService extends Service
 {
@@ -21,11 +21,11 @@ class SignInService extends Service
         $email = $data["email"];
         $password = $data["password"];
         $user = $this->repository->getByEmail($email);
-        if(!$user || !password_verify($password, $user->password)) throw new UnauthorizedException("Email or password is incorrect");
-        if(!$user->is_active) throw new UnauthorizedException("You account is blocked");
+        if(!$user || !password_verify($password, $user->password)) throw new MainException("Email or password is incorrect");
+        if(!$user->is_active) throw new MainException("You account is blocked");
 
         if (! $token = auth('reception')->login($user)) {
-            throw new UnauthorizedException("Email or password is incorrect");
+            throw new MainException("Email or password is incorrect");
         }
         $user->last_visit = date('Y-m-d H:i:s');
         $user->update();
