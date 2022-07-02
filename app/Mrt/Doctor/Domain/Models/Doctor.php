@@ -16,7 +16,7 @@ class Doctor extends Authenticatable implements JWTSubject
 
     protected $guarded = ['id'];
 
-    protected $hidden = ['last_visit', 'created_at', 'updated_at', 'password'];
+    protected $hidden = ['created_at', 'updated_at', 'password'];
 
     /**
      * Get the identifier that will be stored in the subject claim of the JWT.
