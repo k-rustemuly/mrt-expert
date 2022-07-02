@@ -24,4 +24,9 @@ class PatientRepository extends Repository
         if($search) return $search->iin+1;
         return 1;
     }
+
+    public function existsByIin($iin)
+    {
+        return $this->model->where('iin', $iin)->exists();
+    }
 }
