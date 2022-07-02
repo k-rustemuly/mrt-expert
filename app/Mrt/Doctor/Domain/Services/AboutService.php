@@ -135,7 +135,7 @@ class AboutService extends BlockType
         return $actions[$type]??[];
     }
 
-    private function parseSubservices(string $data = "")
+    private function parseSubservices($data = null)
     {
         $data_ids = array();
         if($data == "" || $data == null) return $data_ids;
