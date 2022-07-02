@@ -24,7 +24,7 @@ class SubserviceRepository extends ReferenceRepository
     public function getAll($is_multilevel = false)
     {
         $services = $this->serviceRepository->getAll();
-        for($i=0; $i<$services->length; $i++)
+        for($i=0; $i<count($services); $i++)
         {
             $id = $services[$i]["id"];
             $services[$i]["children"] = $this->getAllByServiceId($id);
