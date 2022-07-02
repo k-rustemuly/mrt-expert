@@ -128,11 +128,11 @@ class AboutService extends BlockType
     {
         $actions = array(
             "default" => array(
-                // "edit" => 
-                //     Action::_()
-                //     ->requestType("put")
-                //     ->requestUrl(route('reception.patient.update', ['locale' => App::currentLocale(), 'patient_id' => $this->patient_id]))
-                //     ->render(),
+                "edit" => 
+                    Action::_()
+                    ->requestType("put")
+                    ->requestUrl(route('reception.patient.update', ['locale' => App::currentLocale(), 'patient_id' => $this->patient_id]))
+                    ->render(),
             )
         );
         return $actions[$type]??[];

@@ -140,6 +140,7 @@ Route::group([
 
                         Route::get('', \App\Mrt\Patient\Actions\AboutAction::class)->name('view');
 
+                        Route::put('', \App\Mrt\Patient\Actions\SaveAction::class)->name('update');
                     });
 
                 });
