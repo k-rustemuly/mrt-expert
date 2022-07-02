@@ -18,7 +18,7 @@ class AddService
 
     public function handle($data = [])
     {
-        if($data["iin"] || strlen($data["iin"]) != 12) 
+        if(!$data["iin"] || strlen($data["iin"]) != 12) 
         { 
             $data["iin"] = $this->repository->getLastGeneratedIin();
             $data["is_iin_generated"] = true;
