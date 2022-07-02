@@ -11,8 +11,8 @@ use App\Exceptions\MainException;
 use Illuminate\Support\Facades\App;
 use App\Helpers\Field;
 use App\Helpers\FieldTypes\Text;
-use App\Helpers\FieldTypes\Boolean;
-use App\Helpers\FieldTypes\Reference;
+use App\Helpers\FieldTypes\Email;
+use App\Helpers\FieldTypes\PhoneNumber;
 
 class AboutService extends BlockType
 {
@@ -105,6 +105,16 @@ class AboutService extends BlockType
                             ->maxLength(12)
                             ->value($values["iin"])
                             ->render(),
+                "email" => Field::_()
+                            ->init(new Email())
+                            ->onUpdate("visible", true)
+                            ->value($values["email"])
+                            ->render(),
+                "phone_number" => Field::_()
+                            ->init(new PhoneNumber())
+                            ->onUpdate("visible", true)
+                            ->value($values["phone_number"])
+                            ->render(),
             ]
         ];
     }
@@ -118,11 +128,11 @@ class AboutService extends BlockType
     {
         $actions = array(
             "default" => array(
-                "edit" => 
-                    Action::_()
-                    ->requestType("put")
-                    ->requestUrl(route('branch-admin.doctor.update', ['locale' => App::currentLocale(), 'patient_id' => $this->patient_id]))
-                    ->render(),
+                // "edit" => 
+                //     Action::_()
+                //     ->requestType("put")
+                //     ->requestUrl(route('reception.patient.update', ['locale' => App::currentLocale(), 'patient_id' => $this->patient_id]))
+                //     ->render(),
             )
         );
         return $actions[$type]??[];
