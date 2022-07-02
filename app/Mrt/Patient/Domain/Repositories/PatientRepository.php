@@ -20,7 +20,7 @@ class PatientRepository extends Repository
     }
 
     public function getLastGeneratedIin(){
-        $search =  $this->model->where('is_iin_generated', true)->orderByDesc('iin')->limit(1);
+        $search =  $this->model->where('is_iin_generated', 1)->orderByDesc('iin')->first();
         if($search) return $search->iin+1;
         return 1;
     }
