@@ -12,4 +12,9 @@ class DoctorRepository extends Repository
     {
         $this->model = $model;
     }
+
+    public function getList()
+    {
+        
+    }
 }
