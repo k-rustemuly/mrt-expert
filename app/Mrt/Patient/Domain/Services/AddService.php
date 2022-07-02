@@ -18,7 +18,11 @@ class AddService
 
     public function handle($data = [])
     {
-        if($data["iin"] || strlen($data["iin"]) != 12) $data["iin"] = $this->repository->getLastGeneratedIin();
+        if($data["iin"] || strlen($data["iin"]) != 12) 
+        { 
+            $data["iin"] = $this->repository->getLastGeneratedIin();
+            $data["is_iin_generated"] = true;
+        }
 
         $patient = $this->repository->create($data);
         if($patient != null)
