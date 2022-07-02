@@ -84,6 +84,11 @@ class ListService extends TableType
     public function action($doctor_id = 0)
     {
         return [
+            "view" =>  Action::_()
+                ->requestType("get")
+                ->requestUrl(route('branch-admin.doctor.view', ['locale' => App::currentLocale(), 'doctor_id' => $doctor_id]))
+                ->type("info")
+                ->render(),
             "update" =>  Action::_()
                 ->requestType("put")
                 ->requestUrl(route('branch-admin.doctor.update', ['locale' => App::currentLocale(), 'doctor_id' => $doctor_id]))
