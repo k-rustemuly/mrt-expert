@@ -25,6 +25,11 @@ class PatientRepository extends Repository
         return 1;
     }
 
+    public function getByIin($iin)
+    {
+        return $this->model->where('iin', $iin)->first();
+    }
+
     public function existsByIin($iin)
     {
         return $this->model->where('iin', $iin)->exists();

@@ -18,7 +18,8 @@ class ExistService
 
     public function handle($data = [])
     {
-        return new SuccessPayload("", $this->repository->existsByIin($data["iin"]));
+        $patient = $this->repository->getByIin($data["iin"]);
+        return new SuccessPayload("", $patient ? $patient->id : false);
     }
 
 }
