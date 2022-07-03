@@ -158,10 +158,20 @@ Route::group([
 
                         Route::group(['prefix' => 'order', 'as' => 'order.'], function() {
 
-                            Route::post('/new', \App\Mrt\Order\Actions\AddAction::class);
+                            Route::get('', \App\Mrt\Order\Actions\PatientListAction::class);
+
+                            Route::post('/new', \App\Mrt\Order\Actions\AddAction::class)->name('create');
 
                         });
 
+                    });
+
+                });
+
+                
+                Route::group(['prefix' => 'order', 'as' => 'order.'], function() {
+
+                    Route::group(['prefix' => '/{order_id}', 'where' => ['order_id' => '[0-9]+']], function() {
                     });
 
                 });
