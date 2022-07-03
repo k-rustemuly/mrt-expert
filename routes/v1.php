@@ -174,6 +174,14 @@ Route::group([
 
                         Route::get('', \App\Mrt\Order\Actions\AboutAction::class);
 
+                        Route::group(['prefix' => 'subservice', 'as' => 'subservice.'], function() {
+
+                            Route::get('', \App\Mrt\Order\Actions\SubserviceAction::class);
+
+                            Route::post('', \App\Mrt\Order\Actions\SubserviceAddAction::class)->name('create');
+
+                        });
+
                     });
 
                 });
