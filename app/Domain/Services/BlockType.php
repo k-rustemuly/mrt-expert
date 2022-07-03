@@ -34,7 +34,7 @@ abstract class BlockType
         {
             foreach(array_keys($row["block"]) as $key)
             {
-                if(!$row["block"][$key]["name"])
+                if(!isset($row["block"][$key]["name"]) || !$row["block"][$key]["name"])
                     $row["block"][$key]["name"] = __($name.".block.".$key.".name");
                 if(is_array($row["block"][$key]["values"]))
                 {
@@ -44,7 +44,7 @@ abstract class BlockType
                         {
                             $row["block"][$key]["values"][$item]["type"] = "string";
                         }
-                        if(!$row["block"][$key]["values"][$item]["name"])
+                        if(!isset($row["block"][$key]["values"][$item]["name"]) || !$row["block"][$key]["values"][$item]["name"])
                             $row["block"][$key]["values"][$item]["name"] = __($name.".block.values.".$item.".name");
                     }    
                 }
