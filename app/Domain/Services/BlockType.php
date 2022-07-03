@@ -34,7 +34,8 @@ abstract class BlockType
         {
             foreach(array_keys($row["block"]) as $key)
             {
-                $row["block"][$key]["name"] = __($name.".block.".$key.".name");
+                if(!$row["block"][$key]["name"])
+                    $row["block"][$key]["name"] = __($name.".block.".$key.".name");
                 if(is_array($row["block"][$key]["values"]))
                 {
                     foreach(array_keys($row["block"][$key]["values"]) as $item) 
@@ -43,33 +44,39 @@ abstract class BlockType
                         {
                             $row["block"][$key]["values"][$item]["type"] = "string";
                         }
-                        $row["block"][$key]["values"][$item]["name"] = __($name.".block.values.".$item.".name");
+                        if(!$row["block"][$key]["values"][$item]["name"])
+                            $row["block"][$key]["values"][$item]["name"] = __($name.".block.values.".$item.".name");
                     }    
                 }
                 if(is_array($row["block"][$key]["action"]))
                 {
                     foreach(array_keys($row["block"][$key]["action"]) as $action_key)
                     {
-                        $row["block"][$key]["action"][$action_key]["name"] = __($name.".action.".$action_key.".name");
-                        $row["block"][$key]["action"][$action_key]["hint"] = __($name.".action.".$action_key.".hint");
+                        if(!$row["block"][$key]["action"][$action_key]["name"])
+                            $row["block"][$key]["action"][$action_key]["name"] = __($name.".action.".$action_key.".name");
+                        if(!$row["block"][$key]["action"][$action_key]["hint"])
+                            $row["block"][$key]["action"][$action_key]["hint"] = __($name.".action.".$action_key.".hint");
                     }
                 }
-                if(is_array($row["block"][$key]["status"]))
-                {
-                    $status = $row["block"][$key]["status"]["id"];
-                    if($status != 0 )
-                    {
-                        $row["block"][$key]["status"]["name"] = __($name.".status.".$status);
-                    }
-                }
+                // if(is_array($row["block"][$key]["status"]))
+                // {
+                //     $status = $row["block"][$key]["status"]["id"];
+                //     if($status != 0 )
+                //     {
+                //         if(!$row["block"][$key]["action"][$action_key]["name"])
+                //         $row["block"][$key]["status"]["name"] = __($name.".status.".$status);
+                //     }
+                // }
             }
         }
         if(isset($row["action"]))
         {
             foreach(array_keys($row["action"]) as $key)
             {
-                $row["action"][$key]["name"] = __($name.".action.".$key.".name");
-                $row["action"][$key]["hint"] = __($name.".action.".$key.".hint");
+                if(!$row["action"][$key]["name"])
+                    $row["action"][$key]["name"] = __($name.".action.".$key.".name");
+                if(!$row["action"][$key]["hint"])
+                    $row["action"][$key]["hint"] = __($name.".action.".$key.".hint");
             }
         }
         if(isset($row["header"]))
@@ -84,8 +91,10 @@ abstract class BlockType
             {
                 foreach($fields as $key => $settings)
                 {
-                    $row["header"][$action][$key]["name"] = __($name.".header.".$key.".name");
-                    $row["header"][$action][$key]["hint"] = __($name.".header.".$key.".hint");
+                    if(!$row["header"][$action][$key]["name"])
+                        $row["header"][$action][$key]["name"] = __($name.".header.".$key.".name");
+                    if(!$row["header"][$action][$key]["hint"])
+                        $row["header"][$action][$key]["hint"] = __($name.".header.".$key.".hint");
                     if($data)
                     {
                         $type = $settings["type"];
@@ -106,7 +115,7 @@ abstract class BlockType
                         }
                         else if($type == "boolean")
                         {
-                            if(isset($data[$key]))
+                            if(isset($data[$key]) && !$row["header"][$action][$key]["value"])
                             {
                                 $row["header"][$action][$key]["value"] = [
                                     "id" => $data[$key],
@@ -116,14 +125,14 @@ abstract class BlockType
                         }
                         else if($type == "datetime")
                         {
-                            if(isset($data[$key]))
+                            if(isset($data[$key]) && !$row["header"][$action][$key]["value"])
                             {
                                 $row["header"][$action][$key]["value"] = date("Y-m-d H:i", strtotime($data[$key]));
                             }
                         }
                         else
                         {
-                            if(isset($data[$key]))
+                            if(isset($data[$key]) && !$row["header"][$action][$key]["value"])
                             {
                                 $row["header"][$action][$key]["value"] = $data[$key];
                             }
