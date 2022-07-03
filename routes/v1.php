@@ -178,7 +178,7 @@ Route::group([
 
                             Route::get('', \App\Mrt\Order\Actions\SubserviceAction::class);
 
-                            Route::post('', \App\Mrt\Order\Actions\SubserviceAddAction::class)->name('create');
+                            Route::post('', \App\Mrt\Suborder\Actions\AddAction::class)->name('create');
 
                         });
 
