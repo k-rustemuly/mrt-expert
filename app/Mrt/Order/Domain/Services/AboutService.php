@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\App;
 use App\Helpers\Field;
 use App\Helpers\FieldTypes\Text;
 use App\Helpers\FieldTypes\Boolean;
+use Carbon\Carbon;
 
 class AboutService extends BlockType
 {
@@ -84,10 +85,10 @@ class AboutService extends BlockType
                     "value" => $values["reception_name"],
                 ],
                 "created_at" => [
-                    "value" => $values["created_at"],
+                    "value" => Carbon::parse($values["created_at"])->locale(App::currentLocale())->isoFormat('LLLL'),
                 ],
                 "updated_at" => [
-                    "value" => $values["updated_at"],
+                    "value" =>  Carbon::parse($values["updated_at"])->locale(App::currentLocale())->isoFormat('LLLL'),
                 ]
         ];
     }
