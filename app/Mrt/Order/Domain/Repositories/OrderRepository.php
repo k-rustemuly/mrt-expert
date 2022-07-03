@@ -3,14 +3,18 @@ namespace App\Mrt\Order\Domain\Repositories;
 
 use App\Domain\Repositories\Repository;
 use App\Mrt\Order\Domain\Models\Order as Model;
+use Illuminate\Support\Facades\App;
 
 class OrderRepository extends Repository
 {
     protected $model;
 
+    private $language;
+
     public function __construct(Model $model)
     {
         $this->model = $model;
+        $this->language = App::currentLocale();
     }
 
     public function getById($id)
