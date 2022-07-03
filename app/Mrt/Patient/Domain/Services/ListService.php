@@ -48,7 +48,7 @@ class ListService extends TableType
         return [
             "iin" => Field::_()
                         ->init(new Number())
-                        ->onCreate("visible")
+                        ->onCreate("visible", true)
                         ->onUpdate("visible")
                         ->minLength(12)
                         ->maxLength(12)
