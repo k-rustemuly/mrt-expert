@@ -82,6 +82,7 @@ class AboutService extends BlockType
     {
         return [
                 "id" => [
+                    "name" => __($this->name.".id"),
                     "value" => $values["id"],
                 ],
                 "service_name" => [

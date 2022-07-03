@@ -35,6 +35,6 @@ class SuborderRepository extends ReferenceRepository
             $this->model->table.'.created_at',
             $this->model->table.'.updated_at')
         ->where($this->model->table.'.order_id', $order_id);
-        return $query->get()->all();
+        return $query->get()->all()->toArray();
     }
 }
