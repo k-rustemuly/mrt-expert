@@ -69,6 +69,8 @@ class ListService extends TableType
                                 ->init(new PhoneNumber())
                                 ->onCreate("visible", true)
                                 ->onUpdate("visible", true)
+                                ->minLength(16)
+                                ->maxLength(16)
                                 ->render(),
             "email" => Field::_()
                         ->init(new Email())

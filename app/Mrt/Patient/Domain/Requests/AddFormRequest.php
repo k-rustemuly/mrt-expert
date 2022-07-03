@@ -12,7 +12,7 @@ class AddFormRequest extends APIRequest
         return [
             'full_name' => 'required|string|max:255',
             'iin' => 'nullable',
-            'phone_number' => 'required|string|size:11',
+            'phone_number' => 'required|string|size:16',
             'email' => 'nullable',
         ];
     }
