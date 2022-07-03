@@ -181,10 +181,10 @@
     "one_order.action.create_subservice.hint" : " ",
     "New suborder success added" : "Услуга успешно добавлено",
     "Error to add new suborder" : "При добавлении услуг произошла ошибка",
-    "" : "",
-    "" : "",
-    "" : "",
-    "" : "",
-    "" : "",
-    "" : ""
+    "one_order.header.subservice_id.name" : "Выберите услугу",
+    "one_order.header.subservice_id.hint" : " ",
+    "one_order.header.appointment_date.name" : "Дата назначение",
+    "one_order.header.appointment_date.hint" : "На какое время назначен прием",
+    "one_order.header.reception_comment.name" : "Комментарии",
+    "one_order.header.reception_comment.hint" : "Это необязательное поле"
 }
