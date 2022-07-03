@@ -24,7 +24,7 @@ class OrderRepository extends Repository
         ->join('reception', $this->model->table.'.reception_id', '=', 'reception.id')
         ->select($this->model->table.'.id',
             'rb_order_status.name_'.$this->language.' as status_name', 
-            'rb_order_status.color',
+            'rb_order_status.color as status_color',
             'patient.id as patient_id',
             'patient.iin',
             'patient.full_name as patient_name',
