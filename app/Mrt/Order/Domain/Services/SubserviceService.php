@@ -66,8 +66,9 @@ class SubserviceService extends TableType
     private function getHeader()
     {
         return [
-            "order_id" => Field::_()
+            "subservice_id" => Field::_()
                             ->init(new Text())
+                            ->onView("invisible")
                             ->render(),
         ];
     }
