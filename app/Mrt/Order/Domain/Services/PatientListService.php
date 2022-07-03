@@ -86,6 +86,7 @@ class PatientListService extends TableType
                 ->requestType("post")
                 ->requestUrl(route('reception.patient.order.create', ['locale' => App::currentLocale(), 'patient_id' => $this->patient_id]))
                 ->type("success")
+                ->afterResponse("open_result")
                 ->render(),
         ];
     }

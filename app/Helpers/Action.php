@@ -54,7 +54,7 @@ class Action{
     }
 
     /**
-     * @param string $after_response back|refresh
+     * @param string $after_response back|refresh|open_result
      */
     public function afterResponse($after_response = "refresh") 
     {
