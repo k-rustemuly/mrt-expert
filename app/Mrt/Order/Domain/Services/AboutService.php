@@ -66,9 +66,58 @@ class AboutService extends BlockType
         {
             $this->blocks["suborder_".$i] = Block::_()
                                             ->name(__($this->name.".suborder", ['number' => $i+1]))
-                                            ->values();
+                                            ->values($this->getSuborderBlock($suborders[$i]));
         }
         return $this->getData();
+    }
+
+    /** 
+     * Подзаказы блок
+     * 
+     * @param array<mixed> $values Данные для заполнение данных блока
+     * 
+     * @return array<mixed>
+    */
+    private function getSuborderBlock(array $values = array())
+    {
+        return [
+                "id" => [
+                    "value" => $values["id"],
+                ],
+                "service_name" => [
+                    "name" => __($this->name.".service_name"),
+                    "value" => $values["service_name"],
+                ],
+                "subservice_name" => [
+                    "name" => __($this->name.".subservice_name"),
+                    "value" => $values["subservice_name"],
+                ],
+                "status_name" => [
+                    "name" => __($this->name.".status_name"),
+                    "value" => $values["status_name"],
+                    "color" => $values["status_color"],
+                ],
+                "appointment_date" => [
+                    "name" => __($this->name.".appointment_date"),
+                    "value" => Carbon::parse($values["appointment_date"])->locale(App::currentLocale())->timezone('Asia/Aqtau')->isoFormat('LLLL'),
+                ],
+                "reception_comment" => [
+                    "name" => __($this->name.".reception_comment"),
+                    "value" => $values["reception_comment"],
+                ],
+                "assistant_comment" => [
+                    "name" => __($this->name.".assistant_comment"),
+                    "value" => $values["assistant_comment"],
+                ],
+                "created_at" => [
+                    "name" => __($this->name.".created_at"),
+                    "value" => Carbon::parse($values["created_at"])->locale(App::currentLocale())->timezone('Asia/Aqtau')->isoFormat('LLLL'),
+                ],
+                "updated_at" => [
+                    "name" => __($this->name.".updated_at"),
+                    "value" =>  Carbon::parse($values["updated_at"])->locale(App::currentLocale())->timezone('Asia/Aqtau')->isoFormat('LLLL'),
+                ]
+        ];
     }
 
     /** 
