@@ -66,7 +66,7 @@ class AboutService extends BlockType
         {
             $this->blocks["suborder_".$i] = Block::_()
                                             ->name(__($this->name.".suborder", ['number' => $i+1]))
-                                            ->values($this->getSuborderBlock((array)$suborders[$i]));
+                                            ->values($this->getSuborderBlock($suborders[$i]->toArray()));
         }
         return $this->getData();
     }
