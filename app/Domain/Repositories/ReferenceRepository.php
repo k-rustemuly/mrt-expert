@@ -44,4 +44,5 @@ abstract class ReferenceRepository
             ->whereIn('id', $list);
         return $query->get()->all();
     }
+
 }

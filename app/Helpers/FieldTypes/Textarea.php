@@ -1,7 +1,7 @@
 <?php
 namespace App\Helpers\FieldTypes;
 
-class Number {
+class Textarea {
 
     /**
      * @var array<mixed>

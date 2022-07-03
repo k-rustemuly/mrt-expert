@@ -272,6 +272,16 @@ class Field{
         return $this;
     }
 
+    /**
+     * 
+     * @param string $reference_url
+     */
+    public function referenceUrl(?string $reference_url = null)
+    {
+        if($this->model instanceof Reference) $this->etalon["reference_url"] = $reference_url;
+        return $this;
+    }
+
     private function array_slice_keys($array, $keys = null) {
         if ( empty($keys) ) {
             $keys = array_keys($array);

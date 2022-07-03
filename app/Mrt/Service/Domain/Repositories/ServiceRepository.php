@@ -16,4 +16,10 @@ class ServiceRepository extends ReferenceRepository
         $this->model = $model;
         $this->language = App::currentLocale();
     }
+
+    public function getById($id)
+    {
+        $query = $this->select( 'id', 'name_'.$this->language.' as name');
+        return $query->first()->toArray();
+    }
 }

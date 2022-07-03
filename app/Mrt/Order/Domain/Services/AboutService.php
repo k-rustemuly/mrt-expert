@@ -9,7 +9,7 @@ use App\Helpers\Block;
 use App\Exceptions\MainException;
 use Illuminate\Support\Facades\App;
 use App\Helpers\Field;
-use App\Helpers\FieldTypes\Text;
+use App\Helpers\FieldTypes\Textarea;
 use App\Helpers\FieldTypes\DateTime;
 use App\Helpers\FieldTypes\Reference;
 use Carbon\Carbon;
@@ -29,6 +29,8 @@ class AboutService extends BlockType
 
     public $order_id;
 
+    public $branch_id = 0;
+
     public function __construct(Repository $repository)
     {
         $this->repository = $repository;
@@ -40,6 +42,8 @@ class AboutService extends BlockType
     public function handle($order_id = 0)
     {
         $this->order_id = $order_id;
+        $user = auth('reception')->user();
+        $this->branch_id = $user->branch_id;
 
         $aboutOrder = $this->repository->getById($order_id);
         if(empty($aboutOrder)) throw new MainException("You dont have permission or record not found");
@@ -104,12 +108,13 @@ class AboutService extends BlockType
      * 
      * @return array<mixed>
      */
-    private function getHeader(array $values = array())
+    private function getHeader()
     {
         return [
             "create_subservice" => [
                 "subservice_id" => Field::_()
                                     ->init(new Reference("subservice"))
+                                    ->referenceUrl(route('reference.branch_subservice', ['locale' => App::currentLocale(), 'branch_id' => $this->branch_id]))
                                     ->onUpdate("visible", true)
                                     ->render(),
                 "appointment_date" => Field::_()
@@ -118,7 +123,7 @@ class AboutService extends BlockType
                                         ->value(date("Y-m-d H:i"))
                                         ->render(),
                 "reception_comment" => Field::_()
-                                        ->init(new Text())
+                                        ->init(new Textarea())
                                         ->onUpdate("visible")
                                         ->render(),
             ]

@@ -200,11 +200,17 @@ Route::group([
 
         });
 
-        Route::group(['prefix' => 'reference'], function() {
+        Route::group(['prefix' => 'reference', 'as' => 'reference.'], function() {
 
             Route::get('/punkt', \App\Mrt\Punkt\Actions\ListAction::class);
 
             Route::get('/subservice', \App\Mrt\Subservice\Actions\ListAction::class);
+
+            Route::group(['prefix' => '/{branch_id}', 'where' => ['branch_id' => '[0-9]+']], function() {
+
+                Route::get('/subservice', \App\Mrt\Subservice\Actions\BranchListAction::class)->name('branch_subservice');
+
+            });
 
         });
 
