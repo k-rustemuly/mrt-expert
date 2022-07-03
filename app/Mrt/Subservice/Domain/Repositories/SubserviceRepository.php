@@ -45,6 +45,7 @@ class SubserviceRepository extends ReferenceRepository
         $query = $this->join('branch_subservice', $this->model->table.'.id', '=', 'branch_subservice.subservice_id')
         ->select('rb_subservice.name_'.$this->language.' as name', $this->model->table.'.id', $this->model->table.'.service_id')
         ->where('branch_subservice.branch_id', $branch_id);
+        return (string) $query;
         $subservices = $query->get()->all();
         $service_ids = [];
         $result = [];
