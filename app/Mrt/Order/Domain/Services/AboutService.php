@@ -43,7 +43,7 @@ class AboutService extends BlockType
         $aboutOrder = $this->repository->getById($order_id);
         if(empty($aboutOrder)) throw new MainException("You dont have permission or record not found");
 
-        $this->actions = $this->getActions();
+        $this->actions = $this->getActions("reception");
         $this->headers = $this->getHeader($aboutOrder);
         $this->blocks = array(
             "main_info" => Block::_()
@@ -113,7 +113,13 @@ class AboutService extends BlockType
     private function getActions($type = "default")
     {
         $actions = array(
-            "default" => array()
+            "reception" => [
+                "create_subservice" => 
+                    Action::_()
+                        ->requestType("post")
+                        ->requestUrl(route('reception.order.subservice.create', ['locale' => App::currentLocale(), 'order_id' => $this->order_id]))
+                        ->render(),
+            ]
         );
         return $actions[$type]??[];
     }
