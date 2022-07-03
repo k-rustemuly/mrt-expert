@@ -46,6 +46,7 @@ class ListService extends TableType
         return [
             "subservice_id" => Field::_()
                             ->init(new Reference("subservice"))
+                            ->onCreate("visible", true)
                             ->onUpdate("visible", true)
                             ->onView("invisible")
                             ->render(),
