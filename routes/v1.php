@@ -82,6 +82,20 @@ Route::group([
 
                 });
 
+                Route::group(['prefix' => 'service', 'as' => 'service.'], function() {
+
+                    Route::get('/', \App\Mrt\Service\Actions\ListAction::class);
+
+                    Route::post('/', \App\Mrt\Service\Actions\AddAction::class)->name('create');
+
+                    Route::group(['prefix' => '/{service_id}', 'where' => ['service_id' => '[0-9]+']], function() {
+
+                        Route::delete('', \App\Mrt\Service\Actions\DeleteAction::class)->name('delete');
+
+                    });
+
+                });
+
                 Route::group(['prefix' => 'doctor', 'as' => 'doctor.'], function() {
 
                     Route::get('/', \App\Mrt\Doctor\Actions\ListAction::class);
