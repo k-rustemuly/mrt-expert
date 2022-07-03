@@ -10,7 +10,8 @@ use App\Exceptions\MainException;
 use Illuminate\Support\Facades\App;
 use App\Helpers\Field;
 use App\Helpers\FieldTypes\Text;
-use App\Helpers\FieldTypes\Boolean;
+use App\Helpers\FieldTypes\DateTime;
+use App\Helpers\FieldTypes\Reference;
 use Carbon\Carbon;
 
 class AboutService extends BlockType
@@ -43,7 +44,7 @@ class AboutService extends BlockType
         $aboutOrder = $this->repository->getById($order_id);
         if(empty($aboutOrder)) throw new MainException("You dont have permission or record not found");
 
-        $this->actions = $this->getActions("reception");
+        $this->actions = $this->getActions();
         $this->headers = $this->getHeader($aboutOrder);
         $this->blocks = array(
             "main_info" => Block::_()
@@ -105,7 +106,23 @@ class AboutService extends BlockType
      */
     private function getHeader(array $values = array())
     {
-        return [];
+        return [
+            "create_subservice" => [
+                "subservice_id" => Field::_()
+                                    ->init(new Reference("subservice"))
+                                    ->onUpdate("visible", true)
+                                    ->render(),
+                "appointment_date" => Field::_()
+                                        ->init(new DateTime())
+                                        ->onUpdate("visible", true)
+                                        ->value(date("Y-m-d H:i"))
+                                        ->render(),
+                "reception_comment" => Field::_()
+                                        ->init(new Text())
+                                        ->onUpdate("visible")
+                                        ->render(),
+            ]
+        ];
     }
 
     /**
