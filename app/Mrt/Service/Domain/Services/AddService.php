@@ -19,6 +19,7 @@ class AddService
     public function handle($data = [])
     {
         $user = auth('branch_admin')->user();
+        if($this->repository->exists($user->branch_id, $data["subservice_id"])) throw new MainException("The subservice is exists");
         $insert = ["branch_id" => $user->branch_id, "subservice_id" => $data["subservice_id"]];
         $subservice = $this->repository->create($insert);
         if($subservice != null)

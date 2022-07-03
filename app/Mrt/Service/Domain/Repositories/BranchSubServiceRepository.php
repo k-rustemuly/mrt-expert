@@ -25,6 +25,11 @@ class BranchSubServiceRepository extends ReferenceRepository
         return $query->get()->all();
     }
 
+    public function exists($branch_id, $subservice_id)
+    {
+        return $this->model->where('branch_id', $branch_id)->where('subservice_id', $subservice_id)->exists();
+    }
+
     public function deleteByBranchId($branch_id, $id)
     {
         return $this->model->where('branch_id', $branch_id)->where('id', $id)->delete();
