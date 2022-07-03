@@ -43,6 +43,16 @@ class Block {
 
     /**
      * 
+     * @param string $name 
+     */
+    public function name(string $name = "")
+    {
+        $this->etalon["name"] = $name;
+        return $this;
+    }
+
+    /**
+     * 
      * @param string $type 
      */
     public function type(string $type = "")

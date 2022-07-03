@@ -4,6 +4,7 @@ namespace App\Mrt\Order\Domain\Services;
 
 use App\Domain\Services\BlockType;
 use App\Mrt\Order\Domain\Repositories\OrderRepository as Repository;
+use App\Mrt\Suborder\Domain\Repositories\SuborderRepository;
 use App\Helpers\Action;
 use App\Helpers\Block;
 use App\Exceptions\MainException;
@@ -19,6 +20,8 @@ class AboutService extends BlockType
 
     protected $repository;
 
+    protected $suborderRepository;
+
     public $name = "one_order";
 
     public $blocks;
@@ -31,9 +34,10 @@ class AboutService extends BlockType
 
     public $branch_id = 0;
 
-    public function __construct(Repository $repository)
+    public function __construct(Repository $repository, SuborderRepository $suborderRepository)
     {
         $this->repository = $repository;
+        $this->suborderRepository = $suborderRepository;
     }
 
     /**
@@ -57,6 +61,13 @@ class AboutService extends BlockType
                         ->action($this->getActions("reception"))
                         ->values()
             );
+        $suborders = $this->suborderRepository->getAllByOrderId($order_id);
+        for($i=0; $i<count($suborders); $i++)
+        {
+            $this->blocks["suborder_".$i] = Block::_()
+                                            ->name(__($this->name.".suborder", ['number' => $i+1]))
+                                            ->values();
+        }
         return $this->getData();
     }
 
