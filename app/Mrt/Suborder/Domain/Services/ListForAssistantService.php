@@ -65,18 +65,18 @@ class ListForAssistantService extends TableType
     /** 
      * действия для каждой строки
      * 
-     * @param string|int $order_id Айди 
+     * @param string|int $suborder_id Айди 
      * 
      * @return array<mixed>
     */
-    public function action($order_id = 0)
+    public function action($suborder_id = 0)
     {
         return [
-            // "view" =>  Action::_()
-            //     ->requestType("view")
-            //     ->requestUrl(route('assistant.suborder.view', ['locale' => App::currentLocale(), 'order_id' => $order_id]))
-            //     ->type("info")
-            //     ->render(),
+            "view" =>  Action::_()
+                ->requestType("view")
+                ->requestUrl(route('assistant.suborder.view', ['locale' => App::currentLocale(), 'suborder_id' => $suborder_id]))
+                ->type("info")
+                ->render(),
         ];
     }
 

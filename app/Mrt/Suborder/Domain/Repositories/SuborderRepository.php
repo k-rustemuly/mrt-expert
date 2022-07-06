@@ -20,6 +20,28 @@ class SuborderRepository extends ReferenceRepository
         $this->language = App::currentLocale();
     }
 
+    public function getByBranchId($branch_id, $id)
+    {
+        $query = $this->join('rb_suborder_status', $this->model->table.'.status_id', '=', 'rb_suborder_status.id')
+        ->join('rb_subservice', $this->model->table.'.subservice_id', '=', 'rb_subservice.id')
+        ->join('rb_service', 'rb_subservice.service_id', '=', 'rb_service.id')
+        ->select($this->model->table.'.id',
+            'rb_suborder_status.name_'.$this->language.' as status_name', 
+            'rb_subservice.name_'.$this->language.' as subservice_name', 
+            'rb_service.name_'.$this->language.' as service_name', 
+            'rb_suborder_status.color as status_color',
+            $this->model->table.'.status_id',
+            $this->model->table.'.appointment_date',
+            $this->model->table.'.reception_comment',
+            $this->model->table.'.assistant_comment',
+            $this->model->table.'.created_at',
+            $this->model->table.'.updated_at')
+        ->where($this->model->table.'.branch_id', $branch_id)
+        ->where($this->model->table.'.id', $id);
+        $result = $query->first();
+        return $result ? $result->toArray() : [];
+    }
+
     public function getAllByOrderId($order_id)
     {
         $query = $this->join('rb_suborder_status', $this->model->table.'.status_id', '=', 'rb_suborder_status.id')

@@ -136,6 +136,12 @@ Route::group([
 
                     Route::get('/', \App\Mrt\Suborder\Actions\ListForAssistantAction::class);
 
+                    Route::group(['prefix' => '/{suborder_id}', 'where' => ['suborder_id' => '[0-9]+']], function() {
+
+                        Route::get('', \App\Mrt\Suborder\Actions\AboutForAssistantAction::class)->name('view');
+
+                    });
+
                 });
 
             });
