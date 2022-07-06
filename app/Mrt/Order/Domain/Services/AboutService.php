@@ -220,7 +220,7 @@ class AboutService extends BlockType
                 "delete" =>
                     Action::_()
                             ->requestType("delete")
-                            ->requestUrl(route('reception.order.subservice.delete', ['locale' => App::currentLocale(), 'order_id' => $this->order_id, 'suborder_id' => $data["suborder_id"]]))
+                            ->requestUrl(route('reception.order.subservice.delete', ['locale' => App::currentLocale(), 'order_id' => $this->order_id, 'suborder_id' => $data["suborder_id"]??0]))
                             ->name(__($this->name.".suborder.delete.name"))
                             ->hint(__($this->name.".suborder.delete.hint"))
                             ->type("danger")
