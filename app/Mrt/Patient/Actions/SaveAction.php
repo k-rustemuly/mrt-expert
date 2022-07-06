@@ -18,7 +18,7 @@ class SaveAction
     public function __invoke(Request $request)
     {
         return $this->responder->withResponse(
-            $this->service->handle($request->doctor_id, $request->validated())
+            $this->service->handle($request->patient_id, $request->validated())
         )->respond();
     }
 }
