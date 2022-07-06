@@ -36,6 +36,24 @@ class Action{
     }
 
     /**
+     * @param string $name
+     */
+    public function name($name = "null") 
+    {
+        $this->etalon["name"] = $name;
+        return $this;
+    }
+
+    /**
+     * @param string $hint
+     */
+    public function hint($hint = "null") 
+    {
+        $this->etalon["hint"] = $hint;
+        return $this;
+    }
+
+    /**
      * @param string $request_url
      */
     public function requestUrl($request_url = "null") 
