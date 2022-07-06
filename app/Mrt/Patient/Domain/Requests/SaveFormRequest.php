@@ -12,7 +12,7 @@ class SaveFormRequest extends APIRequest
         return [
             'full_name' => 'sometimes|required|string|max:255',
             'iin' => 'sometimes|required|string|size:12',
-            'phone_number' => 'sometimes|required|string|size:11',
+            'phone_number' => 'sometimes|required|string|size:16',
             'email' => 'sometimes|required|email:rfc,dns',
         ];
     }
