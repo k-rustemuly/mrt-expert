@@ -132,6 +132,12 @@ Route::group([
 
             Route::middleware([ParseJWTToken::class])->group(function () {
 
+                Route::group(['prefix' => 'suborder', 'as' => 'suborder.'], function() {
+
+                    Route::get('/', \App\Mrt\Suborder\Actions\ListForAssistantAction::class);
+
+                });
+
             });
 
         });
