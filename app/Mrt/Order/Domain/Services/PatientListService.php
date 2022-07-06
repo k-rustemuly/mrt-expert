@@ -7,6 +7,7 @@ use App\Mrt\Order\Domain\Repositories\OrderRepository as Repository;
 use App\Helpers\FieldTypes\Number;
 use App\Helpers\FieldTypes\Text;
 use App\Helpers\FieldTypes\Reference;
+use App\Helpers\FieldTypes\DateTime;
 use App\Helpers\Field;
 use Illuminate\Support\Facades\App;
 use App\Helpers\Action;
@@ -65,7 +66,7 @@ class PatientListService extends TableType
                             ->init(new Text())
                             ->render(),
             "created_at" => Field::_()
-                            ->init(new Text())
+                            ->init(new DateTime())
                             ->render(),
         ];
     }
