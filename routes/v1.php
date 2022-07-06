@@ -206,6 +206,8 @@ Route::group([
 
             Route::get('/punkt', \App\Mrt\Punkt\Actions\ListAction::class);
 
+            Route::get('/suborder-status', \App\Mrt\SuborderStatus\Actions\ListAction::class);
+
             Route::get('/subservice', \App\Mrt\Subservice\Actions\ListAction::class);
 
             Route::group(['prefix' => '/{branch_id}', 'where' => ['branch_id' => '[0-9]+']], function() {
