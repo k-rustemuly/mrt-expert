@@ -62,7 +62,7 @@ class AboutService extends BlockType
                         ->values()
             );
         $suborders = $this->suborderRepository->getAllByOrderId($order_id);
-        for($i=0; $i<count($suborders); $i++)
+        for($i=count($suborders)-1; $i>=0; $i--)
         {
             $this->blocks["suborder_".$i] = Block::_()
                                             ->name(__($this->name.".suborder", ['number' => $i+1]))
