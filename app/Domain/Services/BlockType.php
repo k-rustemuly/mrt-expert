@@ -40,6 +40,10 @@ abstract class BlockType
                 {
                     foreach(array_keys($row["block"][$key]["values"]) as $item) 
                     {
+                        if(!isset($row["block"][$key]["values"][$item]["visibility"]))
+                        {
+                            $row["block"][$key]["values"][$item]["visibility"] = "visible";
+                        }
                         if(!isset($row["block"][$key]["values"][$item]["type"]))
                         {
                             $row["block"][$key]["values"][$item]["type"] = "string";

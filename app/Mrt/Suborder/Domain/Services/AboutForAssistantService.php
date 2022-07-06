@@ -77,6 +77,7 @@ class AboutForAssistantService extends BlockType
     {
         return [
                 "id" => [
+                    "visibility" => "invisible",
                     "name" => __($this->name.".id"),
                     "value" => $values["id"],
                 ],
