@@ -92,7 +92,7 @@ return [
         ],
         'assistant' => [
             'driver' => 'eloquent',
-            'model' => App\Mrt\Assistant\Domain\Models\Admin::class,
+            'model' => App\Mrt\Assistant\Domain\Models\Assistant::class,
             'table' => 'assistant',
         ],
         'patient' => [
