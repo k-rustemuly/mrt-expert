@@ -6,6 +6,7 @@ use App\Domain\Services\TableType;
 use App\Mrt\Order\Domain\Repositories\OrderRepository as Repository;
 use App\Helpers\FieldTypes\Number;
 use App\Helpers\FieldTypes\Text;
+use App\Helpers\FieldTypes\Reference;
 use App\Helpers\Field;
 use Illuminate\Support\Facades\App;
 use App\Helpers\Action;
@@ -51,7 +52,7 @@ class PatientListService extends TableType
                             ->init(new Number())
                             ->render(),
             "status" => Field::_()
-                            ->init(new Text())
+                            ->init(new Reference())
                             ->render(),
             "service_name" => Field::_()
                             ->init(new Text())
