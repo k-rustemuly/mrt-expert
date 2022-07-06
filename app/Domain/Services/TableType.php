@@ -83,7 +83,7 @@ abstract class TableType
                                 );
                             }
                         }
-                        else  if($key == "datetime")
+                        else
                         {
                             if($item == "created_at" || $item == "updated_at")
                             {

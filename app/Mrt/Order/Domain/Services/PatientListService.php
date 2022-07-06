@@ -66,7 +66,7 @@ class PatientListService extends TableType
                             ->init(new Text())
                             ->render(),
             "created_at" => Field::_()
-                            ->init(new DateTime())
+                            ->init(new Text())
                             ->render(),
         ];
     }
