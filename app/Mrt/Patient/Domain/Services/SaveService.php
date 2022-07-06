@@ -18,6 +18,7 @@ class SaveService
 
     public function handle($patient_id = 0, $data = [])
     {
+        if(isset($data["phone_number"])) $data["phone_number"] = preg_replace('/[^0-9]/', '', $data["phone_number"]);
         $patient = $this->repository->updateById($patient_id, $data);
         if($patient != null)
             return new SuccessPayload(__("Patient success saved"));
