@@ -4,6 +4,7 @@ namespace App\Mrt\Suborder\Domain\Repositories;
 use App\Domain\Repositories\ReferenceRepository;
 use App\Mrt\Suborder\Domain\Models\Suborder as Model;
 use Illuminate\Support\Facades\App;
+use App\Mrt\SuborderStatus\Domain\Models\SuborderStatus;
 
 class SuborderRepository extends ReferenceRepository
 {
@@ -29,6 +30,7 @@ class SuborderRepository extends ReferenceRepository
             'rb_subservice.name_'.$this->language.' as subservice_name', 
             'rb_service.name_'.$this->language.' as service_name', 
             'rb_suborder_status.color as status_color',
+            $this->model->table.'.status_id',
             $this->model->table.'.appointment_date',
             $this->model->table.'.reception_comment',
             $this->model->table.'.assistant_comment',
@@ -36,5 +38,10 @@ class SuborderRepository extends ReferenceRepository
             $this->model->table.'.updated_at')
         ->where($this->model->table.'.order_id', $order_id);
         return $query->get()->all();
+    }
+
+    public function deleteByBranchId($branch_id, $order_id, $suborder_id)
+    {
+        return  $this->where('branch_id', $branch_id)->where('order_id', $order_id)->where('id', $suborder_id)->where('status_id', SuborderStatus::CREATED)->delete();
     }
 }

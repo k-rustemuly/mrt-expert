@@ -180,6 +180,8 @@ Route::group([
 
                             Route::post('', \App\Mrt\Suborder\Actions\AddAction::class)->name('create');
 
+                            Route::delete('/{suborder_id}', \App\Mrt\Order\Actions\SubserviceDeleteAction::class)->whereNumber('suborder_id')->name('delete');
+
                         });
 
                     });

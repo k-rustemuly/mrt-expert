@@ -14,6 +14,7 @@ use App\Helpers\FieldTypes\Textarea;
 use App\Helpers\FieldTypes\DateTime;
 use App\Helpers\FieldTypes\Reference;
 use Carbon\Carbon;
+use App\Mrt\SuborderStatus\Domain\Models\SuborderStatus;
 
 class AboutService extends BlockType
 {
@@ -64,9 +65,18 @@ class AboutService extends BlockType
         $suborders = $this->suborderRepository->getAllByOrderId($order_id);
         for($i=count($suborders)-1; $i>=0; $i--)
         {
+            $aboutSuborder = $suborders[$i]->toArray();
+            $status_id = $aboutSuborder["status_id"];
+            $action = "none";
+            $action_data = ["suborder_id" => $aboutSuborder["id"]];
+            if($status_id == SuborderStatus::CREATED)
+            {
+                $action = $this->getActions("suborder_created", $action_data);
+            }
             $this->blocks["suborder_".$i] = Block::_()
                                             ->name(__($this->name.".suborder", ['number' => $i+1]))
-                                            ->values($this->getSuborderBlock($suborders[$i]->toArray()));
+                                            ->action($action)
+                                            ->values($this->getSuborderBlock($aboutSuborder));
         }
         return $this->getData();
     }
@@ -196,7 +206,7 @@ class AboutService extends BlockType
      * 
      * @return array<mixed>
      */
-    private function getActions($type = "default")
+    private function getActions($type = "default", $data = array())
     {
         $actions = array(
             "reception" => [
@@ -205,6 +215,16 @@ class AboutService extends BlockType
                         ->requestType("post")
                         ->requestUrl(route('reception.order.subservice.create', ['locale' => App::currentLocale(), 'order_id' => $this->order_id]))
                         ->render(),
+            ],
+            "suborder_created" => [
+                "delete" =>
+                    Action::_()
+                            ->requestType("delete")
+                            ->requestUrl(route('reception.order.subservice.delete', ['locale' => App::currentLocale(), 'order_id' => $this->order_id, 'suborder_id' => $data["suborder_id"]]))
+                            ->name(__($this->name.".suborder.delete.name"))
+                            ->hint(__($this->name.".suborder.delete.hint"))
+                            ->type("danger")
+                            ->render(),
             ]
         );
         return $actions[$type]??[];
