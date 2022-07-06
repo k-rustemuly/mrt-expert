@@ -37,4 +37,24 @@ class OrderRepository extends Repository
         $result =  $query->first();
         return $result ? $result->toArray() : [];
     }
+
+    public function getAllByPatientId($branch_id, $patient_id)
+    {
+        $query = $this->join('suborders', $this->model->table.'.id', '=', 'suborders.order_id')
+        ->join('rb_suborder_status', 'suborders.status_id', '=', 'rb_suborder_status.id')
+        ->join('rb_subservice', 'suborders.subservice_id', '=', 'rb_subservice.id')
+        ->join('rb_service', 'rb_subservice.service_id', '=', 'rb_service.id')
+        ->select(
+            $this->model->table.'.id',
+            'rb_suborder_status.name_'.$this->language.' as status_name',
+            'rb_subservice.name_'.$this->language.' as subservice_name',
+            'rb_service.name_'.$this->language.' as service_name', 
+            'rb_suborder_status.color as status_color',
+            'suborders.appointment_date',
+            'suborders.created_at')
+        ->where($this->model->table.'.patient_id', $patient_id)
+        ->where($this->model->table.'.branch_id', $branch_id)
+        ->orderByDesc($this->model->table.'.created_at');
+        return $query->get()->all();
+    }
 }

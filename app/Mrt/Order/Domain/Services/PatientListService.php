@@ -34,8 +34,7 @@ class PatientListService extends TableType
         $this->patient_id = $patient_id;
         $user = auth('reception')->user();
         $this->headers = $this->getHeader();
-        // $this->datas = $this->repository->getList($user->branch_id, $patient_id);
-        $this->datas = [];
+        $this->datas = $this->repository->getAllByPatientId($user->branch_id, $patient_id);
         $this->actions = $this->getAction();
         return $this->getData();
     }
@@ -48,11 +47,24 @@ class PatientListService extends TableType
     private function getHeader()
     {
         return [
-            "order_id" => Field::_()
+            "id" => Field::_()
                             ->init(new Number())
-                            ->onView("invisible")
                             ->render(),
-
+            "status" => Field::_()
+                            ->init(new Text())
+                            ->render(),
+            "service_name" => Field::_()
+                            ->init(new Text())
+                            ->render(),
+            "subservice_name" => Field::_()
+                            ->init(new Text())
+                            ->render(),
+            "appointment_date" => Field::_()
+                            ->init(new Text())
+                            ->render(),
+            "created_at" => Field::_()
+                            ->init(new Text())
+                            ->render(),
         ];
     }
 
@@ -66,11 +78,11 @@ class PatientListService extends TableType
     public function action($order_id = 0)
     {
         return [
-            // "delete" =>  Action::_()
-            //     ->requestType("delete")
-            //     ->requestUrl(route('branch-admin.service.delete', ['locale' => App::currentLocale(), 'order_id' => $order_id]))
-            //     ->type("info")
-            //     ->render(),
+            "view" =>  Action::_()
+                ->requestType("view")
+                ->requestUrl(route('reception.order.view', ['locale' => App::currentLocale(), 'order_id' => $order_id]))
+                ->type("info")
+                ->render(),
         ];
     }
 

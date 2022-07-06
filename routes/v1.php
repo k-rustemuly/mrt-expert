@@ -172,7 +172,7 @@ Route::group([
 
                     Route::group(['prefix' => '/{order_id}', 'where' => ['order_id' => '[0-9]+']], function() {
 
-                        Route::get('', \App\Mrt\Order\Actions\AboutAction::class);
+                        Route::get('', \App\Mrt\Order\Actions\AboutAction::class)->name('view');
 
                         Route::group(['prefix' => 'subservice', 'as' => 'subservice.'], function() {
 
