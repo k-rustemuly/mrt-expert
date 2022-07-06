@@ -88,7 +88,7 @@ abstract class TableType
                 }
                 if(isset($data[$i]["created_at"]))
                 {
-                    $data[$i]["created_at"] = Carbon::parse((string)$data[$i]["created_at"])->locale(App::currentLocale())->timezone('Asia/Aqtau')->isoFormat('LLLL');
+                    $data[$i]["created_at"] = Carbon::parse($data[$i]["created_at"])->locale(App::currentLocale())->timezone('Asia/Aqtau')->isoFormat('LLLL');
                     //$data[$i][$item] = $item." ".$key." ".$data[$i][$item];
                 }
             }
