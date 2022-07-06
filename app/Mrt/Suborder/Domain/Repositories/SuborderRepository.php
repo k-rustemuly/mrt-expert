@@ -30,6 +30,7 @@ class SuborderRepository extends ReferenceRepository
             'rb_subservice.name_'.$this->language.' as subservice_name', 
             'rb_service.name_'.$this->language.' as service_name', 
             'rb_suborder_status.color as status_color',
+            $this->model->table.'.order_id',
             $this->model->table.'.status_id',
             $this->model->table.'.appointment_date',
             $this->model->table.'.reception_comment',
