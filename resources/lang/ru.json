@@ -214,8 +214,8 @@
     "order.header.subservice_name.hint" : " ",
     "order.header.appointment_date.name" : "Назначенное время",
     "order.header.appointment_date.hint" : " ",
-    "order.header.created_at.name" : "Создано",
-    "order.header.created_at.hint" : " ",
+    "order.header.created.name" : "Создано",
+    "order.header.created.hint" : " ",
     "" : "",
     "" : "",
     "" : ""
