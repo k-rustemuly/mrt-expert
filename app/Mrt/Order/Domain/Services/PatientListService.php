@@ -51,7 +51,7 @@ class PatientListService extends TableType
             "id" => Field::_()
                             ->init(new Number())
                             ->render(),
-            "status" => Field::_()
+            "status_id" => Field::_()
                             ->init(new Reference("suborder-status"))
                             ->key("status")
                             ->render(),
