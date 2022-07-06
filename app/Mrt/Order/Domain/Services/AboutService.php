@@ -223,7 +223,7 @@ class AboutService extends BlockType
                             ->requestUrl(route('reception.order.subservice.delete', ['locale' => App::currentLocale(), 'order_id' => $this->order_id, 'suborder_id' => $data["suborder_id"]??0]))
                             ->name(__($this->name.".suborder.delete.name"))
                             ->hint(__($this->name.".suborder.delete.hint"))
-                            ->type("danger")
+                            ->type("error")
                             ->render(),
             ]
         );
@@ -240,7 +240,7 @@ class AboutService extends BlockType
                             ->requestUrl(route('reception.order.subservice.delete', ['locale' => App::currentLocale(), 'order_id' => $this->order_id, 'suborder_id' => $suborder_id]))
                             ->name(__($this->name.".suborder.delete.name"))
                             ->hint(__($this->name.".suborder.delete.hint"))
-                            ->type("danger")
+                            ->type("error")
                             ->render(),
             ]
         );
