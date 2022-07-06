@@ -68,10 +68,10 @@ class AboutService extends BlockType
             $aboutSuborder = $suborders[$i]->toArray();
             $status_id = $aboutSuborder["status_id"];
             $action = "none";
-            $action_data = ["suborder_id" => $aboutSuborder["id"]];
+            $suborderId = $aboutSuborder["id"];
             if($status_id == SuborderStatus::CREATED)
             {
-                $action = $this->getActions("suborder_created", $action_data);
+                $action = $this->getSubOrderAction("suborder_created", $suborderId);
             }
             $this->blocks["suborder_".$i] = Block::_()
                                             ->name(__($this->name.".suborder", ['number' => $i+1]))
@@ -221,6 +221,23 @@ class AboutService extends BlockType
                     Action::_()
                             ->requestType("delete")
                             ->requestUrl(route('reception.order.subservice.delete', ['locale' => App::currentLocale(), 'order_id' => $this->order_id, 'suborder_id' => $data["suborder_id"]??0]))
+                            ->name(__($this->name.".suborder.delete.name"))
+                            ->hint(__($this->name.".suborder.delete.hint"))
+                            ->type("danger")
+                            ->render(),
+            ]
+        );
+        return $actions[$type]??[];
+    }
+
+    private function getSubOrderAction($type = "none", $suborder_id = 0)
+    {
+        $actions = array(
+            "suborder_created" => [
+                "delete" =>
+                    Action::_()
+                            ->requestType("delete")
+                            ->requestUrl(route('reception.order.subservice.delete', ['locale' => App::currentLocale(), 'order_id' => $this->order_id, 'suborder_id' => $suborder_id]))
                             ->name(__($this->name.".suborder.delete.name"))
                             ->hint(__($this->name.".suborder.delete.hint"))
                             ->type("danger")
