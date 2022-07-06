@@ -46,6 +46,7 @@ class OrderRepository extends Repository
         ->join('rb_service', 'rb_subservice.service_id', '=', 'rb_service.id')
         ->select(
             $this->model->table.'.id',
+            'rb_suborder_status.id as status_id',
             'rb_suborder_status.name_'.$this->language.' as status_name',
             'rb_subservice.name_'.$this->language.' as subservice_name',
             'rb_service.name_'.$this->language.' as service_name', 

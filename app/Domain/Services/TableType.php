@@ -2,6 +2,8 @@
 namespace App\Domain\Services;
 
 use App\Domain\Payloads\GenericPayload;
+use Carbon\Carbon;
+use Illuminate\Support\Facades\App;
 
 abstract class TableType
 {
@@ -79,6 +81,13 @@ abstract class TableType
                                     "id" => $data[$i][$item],
                                     "value" => __($data[$i][$item] ? "yes" : "no")
                                 );
+                            }
+                        }
+                        else
+                        {
+                            if($item == "created_at" || $item == "updated_at")
+                            {
+                                $data[$i][$item] = Carbon::parse( $data[$i][$item])->locale(App::currentLocale())->timezone('Asia/Aqtau')->isoFormat('LLLL');
                             }
                         }
                     }
