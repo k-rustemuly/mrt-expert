@@ -65,7 +65,7 @@ class PatientListService extends TableType
             "appointment_date" => Field::_()
                             ->init(new Text())
                             ->render(),
-            "created_at" => Field::_()
+            "created" => Field::_()
                             ->init(new Text())
                             ->render(),
         ];
