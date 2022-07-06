@@ -85,7 +85,7 @@ abstract class TableType
                         }
                         else
                         {
-                            if($item == "created_at" || $item == "updated_at")
+                            if(($item == "created_at" || $item == "updated_at") && is_string($data[$i][$item]))
                             {
                                 $data[$i][$item] = Carbon::parse($data[$i][$item])->locale(App::currentLocale())->timezone('Asia/Aqtau')->isoFormat('LLLL');
                             }
