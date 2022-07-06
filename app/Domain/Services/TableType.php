@@ -83,13 +83,13 @@ abstract class TableType
                                 );
                             }
                         }
-                        // else
-                        // {
-                        //     if($item == "created_at" || $item == "updated_at")
-                        //     {
-                        //         $data[$i][$item] = Carbon::parse((string)$data[$i][$item])->locale(App::currentLocale())->timezone('Asia/Aqtau')->isoFormat('LLLL');
-                        //     }
-                        // }
+                        else  if($key == "datetime")
+                        {
+                            if($item == "created_at" || $item == "updated_at")
+                            {
+                                $data[$i][$item] = Carbon::parse((string)$data[$i][$item])->locale(App::currentLocale())->timezone('Asia/Aqtau')->isoFormat('LLLL');
+                            }
+                        }
                     }
                 }
             }
