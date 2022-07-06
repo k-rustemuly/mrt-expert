@@ -41,7 +41,7 @@ abstract class TableType
                 {
                     $optimize[$type][] = $row["header"][$key]["reference_key"];
                 } 
-                else if($type == "boolean")
+                else 
                 {
                     $optimize[$type][] = $key;
                 }
