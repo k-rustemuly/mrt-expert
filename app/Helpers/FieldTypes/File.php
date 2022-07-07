@@ -9,6 +9,6 @@ class File {
     public $array = array(
         "type" => "file",
         "max_file" => 1,
-        "max_size_byte" => 1000000000000
+        "max_size_byte" => 53687091200
     );
 }
