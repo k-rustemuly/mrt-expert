@@ -41,7 +41,7 @@ class MacroServiceProvider extends ServiceProvider
                 'version' => 'latest',
             ]);
 
-            $adapter = new AwsS3Adapter($client, $config['AWS_S3_BUCKET'], $path);
+            $adapter = new AwsS3Adapter($client, $config['AWS_BUCKET'], $path);
             $filesystem = new Filesystem($adapter);
 
             return $overWrite 
