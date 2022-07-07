@@ -10,7 +10,7 @@ use App\Helpers\Block;
 use App\Exceptions\MainException;
 use Illuminate\Support\Facades\App;
 use App\Helpers\Field;
-use App\Helpers\FieldTypes\Textarea;
+use App\Helpers\FieldTypes\File;
 use App\Helpers\FieldTypes\DateTime;
 use App\Helpers\FieldTypes\Reference;
 use Carbon\Carbon;
@@ -168,6 +168,12 @@ class AboutForAssistantService extends BlockType
     private function getHeader()
     {
         return [
+            "send_to_doctor" => [
+                "full_name" => Field::_()
+                                ->init(new File())
+                                ->onUpdate("visible", true)
+                                ->render(),
+            ]
         ];
     }
 
@@ -178,7 +184,16 @@ class AboutForAssistantService extends BlockType
      */
     private function getActions($type = "default")
     {
-        $actions = array();
+        $actions = array(
+            "default" => array(
+                "send_to_doctor" => 
+                    Action::_()
+                    ->requestType("post")
+                    // ->requestUrl(route('reception.patient.update', ['locale' => App::currentLocale(), 'patient_id' => $this->patient_id]))
+                    ->requestUrl('test')
+                    ->render(),
+            )
+        );
         return $actions[$type]??[];
     }
 }

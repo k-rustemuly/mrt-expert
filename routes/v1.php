@@ -230,4 +230,10 @@ Route::group([
 
         });
 
+        Route::group(['prefix' => 'file', 'as' => 'file.'], function() {
+
+            Route::post('/upload', \App\Mrt\Upload\Actions\UploadAction::class);
+
+        });
+
     });
