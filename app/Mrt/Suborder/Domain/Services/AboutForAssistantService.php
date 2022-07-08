@@ -75,6 +75,7 @@ class AboutForAssistantService extends BlockType
         }
         $aboutSuborder["doctors"] = $doctors;
 
+        $aboutSuborder["file"] = array();
         if($aboutSuborder["file_id"] && $aboutSuborder["file_id"] > 0)
         {
             $aboutSuborder["file"] = [
@@ -148,6 +149,16 @@ class AboutForAssistantService extends BlockType
                 "assistant_comment" => [
                     "name" => __($this->name.".assistant_comment"),
                     "value" => $values["assistant_comment"],
+                ],
+                "doctors" => [
+                    "type" => "reference",
+                    "name" => __($this->name.".doctors"),
+                    "value" => $values["doctors"],
+                ],
+                "file" => [
+                    "type" => "file",
+                    "name" => __($this->name.".file"),
+                    "value" => $values["file"],
                 ],
                 "created_at" => [
                     "name" => __($this->name.".created_at"),
@@ -275,11 +286,11 @@ class AboutForAssistantService extends BlockType
                             ->render(),
             ),
             "waiting" => array(
-                "waiting_update" =>  Action::_()
-                            ->type("info")
-                            ->requestType("put")
-                            ->requestUrl(route('assistant.suborder.update', ['locale' => App::currentLocale(), 'suborder_id' => $this->suborder_id]))
-                            ->render(),
+                // "waiting_update" =>  Action::_()
+                //             ->type("info")
+                //             ->requestType("put")
+                //             ->requestUrl(route('assistant.suborder.update', ['locale' => App::currentLocale(), 'suborder_id' => $this->suborder_id]))
+                //             ->render(),
                 "revoke" =>  Action::_()
                             ->type("error")
                             ->requestType("put")
