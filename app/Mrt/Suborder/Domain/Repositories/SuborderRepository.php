@@ -25,6 +25,7 @@ class SuborderRepository extends ReferenceRepository
         $query = $this->join('rb_suborder_status', $this->model->table.'.status_id', '=', 'rb_suborder_status.id')
         ->join('rb_subservice', $this->model->table.'.subservice_id', '=', 'rb_subservice.id')
         ->join('rb_service', 'rb_subservice.service_id', '=', 'rb_service.id')
+        ->leftJoin('upload', $this->model->table.'.file', '=', 'upload.id')
         ->select($this->model->table.'.id',
             'rb_suborder_status.name_'.$this->language.' as status_name', 
             'rb_subservice.name_'.$this->language.' as subservice_name', 
@@ -36,6 +37,9 @@ class SuborderRepository extends ReferenceRepository
             $this->model->table.'.reception_comment',
             $this->model->table.'.assistant_comment',
             $this->model->table.'.doctors',
+            'upload.id as file_id',
+            'upload.uuid as file_uuid',
+            'upload.name as file_name',
             $this->model->table.'.created_at',
             $this->model->table.'.updated_at')
         ->where($this->model->table.'.branch_id', $branch_id)

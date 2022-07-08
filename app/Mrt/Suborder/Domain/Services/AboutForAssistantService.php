@@ -59,6 +59,7 @@ class AboutForAssistantService extends BlockType
         if(empty($aboutSuborder)) throw new MainException("You dont have permission or record not found");
 
         $aboutOrder = $this->orderRepository->getById($aboutSuborder["order_id"]);
+
         $doctor_ids = $aboutSuborder["doctors"] ? explode("@", $aboutSuborder["doctors"]) : [];
         $doctors = array();
         foreach ($doctor_ids as $id)
@@ -73,8 +74,19 @@ class AboutForAssistantService extends BlockType
             }
         }
         $aboutSuborder["doctors"] = $doctors;
+
+        if($aboutSuborder["file_id"] && $aboutSuborder["file_id"] > 0)
+        {
+            $aboutSuborder["file"] = [
+                "id" => $aboutSuborder["file_id"],
+                "uuid" => $aboutSuborder["file_uuid"],
+                "name" => $aboutSuborder["file_name"],
+            ];
+        }
+        
         $this->actions = $this->getActions();
         $this->headers = $this->getHeader($aboutSuborder);
+        
         $suborder_action = array();
         switch($aboutSuborder["status_id"])
         {
@@ -211,6 +223,7 @@ class AboutForAssistantService extends BlockType
                                 ->init(new File())
                                 ->allowExt("zip,rar")
                                 ->onUpdate("visible", true)
+                                ->value($values["file"])
                                 ->render(),
                 "assistant_comment" => Field::_()
                                 ->init(new Textarea())
