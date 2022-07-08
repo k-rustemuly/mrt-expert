@@ -13,9 +13,9 @@ class SuborderStatus extends Model
     const CREATED = '1';
 
     /**
-     * @var string В обработке
+     * @var string В ожидании отклика
      */
-    const ONPROGRESS = '2';
+    const WAITING = '2';
 
     public $table = 'rb_suborder_status';
 
