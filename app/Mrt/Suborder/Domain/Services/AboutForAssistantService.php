@@ -13,6 +13,7 @@ use App\Helpers\Field;
 use App\Helpers\FieldTypes\File;
 use App\Helpers\FieldTypes\DateTime;
 use App\Helpers\FieldTypes\Reference;
+use App\Helpers\FieldTypes\Textarea;
 use Carbon\Carbon;
 use App\Mrt\SuborderStatus\Domain\Models\SuborderStatus;
 
@@ -60,7 +61,7 @@ class AboutForAssistantService extends BlockType
         $suborder_action = array();
         if($aboutSuborder["status_id"] == SuborderStatus::CREATED)
         {
-            $suborder_action = $this->getActions("send_to_doctor");
+            $suborder_action = $this->getActions("created");
         }
         $this->blocks = array(
             "order_info" => Block::_()
@@ -171,7 +172,7 @@ class AboutForAssistantService extends BlockType
      * 
      * @return array<mixed>
      */
-    private function getHeader()
+    private function getHeader($values = array())
     {
         return [
             "send_to_doctor" => [
@@ -186,6 +187,18 @@ class AboutForAssistantService extends BlockType
                                 ->allowExt("zip,rar")
                                 ->onUpdate("visible", true)
                                 ->render(),
+            ],
+            "update" => [
+                "appointment_date" => Field::_()
+                                    ->init(new DateTime())
+                                    ->onUpdate("visible", true)
+                                    ->value(date("Y-m-d H:i", $values["appointment_date"]))
+                                    ->render(),
+                "assistant_comment" => Field::_()
+                                    ->init(new Textarea())
+                                    ->onUpdate("visible")
+                                    ->value($values["assistant_comment"])
+                                    ->render(),
             ]
         ];
     }
@@ -198,13 +211,18 @@ class AboutForAssistantService extends BlockType
     private function getActions($type = "default")
     {
         $actions = array(
-            "send_to_doctor" => array(
+            "created" => array(
                 "send_to_doctor" => 
                     Action::_()
+                    ->type("success")
                     ->requestType("post")
-                    // ->requestUrl(route('reception.patient.update', ['locale' => App::currentLocale(), 'patient_id' => $this->patient_id]))
-                    ->requestUrl('test')
+                    ->requestUrl(route('assistant.suborder.to_doctor', ['locale' => App::currentLocale(), 'suborder_id' => $this->suborder_id]))
                     ->render(),
+                "update" =>  Action::_()
+                            ->type("info")
+                            ->requestType("put")
+                            ->requestUrl(route('assistant.suborder.update', ['locale' => App::currentLocale(), 'suborder_id' => $this->suborder_id]))
+                            ->render(),
             )
         );
         return $actions[$type]??[];
