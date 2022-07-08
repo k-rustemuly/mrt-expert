@@ -93,4 +93,9 @@ class SuborderRepository extends ReferenceRepository
     {
         return $this->where(["id" => $id])->where(["branch_id" => $branch_id])->update($attributes);
     }
+
+    public function revoke($branch_id, $id, array $attributes)
+    {
+        return $this->where(["id" => $id])->where(["branch_id" => $branch_id])->where("status_id", "!=", SuborderStatus::COMPLETED)->update($attributes);
+    }
 }

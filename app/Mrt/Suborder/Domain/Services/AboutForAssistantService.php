@@ -247,6 +247,11 @@ class AboutForAssistantService extends BlockType
                             ->requestType("put")
                             ->requestUrl(route('assistant.suborder.update', ['locale' => App::currentLocale(), 'suborder_id' => $this->suborder_id]))
                             ->render(),
+                "revoke" =>  Action::_()
+                            ->type("error")
+                            ->requestType("put")
+                            ->requestUrl(route('assistant.suborder.revoke', ['locale' => App::currentLocale(), 'suborder_id' => $this->suborder_id]))
+                            ->render(),
             )
         );
         return $actions[$type]??[];
