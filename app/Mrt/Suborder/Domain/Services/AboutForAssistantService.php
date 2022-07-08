@@ -178,7 +178,8 @@ class AboutForAssistantService extends BlockType
                 "doctors" => Field::_()
                             ->init(new Reference("doctors"))
                             ->referenceUrl(route('assistant.suborder.doctors', ['locale' => App::currentLocale(), 'suborder_id' => $this->suborder_id]))
-                            ->onUpdate("visible", true),
+                            ->onUpdate("visible", true)
+                            ->render(),
                 "file" => Field::_()
                                 ->init(new File())
                                 ->allowExt("zip,rar")
