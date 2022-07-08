@@ -223,7 +223,7 @@ class AboutForAssistantService extends BlockType
                                 ->init(new File())
                                 ->allowExt("zip,rar")
                                 ->onUpdate("visible", true)
-                                ->value($values["file"])
+                                ->value([$values["file"]])
                                 ->render(),
                 "assistant_comment" => Field::_()
                                 ->init(new Textarea())
