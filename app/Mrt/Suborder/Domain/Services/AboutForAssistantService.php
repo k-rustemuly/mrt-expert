@@ -59,9 +59,14 @@ class AboutForAssistantService extends BlockType
         $this->actions = $this->getActions();
         $this->headers = $this->getHeader($aboutSuborder);
         $suborder_action = array();
-        if($aboutSuborder["status_id"] == SuborderStatus::CREATED)
+        switch($aboutSuborder["status_id"])
         {
-            $suborder_action = $this->getActions("created");
+            case SuborderStatus::CREATED:
+                $suborder_action = $this->getActions("created");
+            break;
+            case SuborderStatus::WAITING:
+                $suborder_action = $this->getActions("waiting");
+            break;
         }
         $this->blocks = array(
             "order_info" => Block::_()
@@ -204,6 +209,13 @@ class AboutForAssistantService extends BlockType
                                     ->onUpdate("visible")
                                     ->value($values["assistant_comment"])
                                     ->render(),
+            ],
+            "waiting_update" => [
+                "assistant_comment" => Field::_()
+                                    ->init(new Textarea())
+                                    ->onUpdate("visible")
+                                    ->value($values["assistant_comment"])
+                                    ->render(),
             ]
         ];
     }
@@ -224,6 +236,13 @@ class AboutForAssistantService extends BlockType
                     ->requestUrl(route('assistant.suborder.send_to_doctor', ['locale' => App::currentLocale(), 'suborder_id' => $this->suborder_id]))
                     ->render(),
                 "update" =>  Action::_()
+                            ->type("info")
+                            ->requestType("put")
+                            ->requestUrl(route('assistant.suborder.update', ['locale' => App::currentLocale(), 'suborder_id' => $this->suborder_id]))
+                            ->render(),
+            ),
+            "waiting" => array(
+                "waiting_update" =>  Action::_()
                             ->type("info")
                             ->requestType("put")
                             ->requestUrl(route('assistant.suborder.update', ['locale' => App::currentLocale(), 'suborder_id' => $this->suborder_id]))
