@@ -18,4 +18,14 @@ class UploadRepository extends Repository
         $upload = $this->model->where("uuid", $uuid)->first();
         return $upload ? $upload->toArray() : [];
     }
+
+    public function getIdByUuid($uuid)
+    {
+        $upload = $this->findByUuid($uuid);
+        if(!empty($upload))
+        {
+            return $upload["id"];
+        }
+        return 0;
+    }
 }
