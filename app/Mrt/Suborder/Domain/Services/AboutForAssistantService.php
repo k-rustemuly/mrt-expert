@@ -198,7 +198,7 @@ class AboutForAssistantService extends BlockType
     {
         $actions = array(
             "send_to_doctor" => array(
-                "submit" => 
+                "send_to_doctor" => 
                     Action::_()
                     ->requestType("post")
                     // ->requestUrl(route('reception.patient.update', ['locale' => App::currentLocale(), 'patient_id' => $this->patient_id]))
