@@ -28,17 +28,16 @@ class UploadService
         $config = Config::get('filesystems.disks.s3');
         if(File::streamUpload($filepath, $unique_name, $file, false))
         {
-        $path = $filepath."/".$unique_name;
-        $url = $config['url'].$path;
-        $uuid = Str::orderedUuid();
-        $upload_id = $this->repository->create([
-                "uuid" => $uuid,
-                "name" => $name,
-                "path" => $path,
-                "url" => $url,
-                "extension" => $extension
-            ])["id"];
-            
+            $path = $filepath."/".$unique_name;
+            $url = $config['url'].$path;
+            $uuid = Str::orderedUuid();
+            $upload_id = $this->repository->create([
+                    "uuid" => $uuid,
+                    "name" => $name,
+                    "path" => $path,
+                    "url" => $url,
+                    "extension" => $extension
+                ])["id"];
             return new GenericPayload(["id" => $upload_id, "uuid" => $uuid]);
         }
         throw new MainException("Error to upload file");

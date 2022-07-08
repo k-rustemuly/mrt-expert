@@ -274,6 +274,16 @@ class Field{
 
     /**
      * 
+     * @param string $allow_ext 
+     */
+    public function allowExt(string $allow_ext = "")
+    {
+        $this->etalon["allow_ext"] = $allow_ext;
+        return $this;
+    }
+
+    /**
+     * 
      * @param string $reference_url
      */
     public function referenceUrl(?string $reference_url = null)

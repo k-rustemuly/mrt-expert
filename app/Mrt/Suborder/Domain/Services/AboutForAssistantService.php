@@ -57,10 +57,16 @@ class AboutForAssistantService extends BlockType
 
         $this->actions = $this->getActions();
         $this->headers = $this->getHeader($aboutSuborder);
+        $suborder_action = array();
+        if($aboutSuborder["status_id"] == SuborderStatus::CREATED)
+        {
+            $suborder_action = $this->getActions("send_to_doctor");
+        }
         $this->blocks = array(
             "order_info" => Block::_()
                         ->values($this->getMainBlock($aboutOrder)),
             "suborder_info" => Block::_()
+                        ->action($suborder_action)
                         ->values($this->getSuborderBlock($aboutSuborder))
             );
         return $this->getData();
@@ -169,8 +175,13 @@ class AboutForAssistantService extends BlockType
     {
         return [
             "send_to_doctor" => [
-                "full_name" => Field::_()
+                "doctors" => Field::_()
+                            ->init(new Reference("doctors"))
+                            ->referenceUrl(route('assistant.suborder.doctors', ['locale' => App::currentLocale(), 'suborder_id' => $this->suborder_id]))
+                            ->onUpdate("visible", true),
+                "file" => Field::_()
                                 ->init(new File())
+                                ->allowExt("zip,rar")
                                 ->onUpdate("visible", true)
                                 ->render(),
             ]
@@ -185,8 +196,8 @@ class AboutForAssistantService extends BlockType
     private function getActions($type = "default")
     {
         $actions = array(
-            "default" => array(
-                "send_to_doctor" => 
+            "send_to_doctor" => array(
+                "submit" => 
                     Action::_()
                     ->requestType("post")
                     // ->requestUrl(route('reception.patient.update', ['locale' => App::currentLocale(), 'patient_id' => $this->patient_id]))

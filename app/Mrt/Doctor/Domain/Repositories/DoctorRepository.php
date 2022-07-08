@@ -18,4 +18,9 @@ class DoctorRepository extends Repository
         $result = $this->model->find($id);
         return $result ? $result->toArray() : [];
     }
+
+    public function getAllBySubserviceId($subservice_id)
+    {
+        return $this->model->where("subservices", "like", "%@".$subservice_id."@%")->where("is_active", 1)->get()->all();
+    }
 }

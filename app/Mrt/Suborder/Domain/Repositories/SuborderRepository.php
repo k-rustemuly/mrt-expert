@@ -43,6 +43,13 @@ class SuborderRepository extends ReferenceRepository
         return $result ? $result->toArray() : [];
     }
 
+    public function getById($id)
+    {
+        $query = $this->model->where('id', $id);
+        $result = $query->first();
+        return $result ? $result->toArray() : [];
+    }
+
     public function getAllByOrderId($order_id)
     {
         $query = $this->join('rb_suborder_status', $this->model->table.'.status_id', '=', 'rb_suborder_status.id')

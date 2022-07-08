@@ -140,6 +140,8 @@ Route::group([
 
                         Route::get('', \App\Mrt\Suborder\Actions\AboutForAssistantAction::class)->name('view');
 
+                        Route::get('/doctors', \App\Mrt\Doctor\Actions\ListForSuborderAction::class)->name('doctors');
+                        
                     });
 
                 });
