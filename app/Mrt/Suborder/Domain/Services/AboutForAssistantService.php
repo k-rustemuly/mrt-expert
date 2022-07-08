@@ -192,12 +192,12 @@ class AboutForAssistantService extends BlockType
                 "appointment_date" => Field::_()
                                     ->init(new DateTime())
                                     ->onUpdate("visible", true)
-                                    ->value(date("Y-m-d H:i", $values["appointment_date"]))
+                                    // ->value(date("Y-m-d H:i", $values["appointment_date"]))
                                     ->render(),
                 "assistant_comment" => Field::_()
                                     ->init(new Textarea())
                                     ->onUpdate("visible")
-                                    ->value($values["assistant_comment"])
+                                    // ->value($values["assistant_comment"])
                                     ->render(),
             ]
         ];
