@@ -81,6 +81,7 @@ class AboutForAssistantService extends BlockType
             $aboutSuborder["file"] = [
                 "id" => $aboutSuborder["file_id"],
                 "uuid" => $aboutSuborder["file_uuid"],
+                "url" => $aboutSuborder["file_url"],
                 "name" => $aboutSuborder["file_name"],
             ];
         }
@@ -232,7 +233,7 @@ class AboutForAssistantService extends BlockType
                             ->render(),
                 "file" => Field::_()
                                 ->init(new File())
-                                ->allowExt("zip,rar")
+                                ->accept(".zip,.rar")
                                 ->onUpdate("visible", true)
                                 ->value([$values["file"]])
                                 ->render(),

@@ -274,11 +274,11 @@ class Field{
 
     /**
      * 
-     * @param string $allow_ext 
+     * @param string $accept 
      */
-    public function allowExt(string $allow_ext = "")
+    public function accept(string $accept = "")
     {
-        $this->etalon["allow_ext"] = $allow_ext;
+        $this->etalon["accept"] = $accept;
         return $this;
     }
 

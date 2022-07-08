@@ -40,6 +40,7 @@ class SuborderRepository extends ReferenceRepository
             'upload.id as file_id',
             'upload.uuid as file_uuid',
             'upload.name as file_name',
+            'upload.url as file_url',
             $this->model->table.'.created_at',
             $this->model->table.'.updated_at')
         ->where($this->model->table.'.branch_id', $branch_id)
