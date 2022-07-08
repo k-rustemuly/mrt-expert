@@ -78,7 +78,7 @@ class AboutForAssistantService extends BlockType
         $aboutSuborder["file"] = array();
         if($aboutSuborder["file_id"] && $aboutSuborder["file_id"] > 0)
         {
-            $aboutSuborder["file"] = [
+            $aboutSuborder["file"][] = [
                 "id" => $aboutSuborder["file_id"],
                 "uuid" => $aboutSuborder["file_uuid"],
                 "url" => $aboutSuborder["file_url"],
@@ -235,7 +235,7 @@ class AboutForAssistantService extends BlockType
                                 ->init(new File())
                                 ->accept(".zip,.rar")
                                 ->onUpdate("visible", true)
-                                ->value([$values["file"]])
+                                ->value($values["file"])
                                 ->render(),
                 "assistant_comment" => Field::_()
                                 ->init(new Textarea())
