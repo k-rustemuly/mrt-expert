@@ -192,7 +192,7 @@ class AboutForAssistantService extends BlockType
                 "appointment_date" => Field::_()
                                     ->init(new DateTime())
                                     ->onUpdate("visible", true)
-                                    ->value(Carbon::parse($values["appointment_date"])->locale(App::currentLocale())->timezone('Asia/Aqtau')->isoFormat('Y-m-d H:i'),)
+                                    ->value(date("Y-m-d H:i", strtotime($values["appointment_date"])))
                                     ->render(),
                 "assistant_comment" => Field::_()
                                     ->init(new Textarea())
