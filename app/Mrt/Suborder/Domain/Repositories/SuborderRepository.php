@@ -35,6 +35,7 @@ class SuborderRepository extends ReferenceRepository
             $this->model->table.'.appointment_date',
             $this->model->table.'.reception_comment',
             $this->model->table.'.assistant_comment',
+            $this->model->table.'.doctors',
             $this->model->table.'.created_at',
             $this->model->table.'.updated_at')
         ->where($this->model->table.'.branch_id', $branch_id)
