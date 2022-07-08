@@ -142,6 +142,8 @@ Route::group([
 
                         Route::put('', \App\Mrt\Suborder\Actions\UpdateAssistantAction::class)->name('update');
 
+                        Route::put('/send-to-doctor', \App\Mrt\Suborder\Actions\SendToDoctorAction::class)->name('send_to_doctor');
+
                         Route::post('', \App\Mrt\Suborder\Actions\AboutForAssistantAction::class)->name('to_doctor');
 
                         Route::get('/doctors', \App\Mrt\Doctor\Actions\ListForSuborderAction::class)->name('doctors');

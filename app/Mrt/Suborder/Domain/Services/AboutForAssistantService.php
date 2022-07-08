@@ -187,6 +187,11 @@ class AboutForAssistantService extends BlockType
                                 ->allowExt("zip,rar")
                                 ->onUpdate("visible", true)
                                 ->render(),
+                "assistant_comment" => Field::_()
+                                ->init(new Textarea())
+                                ->onUpdate("visible")
+                                ->value($values["assistant_comment"])
+                                ->render(),
             ],
             "update" => [
                 "appointment_date" => Field::_()
@@ -215,8 +220,8 @@ class AboutForAssistantService extends BlockType
                 "send_to_doctor" => 
                     Action::_()
                     ->type("success")
-                    ->requestType("post")
-                    ->requestUrl(route('assistant.suborder.to_doctor', ['locale' => App::currentLocale(), 'suborder_id' => $this->suborder_id]))
+                    ->requestType("put")
+                    ->requestUrl(route('assistant.suborder.send_to_doctor', ['locale' => App::currentLocale(), 'suborder_id' => $this->suborder_id]))
                     ->render(),
                 "update" =>  Action::_()
                             ->type("info")
