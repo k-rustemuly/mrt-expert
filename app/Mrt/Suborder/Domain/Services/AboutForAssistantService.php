@@ -16,6 +16,7 @@ use App\Helpers\FieldTypes\Reference;
 use App\Helpers\FieldTypes\Textarea;
 use Carbon\Carbon;
 use App\Mrt\SuborderStatus\Domain\Models\SuborderStatus;
+use App\Mrt\Doctor\Domain\Repositories\DoctorRepository;
 
 class AboutForAssistantService extends BlockType
 {
@@ -23,6 +24,8 @@ class AboutForAssistantService extends BlockType
     protected $repository;
 
     protected $orderRepository;
+
+    protected $doctorRepository;
 
     public $name = "one_suborder";
 
@@ -36,10 +39,11 @@ class AboutForAssistantService extends BlockType
 
     public $branch_id = 0;
 
-    public function __construct(Repository $repository, OrderRepository $orderRepository)
+    public function __construct(Repository $repository, OrderRepository $orderRepository, DoctorRepository $doctorRepository)
     {
         $this->repository = $repository;
         $this->orderRepository = $orderRepository;
+        $this->doctorRepository = $doctorRepository;
     }
 
     /**
@@ -55,16 +59,31 @@ class AboutForAssistantService extends BlockType
         if(empty($aboutSuborder)) throw new MainException("You dont have permission or record not found");
 
         $aboutOrder = $this->orderRepository->getById($aboutSuborder["order_id"]);
-
+        $doctor_ids = $aboutSuborder["doctors"] ? explode("@", $aboutSuborder["doctors"]) : [];
+        $doctors = array();
+        foreach ($doctor_ids as $id)
+        {
+            if($id > 0)
+            {
+                $doctor = $this->doctorRepository->getById($id);
+                $doctors[] = [
+                    "id" => $id,
+                    "name" => $doctor["full_name"],
+                ];
+            }
+        }
+        $aboutSuborder["doctors"] = $doctors;
         $this->actions = $this->getActions();
         $this->headers = $this->getHeader($aboutSuborder);
         $suborder_action = array();
         switch($aboutSuborder["status_id"])
         {
             case SuborderStatus::CREATED:
+            case SuborderStatus::REVOKED:
                 $suborder_action = $this->getActions("created");
             break;
             case SuborderStatus::WAITING:
+            case SuborderStatus::UNDER_TREATMENT:
                 $suborder_action = $this->getActions("waiting");
             break;
         }
@@ -185,6 +204,7 @@ class AboutForAssistantService extends BlockType
                             ->init(new Reference("doctors"))
                             ->referenceUrl(route('assistant.suborder.doctors', ['locale' => App::currentLocale(), 'suborder_id' => $this->suborder_id]))
                             ->maxSelect(-1)
+                            ->value($values["doctors"])
                             ->onUpdate("visible", true)
                             ->render(),
                 "file" => Field::_()
