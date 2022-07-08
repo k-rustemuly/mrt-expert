@@ -88,4 +88,9 @@ class SuborderRepository extends ReferenceRepository
         ->where($this->model->table.'.branch_id', $branch_id);
         return $query->get()->all();
     }
+
+    public function updateByBranchId($branch_id, $id, array $attributes)
+    {
+        return $this->where(["id" => $id])->where(["branch_id" => $branch_id])->update($attributes);
+    }
 }

@@ -140,7 +140,7 @@ Route::group([
 
                         Route::get('', \App\Mrt\Suborder\Actions\AboutForAssistantAction::class)->name('view');
 
-                        Route::put('', \App\Mrt\Suborder\Actions\AboutForAssistantAction::class)->name('update');
+                        Route::put('', \App\Mrt\Suborder\Actions\UpdateAssistantAction::class)->name('update');
 
                         Route::post('', \App\Mrt\Suborder\Actions\AboutForAssistantAction::class)->name('to_doctor');
 
