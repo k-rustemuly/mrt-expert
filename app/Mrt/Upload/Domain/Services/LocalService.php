@@ -22,10 +22,10 @@ class LocalService
 
     public function handle($file = null, $files = array())
     {
-        $name = $file->getClientOriginalName();
-        $unique_name = Str::orderedUuid(); // Generate a unique, random name...
-        $extension = "*"; // Determine the file's extension based on the file's MIME type...
-        $filepath = $this->generatePath();
+        // $name = $file->getClientOriginalName();
+        // $unique_name = Str::orderedUuid(); // Generate a unique, random name...
+        // $extension = "*"; // Determine the file's extension based on the file's MIME type...
+        // $filepath = $this->generatePath();
         Storage::put('avatars/1', $file);
         // $config = Config::get('filesystems.disks.s3');
         // if(File::streamUpload($filepath, $unique_name, $file, false))
