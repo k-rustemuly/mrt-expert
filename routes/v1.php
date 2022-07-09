@@ -228,6 +228,8 @@ Route::group([
 
                         Route::get('', \App\Mrt\Suborder\Actions\AboutForDoctorAction::class)->name('view');
 
+                        Route::put('', \App\Mrt\Suborder\Actions\TreatmentForDoctorAction::class)->name('under_treatment');
+
                     });
 
                 });

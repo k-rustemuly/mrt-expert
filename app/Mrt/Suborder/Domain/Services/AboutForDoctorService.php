@@ -77,12 +77,7 @@ class AboutForDoctorService extends BlockType
         $suborder_action = array();
         switch($aboutSuborder["status_id"])
         {
-            case SuborderStatus::CREATED:
-            case SuborderStatus::REVOKED:
-                $suborder_action = $this->getActions("created");
-            break;
             case SuborderStatus::WAITING:
-            case SuborderStatus::UNDER_TREATMENT:
                 $suborder_action = $this->getActions("waiting");
             break;
         }
@@ -158,9 +153,6 @@ class AboutForDoctorService extends BlockType
     private function getMainBlock(array $values = array())
     {
         return [
-                "id" => [
-                    "value" => $values["id"],
-                ],
                 "iin" => [
                     "value" => $values["iin"],
                 ],
@@ -172,13 +164,6 @@ class AboutForDoctorService extends BlockType
                 ],
                 "phone_number" => [
                     "value" => $values["phone_number"],
-                ],
-                "status" => [
-                    "value" => $values["status_name"],
-                    "color" => $values["status_color"],
-                ],
-                "reception_name" => [
-                    "value" => $values["reception_name"],
                 ],
                 "created_at" => [
                     "value" => Carbon::parse($values["created_at"])->locale(App::currentLocale())->timezone('Asia/Aqtau')->isoFormat('LLLL'),
@@ -262,12 +247,13 @@ class AboutForDoctorService extends BlockType
             //                 ->requestUrl(route('assistant.suborder.update', ['locale' => App::currentLocale(), 'suborder_id' => $this->suborder_id]))
             //                 ->render(),
             // ),
-            // "waiting" => array(
-            //     // "waiting_update" =>  Action::_()
-            //     //             ->type("info")
-            //     //             ->requestType("put")
-            //     //             ->requestUrl(route('assistant.suborder.update', ['locale' => App::currentLocale(), 'suborder_id' => $this->suborder_id]))
-            //     //             ->render(),
+            "waiting" => array(
+                "under_treatment" =>  Action::_()
+                            ->type("info")
+                            ->requestType("put")
+                            ->requestUrl(route('doctor.suborder.under_treatment', ['locale' => App::currentLocale(), 'suborder_id' => $this->suborder_id]))
+                            ->render(),
+            )
             //     "revoke" =>  Action::_()
             //                 ->type("error")
             //                 ->requestType("put")

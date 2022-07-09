@@ -144,4 +144,9 @@ class SuborderRepository extends ReferenceRepository
     {
         return $this->where(["id" => $id])->where(["branch_id" => $branch_id])->where("status_id", "!=", SuborderStatus::COMPLETED)->update($attributes);
     }
+
+    public function acceptByDoctor($doctor_id, $suborder_id)
+    {
+        return  $this->where('doctors', 'like', "%@".$doctor_id."@%")->where('id', $suborder_id)->where('status_id', SuborderStatus::WAITING)->update(["status_id" => SuborderStatus::UNDER_TREATMENT, "doctors" => "@".$doctor_id."@"]);
+    }
 }
