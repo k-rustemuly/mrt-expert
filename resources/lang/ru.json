@@ -224,7 +224,7 @@
     "suborder.header.subservice_name.hint" : " ",
     "suborder.header.appointment_date.name" : "Назначенное время",
     "suborder.header.appointment_date.hint" : " ",
-    "one_suborder.block.order_info.name" : "Основный данные",
+    "one_suborder.block.order_info.name" : "Основные данные",
     "one_suborder.block.values.id.name" : "ID заказа",
     "one_suborder.block.values.iin.name" : "ИИН",
     "one_suborder.block.values.patient_name.name" : "ФИО",

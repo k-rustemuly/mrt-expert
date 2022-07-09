@@ -10,6 +10,6 @@ class File {
         "type" => "file",
         "max_file" => 1,
         "accept" => "*",
-        "max_size_byte" => 53687091200
+        "max_size_byte" => 5000000000
     );
 }
