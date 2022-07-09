@@ -220,6 +220,17 @@ Route::group([
 
             Route::middleware([ParseJWTToken::class])->group(function () {
 
+                Route::group(['prefix' => 'suborder', 'as' => 'suborder.'], function() {
+
+                    Route::get('/', \App\Mrt\Suborder\Actions\ListForDoctorAction::class);
+
+                    Route::group(['prefix' => '/{suborder_id}', 'where' => ['suborder_id' => '[0-9]+']], function() {
+
+                        Route::get('', \App\Mrt\Suborder\Actions\AboutForDoctorAction::class)->name('view');
+
+                    });
+
+                });
 
             });
 
@@ -243,9 +254,8 @@ Route::group([
 
         Route::group(['prefix' => 'file', 'as' => 'file.'], function() {
 
-            // Route::post('/upload', \App\Mrt\Upload\Actions\UplfileoadAction::class);
-            Route::post('/upload', \App\Mrt\Upload\Actions\LocalAction::class);
-
+            Route::post('/upload', \App\Mrt\Upload\Actions\UplfileoadAction::class);
+            //Route::post('/upload', \App\Mrt\Upload\Actions\LocalAction::class);
         });
 
     });

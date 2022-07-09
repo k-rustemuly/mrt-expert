@@ -49,6 +49,34 @@ class SuborderRepository extends ReferenceRepository
         return $result ? $result->toArray() : [];
     }
 
+    public function getAllByDoctorId($doctor_id, $id)
+    {
+        $query = $this->join('rb_suborder_status', $this->model->table.'.status_id', '=', 'rb_suborder_status.id')
+        ->join('rb_subservice', $this->model->table.'.subservice_id', '=', 'rb_subservice.id')
+        ->join('rb_service', 'rb_subservice.service_id', '=', 'rb_service.id')
+        ->leftJoin('upload', $this->model->table.'.file', '=', 'upload.id')
+        ->select($this->model->table.'.id',
+            'rb_suborder_status.name_'.$this->language.' as status_name', 
+            'rb_subservice.name_'.$this->language.' as subservice_name', 
+            'rb_service.name_'.$this->language.' as service_name', 
+            'rb_suborder_status.color as status_color',
+            $this->model->table.'.order_id',
+            $this->model->table.'.status_id',
+            $this->model->table.'.reception_comment',
+            $this->model->table.'.assistant_comment',
+            $this->model->table.'.doctors',
+            'upload.id as file_id',
+            'upload.uuid as file_uuid',
+            'upload.name as file_name',
+            'upload.url as file_url',
+            $this->model->table.'.created_at',
+            $this->model->table.'.updated_at')
+        ->where($this->model->table.'.doctors', 'like' ,"%@".$doctor_id."@%")
+        ->where($this->model->table.'.id', $id);
+        $result = $query->first();
+        return $result ? $result->toArray() : [];
+    }
+
     public function getById($id)
     {
         $query = $this->model->where('id', $id);
@@ -92,6 +120,18 @@ class SuborderRepository extends ReferenceRepository
             $this->model->table.'.appointment_date')
         ->where($this->model->table.'.status_id', $status_id)
         ->where($this->model->table.'.branch_id', $branch_id);
+        return $query->get()->all();
+    }
+
+    public function getAllByDoctorIdAndStatusId($doctor_id, $status_id)
+    {
+        $query = $this->join('rb_subservice', $this->model->table.'.subservice_id', '=', 'rb_subservice.id')
+        ->join('rb_service', 'rb_subservice.service_id', '=', 'rb_service.id')
+        ->select($this->model->table.'.id',
+            'rb_subservice.name_'.$this->language.' as subservice_name', 
+            'rb_service.name_'.$this->language.' as service_name')
+        ->where($this->model->table.'.status_id', $status_id)
+        ->where($this->model->table.'.doctors', 'like' ,"%@".$doctor_id."@%");
         return $query->get()->all();
     }
 
