@@ -254,7 +254,7 @@ Route::group([
 
         Route::group(['prefix' => 'file', 'as' => 'file.'], function() {
 
-            Route::post('/upload', \App\Mrt\Upload\Actions\UplfileoadAction::class);
+            Route::post('/upload', \App\Mrt\Upload\Actions\UploadAction::class);
             //Route::post('/upload', \App\Mrt\Upload\Actions\LocalAction::class);
         });
 
