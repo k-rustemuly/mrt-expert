@@ -45,7 +45,7 @@ class MyOrderInfoService extends BlockType
             "main_info" => Block::_()
                         ->values($this->getMainBlock($aboutOrder))
             );
-        $suborders = $this->suborderRepository->getAllByOrderId($aboutOrder["id"]);
+        $suborders = $this->suborderRepository->getAllByOrderIdPatient($aboutOrder["id"]);
         for($i=0; $i<count($suborders); $i++)
         {
             $aboutSuborder = $suborders[$i]->toArray();
@@ -82,10 +82,6 @@ class MyOrderInfoService extends BlockType
                 "appointment_date" => [
                     "name" => __($this->name.".appointment_date"),
                     "value" => Carbon::parse($values["appointment_date"])->locale(App::currentLocale())->timezone('Asia/Aqtau')->isoFormat('LLLL'),
-                ],
-                "created_at" => [
-                    "name" => __($this->name.".created_at"),
-                    "value" => Carbon::parse($values["created_at"])->locale(App::currentLocale())->timezone('Asia/Aqtau')->isoFormat('LLLL'),
                 ]
         ];
     }
@@ -105,12 +101,6 @@ class MyOrderInfoService extends BlockType
                 ],
                 "patient_name" => [
                     "value" => $values["patient_name"],
-                ],
-                "email" => [
-                    "value" => $values["email"],
-                ],
-                "phone_number" => [
-                    "value" => $values["phone_number"],
                 ],
                 "status" => [
                     "value" => $values["status_name"],

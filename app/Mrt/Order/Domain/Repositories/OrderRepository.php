@@ -71,8 +71,6 @@ class OrderRepository extends Repository
             'rb_order_status.color as status_color',
             'patient.iin',
             'patient.full_name as patient_name',
-            'patient.email',
-            'patient.phone_number',
             $this->model->table.'.created_at')
         ->where($this->model->table.'.patient_login_id', $patient_login_id);
         $result =  $query->first();
