@@ -86,10 +86,6 @@ class MyOrderInfoService extends BlockType
                 "created_at" => [
                     "name" => __($this->name.".created_at"),
                     "value" => Carbon::parse($values["created_at"])->locale(App::currentLocale())->timezone('Asia/Aqtau')->isoFormat('LLLL'),
-                ],
-                "updated_at" => [
-                    "name" => __($this->name.".updated_at"),
-                    "value" =>  Carbon::parse($values["updated_at"])->locale(App::currentLocale())->timezone('Asia/Aqtau')->isoFormat('LLLL'),
                 ]
         ];
     }
