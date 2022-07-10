@@ -151,4 +151,12 @@ class SuborderRepository extends ReferenceRepository
     {
         return  $this->where('doctors', 'like', "%@".$doctor_id."@%")->where('id', $suborder_id)->where('status_id', SuborderStatus::WAITING)->update(["status_id" => SuborderStatus::UNDER_TREATMENT, "doctors" => "@".$doctor_id."@"]);
     }
+
+    public function submitByDoctor($doctor_id, $suborder_id, $data)
+    {
+        return  $this->where('doctors', 'like', "%@".$doctor_id."@%")
+                ->where('id', $suborder_id)
+                ->where('status_id', SuborderStatus::UNDER_TREATMENT)
+                ->update($data);
+    }
 }

@@ -230,7 +230,7 @@ Route::group([
 
                         Route::put('', \App\Mrt\Suborder\Actions\TreatmentForDoctorAction::class)->name('under_treatment');
 
-                        Route::put('/submit', \App\Mrt\Suborder\Actions\TreatmentForDoctorAction::class)->name('submit');
+                        Route::put('/submit', \App\Mrt\Suborder\Actions\SubmitForDoctorAction::class)->name('submit');
 
                         Route::put('/reject', \App\Mrt\Suborder\Actions\TreatmentForDoctorAction::class)->name('reject');
 
