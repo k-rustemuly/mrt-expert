@@ -49,6 +49,10 @@ class MyOrderInfoService extends BlockType
         for($i=0; $i<count($suborders); $i++)
         {
             $aboutSuborder = $suborders[$i]->toArray();
+            $aboutSuborder["file"][] = [
+                "url" => $aboutSuborder["file_url"],
+                "name" => $aboutSuborder["file_name"],
+            ];
             $this->blocks["suborder_".$i] = Block::_()
                                             ->name(__($this->name.".suborder", ['number' => $i+1]))
                                             ->values($this->getSuborderBlock($aboutSuborder));
@@ -82,6 +86,11 @@ class MyOrderInfoService extends BlockType
                 "appointment_date" => [
                     "name" => __($this->name.".appointment_date"),
                     "value" => Carbon::parse($values["appointment_date"])->locale(App::currentLocale())->timezone('Asia/Aqtau')->isoFormat('LLLL'),
+                ],
+                "file" => [
+                    "type" => "file",
+                    "name" => __($this->name.".file"),
+                    "value" => $values["file"]
                 ]
         ];
     }
