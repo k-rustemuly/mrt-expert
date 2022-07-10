@@ -49,10 +49,11 @@ class MyOrderInfoService extends BlockType
         for($i=0; $i<count($suborders); $i++)
         {
             $aboutSuborder = $suborders[$i]->toArray();
-            $aboutSuborder["file"][] = [
+            
+            $aboutSuborder["file"][] = $aboutSuborder["file_url"] ? [
                 "url" => $aboutSuborder["file_url"],
                 "name" => $aboutSuborder["file_name"],
-            ];
+            ] : null;
             $this->blocks["suborder_".$i] = Block::_()
                                             ->name(__($this->name.".suborder", ['number' => $i+1]))
                                             ->values($this->getSuborderBlock($aboutSuborder));
