@@ -60,7 +60,7 @@ class AddService
         $data["full_name"] = $patient["full_name"];
         $data["login"] = $randomLogin;
         $data["password"] = $randomPassword;
-        $data["to_inactive"] = date('Y-m-d H:i:s', strtotime("+180 days"));
+        $data["to_inactive"] = date('Y-m-d H:i:s', strtotime("+90 days"));
 
         return $this->loginRepository->create($data)->id;
     }

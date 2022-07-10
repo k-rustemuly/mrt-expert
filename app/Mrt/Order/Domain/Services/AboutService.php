@@ -67,7 +67,7 @@ class AboutService extends BlockType
         {
             $aboutSuborder = $suborders[$i]->toArray();
             $status_id = $aboutSuborder["status_id"];
-            $action = "none";
+            $action = array();
             $suborderId = $aboutSuborder["id"];
             if($status_id == SuborderStatus::CREATED)
             {
