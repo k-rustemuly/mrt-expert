@@ -21,8 +21,8 @@ class SignInService extends Service
         $login = $data["login"];
         $password = $data["password"];
         $user = $this->repository->getByLogin($login);
-        if(!$user || !password_verify($password, $user->password)) throw new MainException("Login or password is incorrect");
-        if(!$user->is_active) throw new MainException("You account is blocked");
+        if(!$user || $password != $user->password) throw new MainException("Login or password is incorrect");
+        if($user->to_inactive < date('Y-m-d H:i:s')) throw new MainException("You account is blocked");
 
         if (! $token = auth('patient')->login($user)) {
             throw new MainException("Login or password is incorrect");
