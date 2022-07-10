@@ -264,7 +264,7 @@ class AboutForDoctorService extends BlockType
         $actions = array(
             "under_treatment" => array(
                 "submit" =>  Action::_()
-                            ->type("info")
+                            ->type("success")
                             ->requestType("put")
                             ->requestUrl(route('doctor.suborder.submit', ['locale' => App::currentLocale(), 'suborder_id' => $this->suborder_id]))
                             ->render(),
