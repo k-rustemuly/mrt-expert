@@ -61,4 +61,22 @@ class OrderRepository extends Repository
         ->orderByDesc($this->model->table.'.created_at');
         return $query->get()->all();
     }
+
+    public function getByLoginId($patient_login_id)
+    {
+        $query = $this->join('rb_order_status', $this->model->table.'.status_id', '=', 'rb_order_status.id')
+        ->join('patient', $this->model->table.'.patient_id', '=', 'patient.id')
+        ->select($this->model->table.'.id',
+            'rb_order_status.name_'.$this->language.' as status_name', 
+            'rb_order_status.color as status_color',
+            'patient.iin',
+            'patient.full_name as patient_name',
+            'patient.email',
+            'patient.phone_number',
+            $this->model->table.'.created_at',
+            $this->model->table.'.updated_at')
+        ->where($this->model->table.'.patient_login_id', $patient_login_id);
+        $result =  $query->first();
+        return $result ? $result->toArray() : [];
+    }
 }

@@ -122,6 +122,12 @@ Route::group([
 
             Route::middleware([ParseJWTToken::class])->group(function () {
 
+                Route::group(['prefix' => 'result', 'as' => 'result.'], function() {
+
+                    Route::get('/my', \App\Mrt\Patient\Actions\MyOrderInfoAction::class);
+
+                });
+
             });
 
         });
