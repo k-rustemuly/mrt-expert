@@ -295,7 +295,7 @@
     "my_order.service_name" : "Наименование услуги",
     "my_order.subservice_name" : "Наименование подуслуги",
     "my_order.status_name" : "Статус",
-    "my_order.created_at" : "Создано",
+    "my_order.appointment_date" : "Назначенное время",
     "" : "",
     "" : "",
     "" : "",
