@@ -17,6 +17,7 @@ use App\Helpers\FieldTypes\Textarea;
 use Carbon\Carbon;
 use App\Mrt\SuborderStatus\Domain\Models\SuborderStatus;
 use App\Mrt\Doctor\Domain\Repositories\DoctorRepository;
+use App\Mrt\Branch\Domain\Repositories\BranchRepository;
 
 class AboutForDoctorService extends BlockType
 {
@@ -26,6 +27,8 @@ class AboutForDoctorService extends BlockType
     protected $orderRepository;
 
     protected $doctorRepository;
+
+    protected $branchRepository;
 
     public $name = "one_suborder";
 
@@ -39,11 +42,12 @@ class AboutForDoctorService extends BlockType
 
     public $doctor_id = 0;
 
-    public function __construct(Repository $repository, OrderRepository $orderRepository, DoctorRepository $doctorRepository)
+    public function __construct(Repository $repository, OrderRepository $orderRepository, DoctorRepository $doctorRepository, BranchRepository $branchRepository)
     {
         $this->repository = $repository;
         $this->orderRepository = $orderRepository;
         $this->doctorRepository = $doctorRepository;
+        $this->branchRepository = $branchRepository;
     }
 
     /**
@@ -59,6 +63,7 @@ class AboutForDoctorService extends BlockType
         if(empty($aboutSuborder)) throw new MainException("You dont have permission or record not found");
 
         $aboutOrder = $this->orderRepository->getById($aboutSuborder["order_id"]);
+        $aboutBranch = $this->branchRepository->getFullInfoById($aboutSuborder["branch_id"]);
 
         $aboutSuborder["file"] = array();
         if($aboutSuborder["file_id"] && $aboutSuborder["file_id"] > 0)
@@ -80,8 +85,13 @@ class AboutForDoctorService extends BlockType
             case SuborderStatus::WAITING:
                 $suborder_action = $this->getActions("waiting");
             break;
+            case SuborderStatus::UNDER_TREATMENT:
+                $suborder_action = $this->getActions("under_treatment");
+            break;
         }
         $this->blocks = array(
+            "branch_info" => Block::_()
+                            ->values($this->getBranchBlock($aboutBranch)),
             "order_info" => Block::_()
                         ->values($this->getMainBlock($aboutOrder)),
             "suborder_info" => Block::_()
@@ -89,6 +99,24 @@ class AboutForDoctorService extends BlockType
                         ->values($this->getSuborderBlock($aboutSuborder))
             );
         return $this->getData();
+    }
+    /** 
+     * Филиал блок
+     * 
+     * @param array<mixed> $values Данные для заполнение данных блока
+     * 
+     * @return array<mixed>
+    */
+    private function getBranchBlock(array $values = array())
+    {
+        return [
+                "branch_name" => [
+                    "value" => $values["name"],
+                ],
+                "punkt_name" => [
+                    "value" => $values["punkt_name"],
+                ]
+        ];
     }
 
     /** 
@@ -234,19 +262,18 @@ class AboutForDoctorService extends BlockType
     private function getActions($type = "default")
     {
         $actions = array(
-            // "created" => array(
-            //     "send_to_doctor" => 
-            //         Action::_()
-            //         ->type("success")
-            //         ->requestType("put")
-            //         ->requestUrl(route('assistant.suborder.send_to_doctor', ['locale' => App::currentLocale(), 'suborder_id' => $this->suborder_id]))
-            //         ->render(),
-            //     "update" =>  Action::_()
-            //                 ->type("info")
-            //                 ->requestType("put")
-            //                 ->requestUrl(route('assistant.suborder.update', ['locale' => App::currentLocale(), 'suborder_id' => $this->suborder_id]))
-            //                 ->render(),
-            // ),
+            "under_treatment" => array(
+                "submit" =>  Action::_()
+                            ->type("info")
+                            ->requestType("put")
+                            ->requestUrl(route('doctor.suborder.submit', ['locale' => App::currentLocale(), 'suborder_id' => $this->suborder_id]))
+                            ->render(),
+                "reject" =>  Action::_()
+                            ->type("error")
+                            ->requestType("put")
+                            ->requestUrl(route('doctor.suborder.reject', ['locale' => App::currentLocale(), 'suborder_id' => $this->suborder_id]))
+                            ->render(),
+            ),
             "waiting" => array(
                 "under_treatment" =>  Action::_()
                             ->type("info")
@@ -254,12 +281,6 @@ class AboutForDoctorService extends BlockType
                             ->requestUrl(route('doctor.suborder.under_treatment', ['locale' => App::currentLocale(), 'suborder_id' => $this->suborder_id]))
                             ->render(),
             )
-            //     "revoke" =>  Action::_()
-            //                 ->type("error")
-            //                 ->requestType("put")
-            //                 ->requestUrl(route('assistant.suborder.revoke', ['locale' => App::currentLocale(), 'suborder_id' => $this->suborder_id]))
-            //                 ->render(),
-            // )
         );
         return $actions[$type]??[];
     }
