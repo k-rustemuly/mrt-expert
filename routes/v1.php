@@ -232,6 +232,8 @@ Route::group([
 
                         Route::put('/submit', \App\Mrt\Suborder\Actions\TreatmentForDoctorAction::class)->name('submit');
 
+                        Route::put('/reject', \App\Mrt\Suborder\Actions\TreatmentForDoctorAction::class)->name('reject');
+
                     });
 
                 });
