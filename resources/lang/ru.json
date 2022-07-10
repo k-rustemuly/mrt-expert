@@ -267,7 +267,7 @@
     "one_suborder.file" : "Файл",
     "one_suborder.action.under_treatment.name" : "Принять заказ",
     "one_suborder.action.under_treatment.hint" : " ",
-    "one_suborder.block.branch_info.name " : "Филиал",
+    "one_suborder.block.branch_info.name" : "Филиал",
     "one_suborder.block.values.branch_name.name" : "Наименование",
     "one_suborder.block.values.punkt_name.name" : "Пункт",
     "one_suborder.action.submit.name" : "Ответить",

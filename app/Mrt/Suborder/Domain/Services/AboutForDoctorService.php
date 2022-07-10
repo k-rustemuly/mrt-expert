@@ -10,9 +10,7 @@ use App\Helpers\Block;
 use App\Exceptions\MainException;
 use Illuminate\Support\Facades\App;
 use App\Helpers\Field;
-use App\Helpers\FieldTypes\File;
-use App\Helpers\FieldTypes\DateTime;
-use App\Helpers\FieldTypes\Reference;
+use App\Helpers\FieldTypes\Text;
 use App\Helpers\FieldTypes\Textarea;
 use Carbon\Carbon;
 use App\Mrt\SuborderStatus\Domain\Models\SuborderStatus;
@@ -77,7 +75,7 @@ class AboutForDoctorService extends BlockType
         }
         
         $this->actions = $this->getActions();
-        $this->headers = $this->getHeader($aboutSuborder);
+        $this->headers = $this->getHeader($aboutOrder);
         
         $suborder_action = array();
         switch($aboutSuborder["status_id"])
@@ -212,45 +210,25 @@ class AboutForDoctorService extends BlockType
     private function getHeader($values = array())
     {
         return [
-            // "send_to_doctor" => [
-            //     "doctors" => Field::_()
-            //                 ->init(new Reference("doctors"))
-            //                 ->referenceUrl(route('assistant.suborder.doctors', ['locale' => App::currentLocale(), 'suborder_id' => $this->suborder_id]))
-            //                 ->maxSelect(-1)
-            //                 ->value($values["doctors"])
-            //                 ->onUpdate("visible", true)
-            //                 ->render(),
-            //     "file" => Field::_()
-            //                     ->init(new File())
-            //                     ->accept(".zip,.rar")
-            //                     ->onUpdate("visible", true)
-            //                     ->value($values["file"])
-            //                     ->render(),
-            //     "assistant_comment" => Field::_()
-            //                     ->init(new Textarea())
-            //                     ->onUpdate("visible")
-            //                     ->value($values["assistant_comment"])
-            //                     ->render(),
-            // ],
-            // "update" => [
-            //     "appointment_date" => Field::_()
-            //                         ->init(new DateTime())
-            //                         ->onUpdate("visible", true)
-            //                         ->value(date("Y-m-d H:i", strtotime($values["appointment_date"])))
-            //                         ->render(),
-            //     "assistant_comment" => Field::_()
-            //                         ->init(new Textarea())
-            //                         ->onUpdate("visible")
-            //                         ->value($values["assistant_comment"])
-            //                         ->render(),
-            // ],
-            // "waiting_update" => [
-            //     "assistant_comment" => Field::_()
-            //                         ->init(new Textarea())
-            //                         ->onUpdate("visible")
-            //                         ->value($values["assistant_comment"])
-            //                         ->render(),
-            // ]
+            "submit" => [
+                "iin" => Field::_()
+                        ->init(new Text())
+                        ->value($values["iin"])
+                        ->render(),
+                "patient_name" => Field::_()
+                                ->init(new Text())
+                                ->value($values["patient_name"])
+                                ->render(),
+                "research" => Field::_()
+                                ->init(new Textarea())
+                                ->onUpdate("visible", true)
+                                ->render(),
+                "conclusion" => Field::_()
+                                ->init(new Textarea())
+                                ->onUpdate("visible", true)
+                                ->render(),
+                
+            ]
         ];
     }
 
