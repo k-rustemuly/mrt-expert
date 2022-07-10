@@ -4,7 +4,7 @@ namespace App\Mrt\Patient\Domain\Services;
 
 use App\Domain\Services\BlockType;
 use App\Mrt\Order\Domain\Repositories\OrderRepository as Repository;
-use App\Mrt\Subservice\Domain\Repositories\SubserviceRepository;
+use App\Mrt\Suborder\Domain\Repositories\SuborderRepository;
 use App\Helpers\Block;
 use App\Exceptions\MainException;
 use Illuminate\Support\Facades\App;
@@ -15,7 +15,7 @@ class MyOrderInfoService extends BlockType
 
     protected $repository;
 
-    protected $subserviceRepository;
+    protected $suborderRepository;
 
     public $name = "my_order";
 
@@ -25,10 +25,10 @@ class MyOrderInfoService extends BlockType
 
     public $headers;
 
-    public function __construct(Repository $repository, SubserviceRepository $subserviceRepository)
+    public function __construct(Repository $repository, SuborderRepository $suborderRepository)
     {
         $this->repository = $repository;
-        $this->subserviceRepository = $subserviceRepository;
+        $this->suborderRepository = $suborderRepository;
     }
 
     /**
@@ -45,7 +45,53 @@ class MyOrderInfoService extends BlockType
             "main_info" => Block::_()
                         ->values($this->getMainBlock($aboutOrder))
             );
+        $suborders = $this->suborderRepository->getAllByOrderId($aboutOrder["id"]);
+        for($i=0; $i<count($suborders); $i++)
+        {
+            $aboutSuborder = $suborders[$i]->toArray();
+            $this->blocks["suborder_".$i] = Block::_()
+                                            ->name(__($this->name.".suborder", ['number' => $i+1]))
+                                            ->values($this->getSuborderBlock($aboutSuborder));
+        }
         return $this->getData();
+    }
+
+    /** 
+     * Подзаказы блок
+     * 
+     * @param array<mixed> $values Данные для заполнение данных блока
+     * 
+     * @return array<mixed>
+    */
+    private function getSuborderBlock(array $values = array())
+    {
+        return [
+                "service_name" => [
+                    "name" => __($this->name.".service_name"),
+                    "value" => $values["service_name"],
+                ],
+                "subservice_name" => [
+                    "name" => __($this->name.".subservice_name"),
+                    "value" => $values["subservice_name"],
+                ],
+                "status_name" => [
+                    "name" => __($this->name.".status_name"),
+                    "value" => $values["status_name"],
+                    "color" => $values["status_color"],
+                ],
+                "appointment_date" => [
+                    "name" => __($this->name.".appointment_date"),
+                    "value" => Carbon::parse($values["appointment_date"])->locale(App::currentLocale())->timezone('Asia/Aqtau')->isoFormat('LLLL'),
+                ],
+                "created_at" => [
+                    "name" => __($this->name.".created_at"),
+                    "value" => Carbon::parse($values["created_at"])->locale(App::currentLocale())->timezone('Asia/Aqtau')->isoFormat('LLLL'),
+                ],
+                "updated_at" => [
+                    "name" => __($this->name.".updated_at"),
+                    "value" =>  Carbon::parse($values["updated_at"])->locale(App::currentLocale())->timezone('Asia/Aqtau')->isoFormat('LLLL'),
+                ]
+        ];
     }
 
     /** 
@@ -76,9 +122,6 @@ class MyOrderInfoService extends BlockType
                 ],
                 "created_at" => [
                     "value" => Carbon::parse($values["created_at"])->locale(App::currentLocale())->timezone('Asia/Aqtau')->isoFormat('LLLL'),
-                ],
-                "updated_at" => [
-                    "value" =>  Carbon::parse($values["updated_at"])->locale(App::currentLocale())->timezone('Asia/Aqtau')->isoFormat('LLLL'),
                 ]
         ];
     }

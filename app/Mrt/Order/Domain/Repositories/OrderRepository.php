@@ -73,8 +73,7 @@ class OrderRepository extends Repository
             'patient.full_name as patient_name',
             'patient.email',
             'patient.phone_number',
-            $this->model->table.'.created_at',
-            $this->model->table.'.updated_at')
+            $this->model->table.'.created_at')
         ->where($this->model->table.'.patient_login_id', $patient_login_id);
         $result =  $query->first();
         return $result ? $result->toArray() : [];
