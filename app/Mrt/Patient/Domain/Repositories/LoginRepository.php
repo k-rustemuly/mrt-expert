@@ -17,4 +17,9 @@ class LoginRepository extends Repository
     {
         return $this->model->where('login', $login)->first();
     }
+
+    public function exists($login, $password)
+    {
+        return $this->model->where('login', $login)->where('password', $password)->exists();
+    }
 }

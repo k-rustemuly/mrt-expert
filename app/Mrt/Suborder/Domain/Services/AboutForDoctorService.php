@@ -11,7 +11,7 @@ use App\Exceptions\MainException;
 use Illuminate\Support\Facades\App;
 use App\Helpers\Field;
 use App\Helpers\FieldTypes\Text;
-use App\Helpers\FieldTypes\Textarea;
+use App\Helpers\FieldTypes\Html;
 use Carbon\Carbon;
 use App\Mrt\SuborderStatus\Domain\Models\SuborderStatus;
 use App\Mrt\Doctor\Domain\Repositories\DoctorRepository;
@@ -222,11 +222,11 @@ class AboutForDoctorService extends BlockType
                                 ->value($values["patient_name"])
                                 ->render(),
                 "research" => Field::_()
-                                ->init(new Textarea())
+                                ->init(new Html())
                                 ->onUpdate("visible", true)
                                 ->render(),
                 "conclusion" => Field::_()
-                                ->init(new Textarea())
+                                ->init(new Html())
                                 ->onUpdate("visible", true)
                                 ->render(),
                 
