@@ -156,6 +156,13 @@ class AboutService extends BlockType
                 "phone_number" => [
                     "value" => $values["phone_number"],
                 ],
+                "login" => [
+                    "value" => $values["login"],
+                ],
+                "password" => [
+                    "visibility" => "spoiler",
+                    "value" => $values["password"],
+                ],
                 "status" => [
                     "value" => $values["status_name"],
                     "color" => $values["status_color"],
