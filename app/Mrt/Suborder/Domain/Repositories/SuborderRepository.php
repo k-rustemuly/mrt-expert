@@ -154,7 +154,7 @@ class SuborderRepository extends ReferenceRepository
 
     public function rejectByDoctor($doctor_id, $suborder_id)
     {
-        return  $this->where('doctors', 'like', "@".$doctor_id."@")->where('id', $suborder_id)->where('status_id', SuborderStatus::WAITING)->update(["status_id" => SuborderStatus::REJECTED]);
+        return  $this->where('doctors', 'like', "@".$doctor_id."@")->where('id', $suborder_id)->where('status_id', SuborderStatus::UNDER_TREATMENT)->update(["status_id" => SuborderStatus::REJECTED]);
     }
 
     public function submitByDoctor($doctor_id, $suborder_id, $data)
