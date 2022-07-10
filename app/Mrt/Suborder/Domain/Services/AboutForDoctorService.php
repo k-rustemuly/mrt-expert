@@ -213,10 +213,12 @@ class AboutForDoctorService extends BlockType
             "submit" => [
                 "iin" => Field::_()
                         ->init(new Text())
+                        ->onUpdate("disabled")
                         ->value($values["iin"])
                         ->render(),
                 "patient_name" => Field::_()
                                 ->init(new Text())
+                                ->onUpdate("disabled")
                                 ->value($values["patient_name"])
                                 ->render(),
                 "research" => Field::_()
