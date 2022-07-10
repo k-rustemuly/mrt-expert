@@ -62,6 +62,7 @@ class SuborderRepository extends ReferenceRepository
             'rb_suborder_status.color as status_color',
             $this->model->table.'.order_id',
             $this->model->table.'.status_id',
+            $this->model->table.'.branch_id',
             $this->model->table.'.reception_comment',
             $this->model->table.'.assistant_comment',
             $this->model->table.'.doctors',
