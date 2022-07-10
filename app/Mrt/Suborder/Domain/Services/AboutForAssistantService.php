@@ -94,6 +94,7 @@ class AboutForAssistantService extends BlockType
         {
             case SuborderStatus::CREATED:
             case SuborderStatus::REVOKED:
+            case SuborderStatus::REJECTED:
                 $suborder_action = $this->getActions("created");
             break;
             case SuborderStatus::WAITING:
