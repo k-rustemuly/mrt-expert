@@ -72,7 +72,7 @@ class SubmitForDoctorService
                 $login = $auth_info["login"];
                 $password = $auth_info["password"];
                 $message = __("Patient sms", ["login" => $login, "password" => $password]);
-                $smsc = config('integration.smsc');
+                $smsc = config('integration.smsc')["route"];
                 $route = $smsc."&phones=".$phone_number."&mes=".urlencode($message);
                 Http::get($route);
             }
