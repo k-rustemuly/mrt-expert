@@ -65,6 +65,7 @@ class SubmitForDoctorService
                     $send_sms = false;
                 }
             }
+            $route= "sfdfds";
             if($send_sms)
             {
                 $auth_info = $this->orderRepository->getAuthById($order_id);
@@ -76,7 +77,7 @@ class SubmitForDoctorService
                 $route = $smsc."&phones=".$phone_number."&mes=".urlencode($message);
                 Http::get($route);
             }
-            return new SuccessPayload(__("Suborder success updated"));
+            return new SuccessPayload(__("Suborder success updated"), $route);
         }
 
         throw new MainException("Error to update suborder");
