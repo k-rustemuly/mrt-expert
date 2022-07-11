@@ -50,6 +50,7 @@ class SubmitForDoctorService
                 "uuid" => $uuid,
                 "name" => $filename,
                 "path" => $path,
+                "extension" => "pdf",
                 "url" => $url
             ])["id"];
             $this->repository->updateConclusion($suborder_id, $upload_id);
@@ -69,7 +70,7 @@ class SubmitForDoctorService
                 $auth_info = $this->orderRepository->getAuthById($order_id);
                 $phone_number = $auth_info["phone_number"];
                 $login = $auth_info["login"];
-                $password = $data["password"];
+                $password = $auth_info["password"];
                 $message = __("Patient sms", ["login" => $login, "password" => $password]);
                 $smsc = config('integration.smsc');
                 $route = $smsc."&phones=".$phone_number."&mes=".urlencode($message);
