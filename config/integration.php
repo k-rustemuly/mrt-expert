@@ -12,5 +12,8 @@ return [
         'scheme' => 'https://',
         'domain' => 'stat.gov.kz',
         'timeout' => 120
+    ],
+    'smsc' => [
+        "route" => "https://smsc.kz/sys/send.php?login=".env('SMSC_LOGIN', 'undefined')."&psw=".env('SMSC_PASSWORD', 'undefined')."&fmt=3",
     ]
 ];

@@ -76,4 +76,17 @@ class OrderRepository extends Repository
         $result =  $query->first();
         return $result ? $result->toArray() : [];
     }
+
+    public function getAuthById($id)
+    {
+        $query = $this->join('patient', $this->model->table.'.patient_id', '=', 'patient.id')
+        ->join('patient_login', $this->model->table.'.patient_login_id', '=', 'patient_login.id')
+        ->select($this->model->table.'.id',
+            'patient.phone_number',
+            'patient_login.login',
+            'patient_login.password')
+        ->where($this->model->table.'.id', $id);
+        $result =  $query->first();
+        return $result ? $result->toArray() : [];
+    }
 }

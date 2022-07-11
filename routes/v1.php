@@ -268,6 +268,7 @@ Route::group([
 
             Route::post('/upload', \App\Mrt\Upload\Actions\UploadAction::class);
             //Route::post('/upload', \App\Mrt\Upload\Actions\LocalAction::class);
+            Route::get('/pdf', \App\Mrt\Upload\Actions\PdfAction::class);
         });
 
     });

@@ -8,7 +8,7 @@
 
 <body>
     <table class="table table-bordered">
-        <tr>
+        <!-- <tr>
             <td>
                 {{$data->full_name}}
             </td>
@@ -23,7 +23,7 @@
             <td>
                 {{$user->zip_code}}
             </td>
-        </tr>
+        </tr> -->
     </table>
 </body>
 
