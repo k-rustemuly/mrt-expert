@@ -43,7 +43,7 @@ class SubmitForDoctorService
             $pdf = Pdf::loadView('empty', $data);
             $filename = Str::orderedUuid().".pdf";
             $path = 'public/pdf/'.$filename;
-            Storage::disk('public')->put($path, $pdf->output());
+            Storage::put($path, $pdf->output());
             $url = Storage::url($path);
             $uuid = Str::orderedUuid();
             $upload_id = $this->uploadRepository->create([
