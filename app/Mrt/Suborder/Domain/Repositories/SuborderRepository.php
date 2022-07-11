@@ -182,4 +182,9 @@ class SuborderRepository extends ReferenceRepository
         ->where($this->model->table.'.order_id', $order_id);
         return $query->get()->all();
     }
+
+    public function updateConclusion($id, $upload_id)
+    {
+        return $this->where(["id" => $id])->update(["conclusion_file_id" => $upload_id]);
+    }
 }

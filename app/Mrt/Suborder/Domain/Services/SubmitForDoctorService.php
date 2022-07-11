@@ -8,6 +8,10 @@ use App\Exceptions\MainException;
 use App\Mrt\SuborderStatus\Domain\Models\SuborderStatus;
 use App\Mrt\Order\Domain\Repositories\OrderRepository;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
+use App\Mrt\Upload\Domain\Repositories\UploadRepository;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class SubmitForDoctorService
 {
@@ -16,10 +20,13 @@ class SubmitForDoctorService
 
     protected $orderRepository;
 
-    public function __construct(Repository $repository, OrderRepository $orderRepository)
+    protected $uploadRepository;
+
+    public function __construct(Repository $repository, OrderRepository $orderRepository, UploadRepository $uploadRepository)
     {
         $this->repository = $repository;
         $this->orderRepository = $orderRepository;
+        $this->uploadRepository = $uploadRepository;
     }
 
     public function handle($suborder_id = 0, $data = array())
@@ -33,7 +40,20 @@ class SubmitForDoctorService
             $aboutSuborder = $this->repository->getAllByDoctorId($doctor_id, $suborder_id);
             $branch_id = $aboutSuborder["branch_id"];
             
-            //TODO: generate pdf
+            $pdf = Pdf::loadView('empty', $data);
+            $filename = Str::orderedUuid().".pdf";
+            $path = 'public/pdf/'.$filename;
+            Storage::put($path, $pdf->output());
+            $url = Storage::url($path);
+            $uuid = Str::orderedUuid();
+            $upload_id = $this->uploadRepository->create([
+                "uuid" => $uuid,
+                "name" => $filename,
+                "path" => $path,
+                "url" => $url
+            ])["id"];
+            $this->repository->updateConclusion($suborder_id, $upload_id);
+
             $order_id = $aboutSuborder["order_id"];
             $suborders = $this->repository->getAllByOrderId($order_id);
             $send_sms = true;
