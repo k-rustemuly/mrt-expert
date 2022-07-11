@@ -6,8 +6,8 @@
 <title></title>
 </head>
 <body>
-    {{!! $research !!}}
+    {!! $research !!}
     <br>
-    {{!! $conclusion !!}}
+    {!! $conclusion !!}
 </body>
 </html>
