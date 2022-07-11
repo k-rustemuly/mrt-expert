@@ -73,11 +73,7 @@ class MyOrderInfoService extends BlockType
         return [
                 "service_name" => [
                     "name" => __($this->name.".service_name"),
-                    "value" => $values["service_name"],
-                ],
-                "subservice_name" => [
-                    "name" => __($this->name.".subservice_name"),
-                    "value" => $values["subservice_name"],
+                    "value" => $values["service_name"].", ".$values["subservice_name"],
                 ],
                 "status_name" => [
                     "name" => __($this->name.".status_name"),
