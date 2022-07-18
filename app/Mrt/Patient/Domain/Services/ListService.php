@@ -6,6 +6,7 @@ use App\Domain\Services\TableType;
 use App\Mrt\Patient\Domain\Repositories\PatientRepository as Repository;
 use App\Helpers\FieldTypes\Email;
 use App\Helpers\FieldTypes\Text;
+use App\Helpers\FieldTypes\Date;
 use App\Helpers\FieldTypes\Number;
 use App\Helpers\FieldTypes\PhoneNumber;
 use App\Helpers\FieldTypes\Boolean;
@@ -72,6 +73,12 @@ class ListService extends TableType
                                 ->minLength(16)
                                 ->maxLength(16)
                                 ->render(),
+            "birthday" => Field::_()
+                        ->init(new Date())
+                        ->onCreate("visible")
+                        ->onUpdate("visible")
+                        ->maxLength(255)
+                        ->render(),
             "email" => Field::_()
                         ->init(new Email())
                         ->onCreate("visible")

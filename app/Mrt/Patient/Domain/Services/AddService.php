@@ -26,7 +26,7 @@ class AddService
         $data["phone_number"] = preg_replace('/[^0-9]/', '', $data["phone_number"]);
         $patient = $this->repository->create($data);
         if($patient != null)
-            return new SuccessPayload(__("New patient success added"), ["id" => $patient->id]);
+            return new SuccessPayload(__("New patient success added"), $patient->id);
 
         throw new MainException("Error to add new patient");
     }
