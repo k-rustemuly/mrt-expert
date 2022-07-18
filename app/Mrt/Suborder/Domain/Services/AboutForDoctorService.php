@@ -153,6 +153,10 @@ class AboutForDoctorService extends BlockType
                     "name" => __($this->name.".assistant_comment"),
                     "value" => $values["assistant_comment"],
                 ],
+                "doctor_comment" => [
+                    "name" => __($this->name.".doctor_comment"),
+                    "value" => $values["doctor_comment"],
+                ],
                 "file" => [
                     "type" => "file",
                     "name" => __($this->name.".file"),
