@@ -135,6 +135,10 @@ class AboutForAssistantService extends BlockType
                     "name" => __($this->name.".subservice_name"),
                     "value" => $values["subservice_name"],
                 ],
+                "is_kmis" => [
+                    "name" => __($this->name.".is_kmis"),
+                    "value" => $values["is_kmis"] ? __("yes") : __("no")
+                ],
                 "status_name" => [
                     "name" => __($this->name.".status_name"),
                     "value" => $values["status_name"],

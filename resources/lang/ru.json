@@ -235,6 +235,7 @@
     "one_suborder.block.order_info.name" : "Основные данные",
     "one_suborder.block.values.id.name" : "ID заказа",
     "one_suborder.block.values.iin.name" : "ИИН",
+    "one_suborder.block.values.is_kmis.name" : "КМИС",
     "one_suborder.block.values.patient_name.name" : "ФИО",
     "one_suborder.block.values.email.name" : "Email",
     "one_suborder.block.values.phone_number.name" : "Номер телефона",
