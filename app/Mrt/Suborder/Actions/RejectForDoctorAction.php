@@ -2,7 +2,7 @@
 
 namespace App\Mrt\Suborder\Actions;
 
-use App\Domain\Requests\DefaultRequest as Request;
+use App\Mrt\Suborder\Domain\Requests\RejectForDoctorFormRequest as Request;
 use App\Mrt\Suborder\Domain\Services\RejectForDoctorService as Service;
 use App\Responders\JsonResponder as Responder;
 
@@ -18,7 +18,7 @@ class RejectForDoctorAction
     public function __invoke(Request $request)
     {
         return $this->responder->withResponse(
-            $this->service->handle($request->suborder_id)
+            $this->service->handle($request->suborder_id, $request->validated())
         )->respond();
     }
 }

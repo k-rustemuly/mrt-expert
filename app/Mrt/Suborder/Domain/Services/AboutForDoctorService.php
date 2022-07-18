@@ -185,6 +185,9 @@ class AboutForDoctorService extends BlockType
                 "patient_name" => [
                     "value" => $values["patient_name"],
                 ],
+                "birthday" => [
+                    "value" => $values["birthday"],
+                ],
                 "email" => [
                     "value" => $values["email"],
                 ],
@@ -228,6 +231,13 @@ class AboutForDoctorService extends BlockType
                 "conclusion" => Field::_()
                                 ->init(new Html())
                                 ->onUpdate("visible", true)
+                                ->render(),
+                
+            ],
+            "reject" => [
+                "doctor_comment" => Field::_()
+                                ->init(new Text())
+                                ->onUpdate("visible")
                                 ->render(),
                 
             ]

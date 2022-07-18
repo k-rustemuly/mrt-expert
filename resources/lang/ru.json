@@ -294,6 +294,8 @@
     "one_suborder.header.research.hint" : " ",
     "one_suborder.header.conclusion.name" : "Заключение",
     "one_suborder.header.conclusion.hint" : " ",
+    "one_suborder.header.doctor_comment.name" : "Комментарии",
+    "one_suborder.header.doctor_comment.hint" : " ",
     "one_order.block.values.password.name" : "Пароль",
     "one_order.block.values.login.name" : "Логин",
     "my_order.block.main_info.name" : "О заказе",

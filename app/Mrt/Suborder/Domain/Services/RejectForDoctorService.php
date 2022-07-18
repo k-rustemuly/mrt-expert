@@ -16,11 +16,13 @@ class RejectForDoctorService
         $this->repository = $repository;
     }
 
-    public function handle($suborder_id = 0)
+    public function handle($suborder_id = 0, $data = array())
     {
         $user = auth('doctor')->user();
         $doctor_id = $user->id;
-        $suborder = $this->repository->rejectByDoctor($doctor_id, $suborder_id);
+        $comment = null;
+        if(isset($data["doctor_comment"])) $comment = $data["doctor_comment"];
+        $suborder = $this->repository->rejectByDoctor($doctor_id, $suborder_id, $comment);
         if($suborder != null)
             return new SuccessPayload(__("Suborder success updated"));
 
