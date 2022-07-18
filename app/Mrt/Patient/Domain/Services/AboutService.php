@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\App;
 use App\Helpers\Field;
 use App\Helpers\FieldTypes\Text;
 use App\Helpers\FieldTypes\Email;
+use App\Helpers\FieldTypes\Date;
 use App\Helpers\FieldTypes\PhoneNumber;
 
 class AboutService extends BlockType
@@ -77,6 +78,9 @@ class AboutService extends BlockType
                 ],
                 "phone_number" => [
                     "value" => $values["phone_number"],
+                ],
+                "birthday" => [
+                    "value" => $values["birthday"],
                 ]
         ];
     }
@@ -109,6 +113,11 @@ class AboutService extends BlockType
                             ->init(new Email())
                             ->onUpdate("visible")
                             ->value($values["email"])
+                            ->render(),
+                "birthday" => Field::_()
+                            ->init(new Date())
+                            ->onUpdate("visible")
+                            ->value($values["birthday"])
                             ->render(),
                 "phone_number" => Field::_()
                             ->init(new PhoneNumber())
