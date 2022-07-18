@@ -196,6 +196,9 @@ class AboutForAssistantService extends BlockType
                 "patient_name" => [
                     "value" => $values["patient_name"],
                 ],
+                "birthday" => [
+                    "value" => $values["birthday"]
+                ],
                 "email" => [
                     "value" => $values["email"],
                 ],

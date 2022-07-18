@@ -28,6 +28,7 @@ class OrderRepository extends Repository
             'rb_order_status.color as status_color',
             'patient.id as patient_id',
             'patient.iin',
+            'patient.birthday',
             'patient.full_name as patient_name',
             'patient.email',
             'patient.phone_number',
