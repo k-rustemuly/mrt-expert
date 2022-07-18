@@ -13,6 +13,7 @@ use App\Helpers\Field;
 use App\Helpers\FieldTypes\Textarea;
 use App\Helpers\FieldTypes\DateTime;
 use App\Helpers\FieldTypes\Reference;
+use App\Helpers\FieldTypes\Boolean;
 use Carbon\Carbon;
 use App\Mrt\SuborderStatus\Domain\Models\SuborderStatus;
 
@@ -102,6 +103,10 @@ class AboutService extends BlockType
                 "subservice_name" => [
                     "name" => __($this->name.".subservice_name"),
                     "value" => $values["subservice_name"],
+                ],
+                "is_kmis" => [
+                    "name" => __($this->name.".is_kmis"),
+                    "value" => $values["is_kmis"] ? __("yes") : __("no")
                 ],
                 "status_name" => [
                     "name" => __($this->name.".status_name"),
@@ -200,6 +205,10 @@ class AboutService extends BlockType
                                         ->onUpdate("visible", true)
                                         ->value(date("Y-m-d H:i"))
                                         ->render(),
+                "is_kmis"  => Field::_()
+                            ->init(new Boolean())
+                            ->onUpdate("visible")
+                            ->render(),
                 "reception_comment" => Field::_()
                                         ->init(new Textarea())
                                         ->onUpdate("visible")

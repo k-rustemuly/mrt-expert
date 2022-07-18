@@ -47,7 +47,7 @@ class AddService
         $randomPassword = (string)random_int(0, 999999);
         if(strlen($randomLogin) < 6)
         {
-            for($i=0;$i<strlen($randomLogin); $i++)
+            for($i=0; $i<strlen($randomLogin); $i++)
             {
                 $randomLogin = "0".$randomLogin;
             }

@@ -12,6 +12,7 @@ class AddFormRequest extends APIRequest
         return [
             'reception_comment' => 'sometimes|required|string',
             'appointment_date' => 'required|date_format:Y-m-d H:i',
+            'is_kmis' => 'required|boolean',
             'subservice_id' => 'required|exists:App\Mrt\Subservice\Domain\Models\Subservice,id',
         ];
     }
