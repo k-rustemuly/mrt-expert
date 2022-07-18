@@ -37,6 +37,7 @@ class SuborderRepository extends ReferenceRepository
             $this->model->table.'.appointment_date',
             $this->model->table.'.reception_comment',
             $this->model->table.'.assistant_comment',
+            $this->model->table.'.doctor_comment',
             $this->model->table.'.doctors',
             'upload.id as file_id',
             'upload.uuid as file_uuid',

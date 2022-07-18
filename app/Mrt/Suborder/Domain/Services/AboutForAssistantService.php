@@ -161,6 +161,10 @@ class AboutForAssistantService extends BlockType
                     "name" => __($this->name.".doctors"),
                     "value" => $values["doctors"],
                 ],
+                "doctor_comment" => [
+                    "name" => __($this->name.".doctor_comment"),
+                    "value" => $values["doctor_comment"],
+                ],
                 "file" => [
                     "type" => "file",
                     "name" => __($this->name.".file"),
