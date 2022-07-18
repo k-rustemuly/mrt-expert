@@ -156,6 +156,8 @@
     "one_patient.header.phone_number.hint" : " ",
     "one_patient.header.birthday.name" : "Дата рождения",
     "one_patient.header.birthday.hint" : " ",
+    "patient.header.birthday.name" : "Дата рождения",
+    "patient.header.birthday.hint" : " ",
     "New subservice success added" : "Новая услуга успешно добавлено",
     "Error to add new subservice" : "Ошибка при добавление услуги",
     "Subservice success deleted" : "Успешно удален",
