@@ -5,8 +5,7 @@ use App\Http\Middleware\ParseJWTToken;
 
 Route::group([
     'prefix' => '{locale}', 
-    'where' => ['locale' => '[a-zA-Z]{2}'], 
-    'middleware' => 'setlocale'], function() {
+    'where' => ['locale' => '[a-zA-Z]{2}']], function() {
 
         Route::group(['prefix' => 'super-admin', 'as' => 'super-admin.'], function() {
 
