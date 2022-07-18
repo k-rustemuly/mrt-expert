@@ -208,6 +208,7 @@ class AboutService extends BlockType
                 "is_kmis"  => Field::_()
                             ->init(new Boolean())
                             ->onUpdate("visible")
+                            ->value(0)
                             ->render(),
                 "reception_comment" => Field::_()
                                         ->init(new Textarea())
