@@ -111,6 +111,7 @@ class ListService extends TableType
                 ->requestType("post")
                 ->requestUrl(route('reception.patient.create', ['locale' => App::currentLocale()]))
                 ->type("success")
+                ->afterResponse("open_result")
                 ->render(),
         ];
     }
