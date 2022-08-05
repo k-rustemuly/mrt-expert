@@ -57,7 +57,7 @@ class ListAllForAssistantService extends TableType
             "subservice_name" => Field::_()
                                 ->init(new Text())
                                 ->render(),
-            "status" => Field::_()
+            "status_id" => Field::_()
                     ->init(new Reference())
                     ->key('status')
                     ->render(),
