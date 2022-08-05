@@ -63,6 +63,23 @@ class OrderRepository extends Repository
         return $query->get()->all();
     }
 
+    public function getByBranchId($branch_id)
+    {
+        $query = $this->join('rb_order_status', $this->model->table.'.status_id', '=', 'rb_order_status.id')
+        ->join('patient', $this->model->table.'.patient_id', '=', 'patient.id')
+        ->join('reception', $this->model->table.'.reception_id', '=', 'reception.id')
+        ->select($this->model->table.'.id',
+            'rb_order_status.name_'.$this->language.' as status_name', 
+            'rb_order_status.color as status_color',
+            'patient.full_name as patient_name',
+            'reception.full_name as reception_name',
+            $this->model->table.'.status_id',
+            $this->model->table.'.created_at')
+        ->where($this->model->table.'.branch_id', $branch_id)
+        ->orderByDesc($this->model->table.'.created_at');
+        return $query->get()->all();
+    }
+
     public function getByLoginId($patient_login_id)
     {
         $query = $this->join('rb_order_status', $this->model->table.'.status_id', '=', 'rb_order_status.id')
