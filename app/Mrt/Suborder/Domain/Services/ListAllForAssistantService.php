@@ -46,24 +46,24 @@ class ListAllForAssistantService extends TableType
     {
         return [
             "id" => Field::_()
-                            ->init(new Number())
-                            ->render(),
+                ->init(new Number())
+                ->render(),
             "full_name" => Field::_()
-                            ->init(new Text())
-                            ->render(),
+                        ->init(new Text())
+                        ->render(),
             "service_name" => Field::_()
                             ->init(new Text())
                             ->render(),
             "subservice_name" => Field::_()
-                            ->init(new Text())
-                            ->render(),
+                                ->init(new Text())
+                                ->render(),
             "status" => Field::_()
-                            ->init(new Reference())
-                            ->key('status')
-                            ->render(),
+                    ->init(new Reference())
+                    ->key('status')
+                    ->render(),
             "appointment_date" => Field::_()
-                            ->init(new Text())
-                            ->render(),
+                                ->init(new Text())
+                                ->render(),
         ];
     }
 

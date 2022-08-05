@@ -140,6 +140,7 @@ class SuborderRepository extends ReferenceRepository
             'patient.full_name', 
             'rb_service.name_'.$this->language.' as service_name',
             'rb_subservice.name_'.$this->language.' as subservice_name', 
+            $this->model->table.'.status_id',
             'rb_suborder_status.name_'.$this->language.' as status_name',
             'rb_suborder_status.color as status_color',
             $this->model->table.'.appointment_date')
