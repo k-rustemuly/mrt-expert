@@ -5,6 +5,7 @@ namespace App\Mrt\Doctor\Domain\Services;
 use App\Mrt\Doctor\Domain\Repositories\DoctorRepository as Repository;
 use App\Domain\Payloads\SuccessPayload;
 use App\Exceptions\MainException;
+use Illuminate\Support\Facades\Hash;
 
 class SaveService
 {
@@ -19,6 +20,11 @@ class SaveService
     public function handle($doctor_id = 0, $data = [])
     {
         $data["subservices"] = "@".implode('@', $data["subservices"])."@";
+        if(isset($data["password"]))
+        {
+            $data["password"] = Hash::make($data["password"]);
+        }
+
         $doctor = $this->repository->updateById($doctor_id, $data);
         if($doctor != null)
             return new SuccessPayload(__("Doctor success saved"));

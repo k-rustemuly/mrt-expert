@@ -5,6 +5,7 @@ namespace App\Mrt\Assistant\Domain\Services;
 use App\Mrt\Assistant\Domain\Repositories\AssistantRepository as Repository;
 use App\Domain\Payloads\SuccessPayload;
 use App\Exceptions\MainException;
+use Illuminate\Support\Facades\Hash;
 
 class SaveService
 {
@@ -18,11 +19,15 @@ class SaveService
 
     public function handle($assistant_id = 0, $data = [])
     {
-        $user = auth('branch_admin')->userOrFail();
+        $user = auth('branch_admin')->user();
         $Assistant = $this->repository->getById($assistant_id);
         if($Assistant->branch_id != $user->branch_id)
         {
             throw new MainException("Error to save assistant");
+        }
+        if(isset($data["password"]))
+        {
+            $data["password"] = Hash::make($data["password"]);
         }
 
         $Assistant = $this->repository->updateById($assistant_id, $data);

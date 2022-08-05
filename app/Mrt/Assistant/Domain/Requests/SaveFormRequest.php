@@ -11,6 +11,7 @@ class SaveFormRequest extends APIRequest
     {
         return [
             'full_name' => 'sometimes|required|string|max:255',
+            'password' => 'sometimes|required|string|max:255',
             'is_active' => 'sometimes|required|boolean',
         ];
     }
