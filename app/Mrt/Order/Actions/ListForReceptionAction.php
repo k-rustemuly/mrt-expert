@@ -18,7 +18,7 @@ class ListForReceptionAction
     public function __invoke(Request $request)
     {
         return $this->responder->withResponse(
-            $this->service->handle()
+            $this->service->handle($request->status_id)
         )->respond();
     }
 }

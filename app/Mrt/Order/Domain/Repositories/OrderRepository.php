@@ -63,7 +63,7 @@ class OrderRepository extends Repository
         return $query->get()->all();
     }
 
-    public function getByBranchId($branch_id)
+    public function getByBranchId($branch_id, $status_id = 0)
     {
         $query = $this->join('rb_order_status', $this->model->table.'.status_id', '=', 'rb_order_status.id')
         ->join('patient', $this->model->table.'.patient_id', '=', 'patient.id')
@@ -77,6 +77,10 @@ class OrderRepository extends Repository
             $this->model->table.'.created_at')
         ->where($this->model->table.'.branch_id', $branch_id)
         ->orderByDesc($this->model->table.'.created_at');
+        if($status_id > 0)
+        {
+            $query->where($this->model->table.'.status_id', $status_id);
+        }
         return $query->get()->all();
     }
 

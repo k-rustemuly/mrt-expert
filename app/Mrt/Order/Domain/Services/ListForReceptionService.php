@@ -28,11 +28,11 @@ class ListForReceptionService extends TableType
         $this->repository = $repository;
     }
 
-    public function handle()
+    public function handle($status_id = 0)
     {
         $user = auth('reception')->user();
         $this->headers = $this->getHeader();
-        $this->datas = $this->repository->getByBranchId($user->branch_id);
+        $this->datas = $this->repository->getByBranchId($user->branch_id, $status_id);
         $this->actions = $this->getAction();
         return $this->getData();
     }
