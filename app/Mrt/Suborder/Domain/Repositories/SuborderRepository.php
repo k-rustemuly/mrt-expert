@@ -124,8 +124,11 @@ class SuborderRepository extends ReferenceRepository
             'rb_service.name_'.$this->language.' as service_name', 
             $this->model->table.'.status_id',
             $this->model->table.'.appointment_date')
-        ->where($this->model->table.'.status_id', $status_id)
         ->where($this->model->table.'.branch_id', $branch_id);
+        if($status_id > 0)
+        {
+            $query->where($this->model->table.'.status_id', $status_id);
+        }
         return $query->get()->all();
     }
 
