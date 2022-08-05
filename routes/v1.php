@@ -199,7 +199,7 @@ Route::group([
 
                 Route::group(['prefix' => 'order', 'as' => 'order.'], function() {
 
-                    Route::get('/', \App\Mrt\Order\Actions\ListForAssistantAction::class);
+                    Route::get('/', \App\Mrt\Order\Actions\ListForReceptionAction::class);
 
                     Route::group(['prefix' => '/{order_id}', 'where' => ['order_id' => '[0-9]+']], function() {
 
@@ -219,6 +219,19 @@ Route::group([
 
                 });
 
+                Route::group(['prefix' => 'suborder', 'as' => 'suborder.'], function() {
+
+                    Route::get('/', \App\Mrt\Suborder\Actions\ListForReceptionAction::class);
+
+                    Route::get('/all', \App\Mrt\Suborder\Actions\ListAllForReceptionAction::class);
+
+                    Route::group(['prefix' => '/{suborder_id}', 'where' => ['suborder_id' => '[0-9]+']], function() {
+
+                        Route::get('', \App\Mrt\Suborder\Actions\AboutForReceptionAction::class)->name('view');
+
+                    });
+
+                });
             });
 
         });

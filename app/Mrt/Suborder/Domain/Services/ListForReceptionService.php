@@ -1,19 +1,18 @@
 <?php
 
-namespace App\Mrt\Order\Domain\Services;
+namespace App\Mrt\Suborder\Domain\Services;
 
 use App\Domain\Services\TableType;
-use App\Mrt\Order\Domain\Repositories\OrderRepository as Repository;
+use App\Mrt\Suborder\Domain\Repositories\SuborderRepository as Repository;
 use App\Helpers\FieldTypes\Number;
 use App\Helpers\FieldTypes\Text;
-use App\Helpers\FieldTypes\Reference;
 use App\Helpers\Field;
 use Illuminate\Support\Facades\App;
 use App\Helpers\Action;
 
-class ListForAssistantService extends TableType
+class ListForReceptionService extends TableType
 {
-    public $name = "order";
+    public $name = "suborder";
 
     protected $repository;
 
@@ -23,16 +22,19 @@ class ListForAssistantService extends TableType
 
     public $actions;
 
+    public $status_id;
+
     public function __construct(Repository $repository)
     {
         $this->repository = $repository;
     }
 
-    public function handle()
+    public function handle($status_id = 0)
     {
+        $this->status_id = $status_id;
         $user = auth('reception')->user();
         $this->headers = $this->getHeader();
-        $this->datas = $this->repository->getByBranchId($user->branch_id);
+        $this->datas = $this->repository->getAllByStatusId($user->branch_id, $status_id);
         $this->actions = $this->getAction();
         return $this->getData();
     }
@@ -48,17 +50,13 @@ class ListForAssistantService extends TableType
             "id" => Field::_()
                             ->init(new Number())
                             ->render(),
-            "status_id" => Field::_()
-                            ->init(new Reference())
-                            ->key("status")
-                            ->render(),
-            "patient_name" => Field::_()
+            "service_name" => Field::_()
                             ->init(new Text())
                             ->render(),
-            "reception_name" => Field::_()
+            "subservice_name" => Field::_()
                             ->init(new Text())
                             ->render(),
-            "created" => Field::_()
+            "appointment_date" => Field::_()
                             ->init(new Text())
                             ->render(),
         ];
@@ -67,16 +65,16 @@ class ListForAssistantService extends TableType
     /** 
      * действия для каждой строки
      * 
-     * @param string|int $order_id Айди 
+     * @param string|int $suborder_id Айди 
      * 
      * @return array<mixed>
     */
-    public function action($order_id = 0)
+    public function action($suborder_id = 0)
     {
         return [
             "view" =>  Action::_()
                 ->requestType("view")
-                ->requestUrl(route('reception.order.view', ['locale' => App::currentLocale(), 'order_id' => $order_id]))
+                ->requestUrl(route('reception.suborder.view', ['locale' => App::currentLocale(), 'suborder_id' => $suborder_id]))
                 ->type("info")
                 ->render(),
         ];

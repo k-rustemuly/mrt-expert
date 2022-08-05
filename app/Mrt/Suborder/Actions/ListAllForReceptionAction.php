@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Mrt\Order\Actions;
+namespace App\Mrt\Suborder\Actions;
 
 use App\Domain\Requests\DefaultRequest as Request;
-use App\Mrt\Order\Domain\Services\ListForAssistantService as Service;
+use App\Mrt\Suborder\Domain\Services\ListAllForReceptionService as Service;
 use App\Responders\JsonResponder as Responder;
 
-class ListForAssistantAction
+class ListAllForReceptionAction
 {
 
     public function __construct(Responder $responder, Service $service)
@@ -18,7 +18,7 @@ class ListForAssistantAction
     public function __invoke(Request $request)
     {
         return $this->responder->withResponse(
-            $this->service->handle()
+            $this->service->handle($request->start_date, $request->end_date)
         )->respond();
     }
 }
