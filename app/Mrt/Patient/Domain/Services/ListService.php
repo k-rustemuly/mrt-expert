@@ -37,7 +37,7 @@ class ListService extends TableType
     {
         $this->headers = $this->getHeader();
         // $this->datas = $this->repository->getAll()->jsonPaginate();
-        $pagination = $this->repository->getByPage();
+        $pagination = $this->repository->getByPage()->toArray();
         $this->datas = $pagination["data"];
         unset($pagination["data"]);
         $this->paginations = $pagination;
