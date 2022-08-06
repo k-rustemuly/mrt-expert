@@ -26,6 +26,8 @@ class ListService extends TableType
 
     public $actions;
 
+    public $paginations;
+
     public function __construct(Repository $repository)
     {
         $this->repository = $repository;
@@ -35,8 +37,10 @@ class ListService extends TableType
     {
         $this->headers = $this->getHeader();
         // $this->datas = $this->repository->getAll()->jsonPaginate();
-        $this->datas = $this->repository->getByPage();
-        
+        $pagination = $this->repository->getByPage();
+        $this->datas = $pagination["data"];
+        unset($pagination["data"]);
+        $this->paginations = $pagination;
         $this->actions = $this->getAction();
         return $this->getData();
     }

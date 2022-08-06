@@ -23,6 +23,10 @@ abstract class TableType
         if(isset($this->actions)){
             $row["action"] = $this->actions;
         }
+        
+        if(isset($this->paginations)){
+            $row["pagination"] = $this->paginations;
+        }
         return new GenericPayload($this->parse($row));
     }
 
