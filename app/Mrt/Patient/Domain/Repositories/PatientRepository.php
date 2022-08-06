@@ -37,6 +37,6 @@ class PatientRepository extends Repository
 
     public function getByPage()
     {
-        return $this->model->jsonPaginate();
+        return $this->model->jsonPaginate(3)->toArray();
     }
 }
