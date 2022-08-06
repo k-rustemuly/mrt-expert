@@ -34,7 +34,7 @@ class ListService extends TableType
     public function handle()
     {
         $this->headers = $this->getHeader();
-        $this->datas = $this->repository->getAll();
+        $this->datas = $this->repository->getAll()->jsonPaginate();
         $this->actions = $this->getAction();
         return $this->getData();
     }

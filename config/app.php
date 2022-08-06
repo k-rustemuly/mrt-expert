@@ -178,6 +178,8 @@ return [
 
         App\Providers\MacroServiceProvider::class,
         Barryvdh\DomPDF\ServiceProvider::class,
+
+        Spatie\JsonApiPaginate\JsonApiPaginateServiceProvider::class,
     ],
 
     /*
