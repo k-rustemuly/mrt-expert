@@ -34,4 +34,9 @@ class PatientRepository extends Repository
     {
         return $this->model->where('iin', $iin)->exists();
     }
+
+    public function getByPage()
+    {
+        return $this->model->jsonPaginate();
+    }
 }
