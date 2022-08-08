@@ -40,6 +40,7 @@ class ListService extends TableType
         $pagination = $this->repository->getByPage($search, $filter);
         $this->datas = $pagination["data"];
         unset($pagination["data"]);
+        $pagination["search"] = $search;
         $this->paginations = $pagination;
         $this->actions = $this->getAction();
         return $this->getData();
