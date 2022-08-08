@@ -19,7 +19,7 @@ class ServiceRepository extends ReferenceRepository
 
     public function getById($id)
     {
-        $query = $this->select( 'id', 'name_'.$this->language.' as name');
+        $query = $this->select( 'id', 'name_'.$this->language.' as name')->where('id', $id);
         return $query->first()->toArray();
     }
 }
