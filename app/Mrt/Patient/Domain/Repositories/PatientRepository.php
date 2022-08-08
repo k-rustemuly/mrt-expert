@@ -67,7 +67,7 @@ class PatientRepository extends Repository
                 $query->where('birthday', 'like', "%{$value}%");
             }
         }
-        return $query->toString();
+        return (string)$query;
         return $query->jsonPaginate()->toArray();
     }
 }
