@@ -36,10 +36,9 @@ class ListService extends TableType
     public function handle($search = array(), $filter = array())
     {
         $this->headers = $this->getHeader();
-        // $this->datas = $this->repository->getAll()->jsonPaginate();
         $pagination = $this->repository->getByPage($search, $filter);
-        // $this->datas = $pagination["data"];
-        //unset($pagination["data"]);
+        $this->datas = $pagination["data"];
+        unset($pagination["data"]);
         $this->paginations = $pagination;
         $this->actions = $this->getAction();
         return $this->getData();
