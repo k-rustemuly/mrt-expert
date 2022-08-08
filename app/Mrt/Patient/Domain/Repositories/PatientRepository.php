@@ -35,8 +35,38 @@ class PatientRepository extends Repository
         return $this->model->where('iin', $iin)->exists();
     }
 
-    public function getByPage()
+    public function getByPage($search, $filter)
     {
-        return $this->model->jsonPaginate()->toArray();
+        $query = $this->model;
+        if(is_array($search) && !empty($search))
+        {
+            if(isset($search['iin']))
+            {
+                $value = $search['iin'];
+                $query->where('iin', 'like', "%{$value}%");
+            }
+            if(isset($search['full_name']))
+            {
+                $value = $search['full_name'];
+                $query->where('full_name', 'like', "%{$value}%");
+            }
+            if(isset($search['phone_number']))
+            {
+                $value = $search['phone_number'];
+                $value = preg_replace('/[^0-9]/', '', $value);
+                $query->where('phone_number', 'like', "%{$value}%");
+            }
+            if(isset($search['email']))
+            {
+                $value = $search['email'];
+                $query->where('email', 'like', "%{$value}%");
+            }
+            if(isset($search['birthday']))
+            {
+                $value = $search['birthday'];
+                $query->where('birthday', 'like', "%{$value}%");
+            }
+        }
+        return $query->jsonPaginate()->toArray();
     }
 }

@@ -18,7 +18,7 @@ class ListAction
     public function __invoke(Request $request)
     {
         return $this->responder->withResponse(
-            $this->service->handle()
+            $this->service->handle($request->search, $request->filter)
         )->respond();
     }
 }
