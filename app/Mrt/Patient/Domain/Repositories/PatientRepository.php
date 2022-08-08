@@ -38,33 +38,33 @@ class PatientRepository extends Repository
     public function getByPage($search, $filter)
     {
         $query = $this->model;
-        if(is_array($search) && !empty($search))
+        if(is_array($search))
         {
             if(isset($search['iin']))
             {
                 $value = $search['iin'];
-                $query->where('iin', 'like', "%{$value}%");
+                $query = $query->where('iin', 'like', "%{$value}%");
             }
             if(isset($search['full_name']))
             {
                 $value = $search['full_name'];
-                $query->where('full_name', 'like', "%{$value}%");
+                $query = $query->where('full_name', 'like', "%{$value}%");
             }
             if(isset($search['phone_number']))
             {
                 $value = $search['phone_number'];
                 $value = preg_replace('/[^0-9]/', '', $value);
-                $query->where('phone_number', 'like', "%{$value}%");
+                $query = $query->where('phone_number', 'like', "%{$value}%");
             }
             if(isset($search['email']))
             {
                 $value = $search['email'];
-                $query->where('email', 'like', "%{$value}%");
+                $query = $query->where('email', 'like', "%{$value}%");
             }
             if(isset($search['birthday']))
             {
                 $value = $search['birthday'];
-                $query->where('birthday', 'like', "%{$value}%");
+                $query = $query->where('birthday', 'like', "%{$value}%");
             }
         }
         return (string)$query->toSql();
