@@ -316,10 +316,10 @@
     "suborder.header.full_name.hint" : " ",
     "suborder.header.status.name" : "Статус",
     "suborder.header.status.hint" : " ",
-    "" : "",
-    "" : "",
-    "" : "",
-    "" : "",
+    "order.header.patient_name.name" : "ФИО",
+    "order.header.patient_name.hint" : " ",
+    "order.header.reception_name.name" : "Создал(а)",
+    "order.header.reception_name.hint" : " ",
     "" : "",
     "" : ""
 }
