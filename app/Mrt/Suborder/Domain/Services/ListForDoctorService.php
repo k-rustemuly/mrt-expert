@@ -50,6 +50,9 @@ class ListForDoctorService extends TableType
             "id" => Field::_()
                             ->init(new Number())
                             ->render(),
+            "full_name" => Field::_()
+                            ->init(new Text())
+                            ->render(),
             "service_name" => Field::_()
                             ->init(new Text())
                             ->render(),

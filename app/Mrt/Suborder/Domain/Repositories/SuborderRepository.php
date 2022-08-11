@@ -157,7 +157,10 @@ class SuborderRepository extends ReferenceRepository
     {
         $query = $this->join('rb_subservice', $this->model->table.'.subservice_id', '=', 'rb_subservice.id')
         ->join('rb_service', 'rb_subservice.service_id', '=', 'rb_service.id')
+        ->join('orders', $this->model->table.'.order_id', '=', 'orders.id')
+        ->join('patient', 'orders.patient_id', '=', 'patient.id')
         ->select($this->model->table.'.id',
+            'patient.full_name', 
             'rb_subservice.name_'.$this->language.' as subservice_name', 
             'rb_service.name_'.$this->language.' as service_name')
         ->where($this->model->table.'.status_id', $status_id)
