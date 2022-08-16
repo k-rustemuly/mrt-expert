@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use App\Mrt\Upload\Domain\Repositories\UploadRepository;
 use Barryvdh\DomPDF\Facade\Pdf;
+use App\Mrt\Doctor\Domain\Repositories\DoctorRepository;
 
 class SubmitForDoctorService
 {
@@ -22,11 +23,14 @@ class SubmitForDoctorService
 
     protected $uploadRepository;
 
-    public function __construct(Repository $repository, OrderRepository $orderRepository, UploadRepository $uploadRepository)
+    protected $doctorRepository;
+
+    public function __construct(Repository $repository, OrderRepository $orderRepository, UploadRepository $uploadRepository, DoctorRepository $doctorRepository)
     {
         $this->repository = $repository;
         $this->orderRepository = $orderRepository;
         $this->uploadRepository = $uploadRepository;
+        $this->doctorRepository = $doctorRepository;
     }
 
     public function handle($suborder_id = 0, $data = array())
@@ -38,9 +42,16 @@ class SubmitForDoctorService
         if($suborder != null)
         {
             $aboutSuborder = $this->repository->getAllByDoctorId($doctor_id, $suborder_id);
+            $aboutOrder = $this->orderRepository->getById($aboutSuborder["order_id"]);
+            $aboutDoctor = $this->doctorRepository->getById($doctor_id);
             $branch_id = $aboutSuborder["branch_id"];
-            
-            $pdf = Pdf::loadView('empty', $data);
+            $data["service_name"] = $aboutSuborder["service_name"];
+            $data["subservice_name"] = $aboutSuborder["subservice_name"];
+            $data["full_name"] = $aboutOrder["patient_name"];
+            $data["birthday"] = $aboutOrder["birthday"];
+            $data["appointment_date"] = $aboutOrder["appointment_date"];
+            $data["doctor_name"] = $aboutDoctor["full_name"];
+            $pdf = Pdf::loadView('mrt', $data);
             $filename = Str::orderedUuid().".pdf";
             $path = 'pdf/'.$filename;
             Storage::put($path, $pdf->output());
