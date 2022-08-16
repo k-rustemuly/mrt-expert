@@ -38,28 +38,29 @@
         </div>
     </div>
     <br><br>
-    <b>Ф.И.О.:</b> {!! $full_name !!}<br>
-    <b>Год рождения:</b> {!! $birthday !!} г.р.<br>
-    <b>Дата исследования:</b> {!! $appointment_date !!}<br>
-    <br>
+    <div class="content">
+        <b>Ф.И.О.:</b> {!! $full_name !!}<br>
+        <b>Год рождения:</b> {!! $birthday !!} г.р.<br>
+        <b>Дата исследования:</b> {!! $appointment_date !!}<br>
+        <br>
 
-    <p style="text-align: center;"><b>{!! $service_name !!}</b></p>
-    <p style="text-align: center;"><b>{!! $subservice_name !!}</b></p>
+        <p style="text-align: center;"><b>{!! $service_name !!}</b></p>
+        <p style="text-align: center;"><b>{!! $subservice_name !!}</b></p>
 
-    <p><b>Выполнено исследование:</b> {!! $research !!}</p>
+        <p><b>Выполнено исследование:</b> {!! $research !!}</p>
 
-    <p><b><i>ЗАКЛЮЧЕНИЕ:</i></b> {!! $conclusion !!}</p>
+        <p><b><i>ЗАКЛЮЧЕНИЕ:</i></b> {!! $conclusion !!}</p>
 
-    <br>
-	<p style="text-align: right;">Врач: {!! $doctor_name !!}</p>
-    <br>
-    <br>
-    <p style="font-size: 11px;">Данное заключение не является диагнозом и должно быть интерпретировано вашим лечащим врачом!</p>
+        <br>
+        <p style="text-align: right;">Врач: {!! $doctor_name !!}</p>
+        <br>
+        <br>
+        <p style="font-size: 11px;">Данное заключение не является диагнозом и должно быть интерпретировано вашим лечащим врачом!</p>
+    </div>
 </body>
 <style>
     body {
-        font-size: 14px;
-        /* font-family: 'Times New Roman', serif; */
+        font-size: 12px;
     }
     .header {
         text-align: right;
@@ -78,6 +79,13 @@
     }
     .header__center {
         text-align: center;
+    }
+    .content {
+        line-height: 1.2;
+    }
+    .content p {
+        margin-top: 6px;
+        margin-bottom: 6px;
     }
 </style>
 </html>
