@@ -58,8 +58,7 @@
 </body>
 <style>
     body {
-        font-size: 14px;
-        font-family: 'Times New Roman', serif;
+        font-size: 12px;
     }
     .header {
         text-align: right;
