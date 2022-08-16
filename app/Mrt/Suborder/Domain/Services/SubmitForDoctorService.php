@@ -49,7 +49,7 @@ class SubmitForDoctorService
             $data["subservice_name"] = $aboutSuborder["subservice_name"];
             $data["full_name"] = $aboutOrder["patient_name"];
             $data["birthday"] = $aboutOrder["birthday"];
-            $data["appointment_date"] = $aboutOrder["appointment_date"];
+            $data["appointment_date"] = $aboutSuborder["appointment_date"];
             $data["doctor_name"] = $aboutDoctor["full_name"];
             $pdf = Pdf::loadView('mrt', $data);
             $filename = Str::orderedUuid().".pdf";
