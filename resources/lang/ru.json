@@ -328,6 +328,11 @@
     "suborder.header.email.hint" : " ",
     "suborder.header.whithout_iin.name" : "Без ИИН",
     "suborder.header.whithout_iin.hint" : " ",
+    "suborder.header.birthday.name" : "Дата рождения",
+    "suborder.header.birthday.hint" : " ",
+    "suborder.action.create.name" : "Пациент",
+    "suborder.action.create.hint" : " ",
+    "" : "",
     "" : "",
     "" : ""
 }
