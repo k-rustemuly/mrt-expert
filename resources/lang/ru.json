@@ -320,6 +320,14 @@
     "order.header.patient_name.hint" : " ",
     "order.header.reception_name.name" : "Создал(а)",
     "order.header.reception_name.hint" : " ",
+    "suborder.header.iin.name" : "ИИН",
+    "suborder.header.iin.hint" : " ",
+    "suborder.header.phone_number.name" : "Номер телефона",
+    "suborder.header.phone_number.hint" : " ",
+    "suborder.header.email.name" : "Email",
+    "suborder.header.email.hint" : " ",
+    "suborder.header.whithout_iin.name" : "Без ИИН",
+    "suborder.header.whithout_iin.hint" : " ",
     "" : "",
     "" : ""
 }
