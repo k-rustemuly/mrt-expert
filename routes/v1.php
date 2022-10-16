@@ -163,6 +163,8 @@ Route::group([
 
                 Route::group(['prefix' => 'patient', 'as' => 'patient.'], function() {
 
+                    Route::get('/', \App\Mrt\Patient\Actions\ListAction::class);
+
                     Route::post('/exist', \App\Mrt\Patient\Actions\ExistAction::class);
 
                     Route::post('/', \App\Mrt\Patient\Actions\AddAction::class)->name('create');
@@ -183,6 +185,27 @@ Route::group([
 
                 });
 
+                Route::group(['prefix' => 'order', 'as' => 'order.'], function() {
+
+                    Route::get('/', \App\Mrt\Order\Actions\ListForReceptionAction::class);
+
+                    Route::group(['prefix' => '/{order_id}', 'where' => ['order_id' => '[0-9]+']], function() {
+
+                        Route::get('', \App\Mrt\Order\Actions\AboutAction::class)->name('view');
+
+                        Route::group(['prefix' => 'subservice', 'as' => 'subservice.'], function() {
+
+                            Route::get('', \App\Mrt\Order\Actions\SubserviceAction::class);
+
+                            Route::post('', \App\Mrt\Suborder\Actions\AddAction::class)->name('create');
+
+                            Route::delete('/{suborder_id}', \App\Mrt\Order\Actions\SubserviceDeleteAction::class)->whereNumber('suborder_id')->name('delete');
+
+                        });
+
+                    });
+
+                });
             });
 
         });
