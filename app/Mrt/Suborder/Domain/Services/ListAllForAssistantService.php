@@ -53,7 +53,6 @@ class ListAllForAssistantService extends TableType
                     ->init(new Number())
                     ->onCreate("visible", true)
                     ->onUpdate("visible")
-                    ->onView("invisible")
                     ->minLength(12)
                     ->maxLength(12)
                     ->render(),
@@ -61,13 +60,17 @@ class ListAllForAssistantService extends TableType
                             ->init(new Boolean())
                             ->onCreate("visible")
                             ->onUpdate("visible")
-                            ->onView("invisible")
+                            ->render(),
+            "full_name" => Field::_()
+                            ->init(new Text())
+                            ->onCreate("visible", true)
+                            ->onUpdate("visible", true)
+                            ->maxLength(255)
                             ->render(),
             "phone_number" => Field::_()
                             ->init(new PhoneNumber())
                             ->onCreate("visible", true)
                             ->onUpdate("visible", true)
-                            ->onView("invisible")
                             ->minLength(16)
                             ->maxLength(16)
                             ->render(),
@@ -75,14 +78,12 @@ class ListAllForAssistantService extends TableType
                         ->init(new Date())
                         ->onCreate("visible")
                         ->onUpdate("visible")
-                        ->onView("invisible")
                         ->maxLength(255)
                         ->render(),
             "email" => Field::_()
                         ->init(new Email())
                         ->onCreate("visible")
                         ->onUpdate("visible")
-                        ->onView("invisible")
                         ->maxLength(255)
                         ->render(),
         ];
