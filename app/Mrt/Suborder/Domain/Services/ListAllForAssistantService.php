@@ -49,28 +49,6 @@ class ListAllForAssistantService extends TableType
     private function getHeader()
     {
         return [
-            "id" => Field::_()
-                ->init(new Number())
-                ->render(),
-            "full_name" => Field::_()
-                        ->init(new Text())
-                        ->onCreate("visible", true)
-                        ->onUpdate("visible", true)
-                        ->maxLength(255)
-                        ->render(),
-            "service_name" => Field::_()
-                            ->init(new Text())
-                            ->render(),
-            "subservice_name" => Field::_()
-                                ->init(new Text())
-                                ->render(),
-            "status_id" => Field::_()
-                    ->init(new Reference())
-                    ->key('status')
-                    ->render(),
-            "appointment_date" => Field::_()
-                                ->init(new Text())
-                                ->render(),
             "iin" => Field::_()
                     ->init(new Number())
                     ->onCreate("visible", true)
