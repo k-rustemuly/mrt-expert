@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Middleware\ParseJWTToken;
 
 Route::group([
-    'prefix' => '{locale}', 
+    'prefix' => '{locale}',
     'where' => ['locale' => '[a-zA-Z]{2}']], function() {
 
         Route::group(['prefix' => 'super-admin', 'as' => 'super-admin.'], function() {
@@ -158,6 +158,14 @@ Route::group([
                         Route::get('/doctors', \App\Mrt\Doctor\Actions\ListForSuborderAction::class)->name('doctors');
 
                     });
+
+                });
+
+                Route::group(['prefix' => 'patient', 'as' => 'patient.'], function() {
+
+                    Route::post('/exist', \App\Mrt\Patient\Actions\ExistAction::class);
+
+                    Route::post('/', \App\Mrt\Patient\Actions\AddAction::class)->name('create');
 
                 });
 
