@@ -167,6 +167,20 @@ Route::group([
 
                     Route::post('/', \App\Mrt\Patient\Actions\AddAction::class)->name('create');
 
+                    Route::group(['prefix' => '/{patient_id}', 'where' => ['patient_id' => '[0-9]+']], function() {
+
+                        Route::get('', \App\Mrt\Patient\Actions\AboutAction::class)->name('view');
+
+                        Route::group(['prefix' => 'order', 'as' => 'order.'], function() {
+
+                            Route::get('', \App\Mrt\Order\Actions\PatientListAction::class);
+
+                            Route::post('/new', \App\Mrt\Order\Actions\AddAction::class)->name('create');
+
+                        });
+
+                    });
+
                 });
 
             });

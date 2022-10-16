@@ -330,7 +330,7 @@
     "suborder.header.whithout_iin.hint" : " ",
     "suborder.header.birthday.name" : "Дата рождения",
     "suborder.header.birthday.hint" : " ",
-    "suborder.action.create.name" : "Пациент",
+    "suborder.action.create.name" : "Добавить нового пациента",
     "suborder.action.create.hint" : " ",
     "" : "",
     "" : "",
