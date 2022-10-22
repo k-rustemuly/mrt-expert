@@ -18,9 +18,9 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule)
     {
         $schedule->call(function () {
-            $orders = DB::table('orders')->select('id')->where('status_id', 1)->where('created_at', '<=', Carbon::yesterday())->whereNotIn('id', DB::raw("SELECT DISTINCT(order_id) FROM suborders"));
-            DB::table('orders')->whereIn('id', $orders)->update(array('status_id' => 4));
-        })->hourlyAt(20);
+            $orders = DB::table('orders')->select('id')->where('status_id', 1)->where('created_at', '<=', Carbon::yesterday())->whereNotIn('id', DB::table('suborders')->select(DB::raw('DISTINCT(order_id)')))->get()->all();
+            DB::table('orders')->whereIn('id', $orders)->where('status_id', 1)->delete();
+        })->daily();
     }
 
     /**
