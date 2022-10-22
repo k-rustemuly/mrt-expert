@@ -256,7 +256,7 @@
     "one_suborder.doctor_comment" : "Комментарии доктора",
     "one_suborder.created_at" : "Создано",
     "one_suborder.updated_at" : "Изменено",
-    "one_suborder.is_kmis": "КМИСassistant_comment",
+    "one_suborder.is_kmis": "КМИС",
     "Error to upload file" : "Ошибка загрузка файла",
     "one_suborder.action.send_to_doctor.name" : "Загрузить файл и отправить специалисту",
     "one_suborder.action.send_to_doctor.hint" : " ",
