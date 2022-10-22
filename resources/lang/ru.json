@@ -332,7 +332,7 @@
     "suborder.header.birthday.hint" : " ",
     "suborder.action.create.name" : "Добавить нового пациента",
     "suborder.action.create.hint" : " ",
-    "" : "",
+    "one_order.file" : "Заключение",
     "" : "",
     "" : ""
 }
