@@ -23,7 +23,9 @@ abstract class TableType
         if(isset($this->actions)){
             $row["action"] = $this->actions;
         }
-        
+        if(isset($this->title) && $this->title){
+            $row["title"] = $this->title;
+        }
         if(isset($this->paginations)){
             $row["pagination"] = $this->paginations;
         }
@@ -44,8 +46,8 @@ abstract class TableType
                 if($type == "reference")
                 {
                     $optimize[$type][] = $row["header"][$key]["reference_key"];
-                } 
-                else 
+                }
+                else
                 {
                     $optimize[$type][] = $key;
                 }
@@ -72,7 +74,7 @@ abstract class TableType
                                 {
                                     $val["color"] = $data[$i][$item."_color"];
                                     unset($data[$i][$item."_color"]);
-                                } 
+                                }
                                 $data[$i][$item."_id"] = array($val);
                                 unset($data[$i][$item."_name"]);
                             }
@@ -87,7 +89,7 @@ abstract class TableType
                                 );
                             }
                         }
-                        
+
                     }
                 }
                 if(isset($data[$i]["created_at"]))
