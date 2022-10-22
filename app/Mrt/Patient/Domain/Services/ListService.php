@@ -46,7 +46,7 @@ class ListService extends TableType
 
     /**
      * Заголовки
-     * 
+     *
      * @return array<mixed>
      */
     private function getHeader()
@@ -93,11 +93,11 @@ class ListService extends TableType
         ];
     }
 
-    /** 
+    /**
      * действия для каждой строки
-     * 
-     * @param string|int $patient_id Айди 
-     * 
+     *
+     * @param string|int $patient_id Айди
+     *
      * @return array<mixed>
     */
     public function action($patient_id = 0)
@@ -113,7 +113,7 @@ class ListService extends TableType
 
     /**
      * Глабольные действии
-     * 
+     *
      * @return array<mixed>
      */
     private function getAction()

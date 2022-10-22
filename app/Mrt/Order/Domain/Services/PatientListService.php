@@ -35,6 +35,7 @@ class PatientListService extends TableType
     {
         $this->patient_id = $patient_id;
         $user = auth('reception')->user();
+        if(!$user) $user = auth('assistant')->user();
         $this->headers = $this->getHeader();
         $this->datas = $this->repository->getAllByPatientId($user->branch_id, $patient_id);
         $this->actions = $this->getAction();
@@ -43,7 +44,7 @@ class PatientListService extends TableType
 
     /**
      * Заголовки
-     * 
+     *
      * @return array<mixed>
      */
     private function getHeader()
@@ -71,11 +72,11 @@ class PatientListService extends TableType
         ];
     }
 
-    /** 
+    /**
      * действия для каждой строки
-     * 
-     * @param string|int $order_id Айди 
-     * 
+     *
+     * @param string|int $order_id Айди
+     *
      * @return array<mixed>
     */
     public function action($order_id = 0)
@@ -91,7 +92,7 @@ class PatientListService extends TableType
 
     /**
      * Глобальные действии
-     * 
+     *
      * @return array<mixed>
      */
     private function getAction()
