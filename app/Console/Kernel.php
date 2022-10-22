@@ -4,6 +4,8 @@ namespace App\Console;
 
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
+use Illuminate\Support\Facades\DB;
+use Carbon\Carbon;
 
 class Kernel extends ConsoleKernel
 {
@@ -15,7 +17,10 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        // $schedule->command('inspire')->hourly();
+        $schedule->call(function () {
+            $orders = DB::table('orders')->select('id')->where('status_id', 1)->where('created_at', '<=', Carbon::yesterday())->whereNotIn('id', DB::raw("SELECT DISTINCT(order_id) FROM suborders"));
+            DB::table('orders')->whereIn('id', $orders)->update(array('status_id' => 4));
+        })->hourlyAt(20);
     }
 
     /**
