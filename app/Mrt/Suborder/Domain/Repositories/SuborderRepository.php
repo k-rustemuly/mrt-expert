@@ -27,9 +27,9 @@ class SuborderRepository extends ReferenceRepository
         ->join('rb_service', 'rb_subservice.service_id', '=', 'rb_service.id')
         ->leftJoin('upload', $this->model->table.'.file', '=', 'upload.id')
         ->select($this->model->table.'.id',
-            'rb_suborder_status.name_'.$this->language.' as status_name', 
-            'rb_subservice.name_'.$this->language.' as subservice_name', 
-            'rb_service.name_'.$this->language.' as service_name', 
+            'rb_suborder_status.name_'.$this->language.' as status_name',
+            'rb_subservice.name_'.$this->language.' as subservice_name',
+            'rb_service.name_'.$this->language.' as service_name',
             'rb_suborder_status.color as status_color',
             $this->model->table.'.order_id',
             $this->model->table.'.is_kmis',
@@ -58,9 +58,9 @@ class SuborderRepository extends ReferenceRepository
         ->join('rb_service', 'rb_subservice.service_id', '=', 'rb_service.id')
         ->leftJoin('upload', $this->model->table.'.file', '=', 'upload.id')
         ->select($this->model->table.'.id',
-            'rb_suborder_status.name_'.$this->language.' as status_name', 
-            'rb_subservice.name_'.$this->language.' as subservice_name', 
-            'rb_service.name_'.$this->language.' as service_name', 
+            'rb_suborder_status.name_'.$this->language.' as status_name',
+            'rb_subservice.name_'.$this->language.' as subservice_name',
+            'rb_service.name_'.$this->language.' as service_name',
             'rb_suborder_status.color as status_color',
             $this->model->table.'.order_id',
             $this->model->table.'.status_id',
@@ -92,12 +92,15 @@ class SuborderRepository extends ReferenceRepository
     public function getAllByOrderId($order_id)
     {
         $query = $this->join('rb_suborder_status', $this->model->table.'.status_id', '=', 'rb_suborder_status.id')
+        ->leftJoin('upload', $this->model->table.'.conclusion_file_id', '=', 'upload.id')
         ->join('rb_subservice', $this->model->table.'.subservice_id', '=', 'rb_subservice.id')
         ->join('rb_service', 'rb_subservice.service_id', '=', 'rb_service.id')
         ->select($this->model->table.'.id',
-            'rb_suborder_status.name_'.$this->language.' as status_name', 
-            'rb_subservice.name_'.$this->language.' as subservice_name', 
-            'rb_service.name_'.$this->language.' as service_name', 
+            'rb_suborder_status.name_'.$this->language.' as status_name',
+            'rb_subservice.name_'.$this->language.' as subservice_name',
+            'rb_service.name_'.$this->language.' as service_name',
+            'upload.name as file_name',
+            'upload.url as file_url',
             'rb_suborder_status.color as status_color',
             $this->model->table.'.status_id',
             $this->model->table.'.branch_id',
@@ -121,8 +124,8 @@ class SuborderRepository extends ReferenceRepository
         $query = $this->join('rb_subservice', $this->model->table.'.subservice_id', '=', 'rb_subservice.id')
         ->join('rb_service', 'rb_subservice.service_id', '=', 'rb_service.id')
         ->select($this->model->table.'.id',
-            'rb_subservice.name_'.$this->language.' as subservice_name', 
-            'rb_service.name_'.$this->language.' as service_name', 
+            'rb_subservice.name_'.$this->language.' as subservice_name',
+            'rb_service.name_'.$this->language.' as service_name',
             $this->model->table.'.status_id',
             $this->model->table.'.appointment_date')
         ->where($this->model->table.'.branch_id', $branch_id);
@@ -141,9 +144,9 @@ class SuborderRepository extends ReferenceRepository
         ->join('rb_service', 'rb_subservice.service_id', '=', 'rb_service.id')
         ->join('rb_suborder_status', $this->model->table.'.status_id', '=', 'rb_suborder_status.id')
         ->select($this->model->table.'.id',
-            'patient.full_name', 
+            'patient.full_name',
             'rb_service.name_'.$this->language.' as service_name',
-            'rb_subservice.name_'.$this->language.' as subservice_name', 
+            'rb_subservice.name_'.$this->language.' as subservice_name',
             $this->model->table.'.status_id',
             'rb_suborder_status.name_'.$this->language.' as status_name',
             'rb_suborder_status.color as status_color',
@@ -161,8 +164,8 @@ class SuborderRepository extends ReferenceRepository
         ->join('orders', $this->model->table.'.order_id', '=', 'orders.id')
         ->join('patient', 'orders.patient_id', '=', 'patient.id')
         ->select($this->model->table.'.id',
-            'patient.full_name', 
-            'rb_subservice.name_'.$this->language.' as subservice_name', 
+            'patient.full_name',
+            'rb_subservice.name_'.$this->language.' as subservice_name',
             'rb_service.name_'.$this->language.' as service_name')
         ->where($this->model->table.'.status_id', $status_id)
         ->where($this->model->table.'.doctors', 'like' ,"%@".$doctor_id."@%");
@@ -204,9 +207,9 @@ class SuborderRepository extends ReferenceRepository
         ->leftJoin('upload', $this->model->table.'.conclusion_file_id', '=', 'upload.id')
         ->join('rb_service', 'rb_subservice.service_id', '=', 'rb_service.id')
         ->select($this->model->table.'.id',
-            'rb_suborder_status.name_'.$this->language.' as status_name', 
-            'rb_subservice.name_'.$this->language.' as subservice_name', 
-            'rb_service.name_'.$this->language.' as service_name', 
+            'rb_suborder_status.name_'.$this->language.' as status_name',
+            'rb_subservice.name_'.$this->language.' as subservice_name',
+            'rb_service.name_'.$this->language.' as service_name',
             'upload.name as file_name',
             'upload.url as file_url',
             'rb_suborder_status.color as status_color',

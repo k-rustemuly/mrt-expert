@@ -78,6 +78,10 @@ class AboutService extends BlockType
             {
                 $action = $this->getSubOrderAction("suborder_created", $suborderId);
             }
+            $aboutSuborder["file"][] = $aboutSuborder["file_url"] ? [
+                "url" => $aboutSuborder["file_url"],
+                "name" => $aboutSuborder["file_name"],
+            ] : null;
             $this->blocks["suborder_".$i] = Block::_()
                                             ->name(__($this->name.".suborder", ['number' => $i+1]))
                                             ->action($action)
@@ -128,6 +132,11 @@ class AboutService extends BlockType
                 "assistant_comment" => [
                     "name" => __($this->name.".assistant_comment"),
                     "value" => $values["assistant_comment"],
+                ],
+                "file" => [
+                    "type" => "file",
+                    "name" => __($this->name.".file"),
+                    "value" => $values["file"]
                 ],
                 "created_at" => [
                     "name" => __($this->name.".created_at"),
