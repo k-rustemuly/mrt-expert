@@ -6,6 +6,7 @@ use App\Mrt\Suborder\Domain\Repositories\SuborderRepository as Repository;
 use App\Domain\Payloads\SuccessPayload;
 use App\Exceptions\MainException;
 use App\Mrt\SuborderStatus\Domain\Models\SuborderStatus;
+use App\Mrt\Order\Domain\Models\OrderStatus;
 use App\Mrt\Order\Domain\Repositories\OrderRepository;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Storage;
@@ -89,6 +90,7 @@ class SubmitForDoctorService
                 $smsc = config('integration.smsc')["route"];
                 $route = $smsc."&phones=".$phone_number."&mes=".urlencode($message);
                 Http::get($route);
+                $this->orderRepository->update($order_id, ["status_id" => OrderStatus::COMPLETED]);
             }
             return new SuccessPayload(__("Suborder success updated"), $route);
         }
