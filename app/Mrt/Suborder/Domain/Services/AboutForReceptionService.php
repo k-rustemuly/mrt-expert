@@ -47,7 +47,7 @@ class AboutForReceptionService extends BlockType
     }
 
     /**
-     * @param string $suborder_id ID 
+     * @param string $suborder_id ID
      */
     public function handle($suborder_id = 0)
     {
@@ -85,7 +85,10 @@ class AboutForReceptionService extends BlockType
                 "name" => $aboutSuborder["file_name"],
             ];
         }
-
+        $aboutSuborder["conclusion_file"][] = $aboutSuborder["conclusion_file_url"] ? [
+            "url" => $aboutSuborder["conclusion_file_url"],
+            "name" => $aboutSuborder["conclusion_file_name"],
+        ] : null;
         $this->headers = $this->getHeader($aboutSuborder);
 
         $this->blocks = array(
@@ -97,11 +100,11 @@ class AboutForReceptionService extends BlockType
         return $this->getData();
     }
 
-    /** 
+    /**
      * Подзаказы блок
-     * 
+     *
      * @param array<mixed> $values Данные для заполнение данных блока
-     * 
+     *
      * @return array<mixed>
     */
     private function getSuborderBlock(array $values = array())
@@ -128,6 +131,11 @@ class AboutForReceptionService extends BlockType
                     "name" => __($this->name.".status_name"),
                     "value" => $values["status_name"],
                     "color" => $values["status_color"],
+                ],
+                "conclusion_file" => [
+                    "type" => "file",
+                    "name" => __($this->name.".conclusion_file"),
+                    "value" => $values["conclusion_file"],
                 ],
                 "appointment_date" => [
                     "name" => __($this->name.".appointment_date"),
@@ -166,11 +174,11 @@ class AboutForReceptionService extends BlockType
         ];
     }
 
-    /** 
+    /**
      * Главный блок
-     * 
+     *
      * @param array<mixed> $values Данные для заполнение данных блока
-     * 
+     *
      * @return array<mixed>
     */
     private function getMainBlock(array $values = array())
@@ -212,9 +220,9 @@ class AboutForReceptionService extends BlockType
 
     /**
      * Заголовки
-     * 
+     *
      * @param array $values
-     * 
+     *
      * @return array<mixed>
      */
     private function getHeader($values = array())
@@ -225,7 +233,7 @@ class AboutForReceptionService extends BlockType
 
     /**
      * @param string $type
-     * 
+     *
      * @return array<mixed>
      */
     private function getActions($type = "default")
