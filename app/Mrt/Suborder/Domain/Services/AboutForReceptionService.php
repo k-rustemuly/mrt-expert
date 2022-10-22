@@ -93,6 +93,7 @@ class AboutForReceptionService extends BlockType
 
         $this->blocks = array(
             "order_info" => Block::_()
+                        ->position("left")
                         ->values($this->getMainBlock($aboutOrder)),
             "suborder_info" => Block::_()
                         ->values($this->getSuborderBlock($aboutSuborder))

@@ -107,6 +107,7 @@ class AboutForAssistantService extends BlockType
         }
         $this->blocks = array(
             "order_info" => Block::_()
+                        ->position("left")
                         ->values($this->getMainBlock($aboutOrder)),
             "suborder_info" => Block::_()
                         ->action($suborder_action)
