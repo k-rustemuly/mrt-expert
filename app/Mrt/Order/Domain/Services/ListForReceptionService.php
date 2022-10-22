@@ -31,6 +31,9 @@ class ListForReceptionService extends TableType
     public function handle($status_id = 0)
     {
         $user = auth('reception')->user();
+        if(!$user){
+            $user = auth('assistant')->user();
+        }
         $this->headers = $this->getHeader();
         $this->datas = $this->repository->getByBranchId($user->branch_id, $status_id);
         $this->actions = $this->getAction();
@@ -39,7 +42,7 @@ class ListForReceptionService extends TableType
 
     /**
      * Заголовки
-     * 
+     *
      * @return array<mixed>
      */
     private function getHeader()
@@ -64,11 +67,11 @@ class ListForReceptionService extends TableType
         ];
     }
 
-    /** 
+    /**
      * действия для каждой строки
-     * 
-     * @param string|int $order_id Айди 
-     * 
+     *
+     * @param string|int $order_id Айди
+     *
      * @return array<mixed>
     */
     public function action($order_id = 0)
@@ -84,7 +87,7 @@ class ListForReceptionService extends TableType
 
     /**
      * Глобальные действии
-     * 
+     *
      * @return array<mixed>
      */
     private function getAction()

@@ -24,7 +24,7 @@ class OrderRepository extends Repository
         ->join('reception', $this->model->table.'.reception_id', '=', 'reception.id')
         ->join('patient_login', $this->model->table.'.patient_login_id', '=', 'patient_login.id')
         ->select($this->model->table.'.id',
-            'rb_order_status.name_'.$this->language.' as status_name', 
+            'rb_order_status.name_'.$this->language.' as status_name',
             'rb_order_status.color as status_color',
             'patient.id as patient_id',
             'patient.iin',
@@ -53,7 +53,7 @@ class OrderRepository extends Repository
             'rb_suborder_status.id as status_id',
             'rb_suborder_status.name_'.$this->language.' as status_name',
             'rb_subservice.name_'.$this->language.' as subservice_name',
-            'rb_service.name_'.$this->language.' as service_name', 
+            'rb_service.name_'.$this->language.' as service_name',
             'rb_suborder_status.color as status_color',
             'suborders.appointment_date',
             'suborders.created_at')
@@ -67,12 +67,14 @@ class OrderRepository extends Repository
     {
         $query = $this->join('rb_order_status', $this->model->table.'.status_id', '=', 'rb_order_status.id')
         ->join('patient', $this->model->table.'.patient_id', '=', 'patient.id')
-        ->join('reception', $this->model->table.'.reception_id', '=', 'reception.id')
+        ->leftJoin('reception', $this->model->table.'.reception_id', '=', 'reception.id')
+        ->leftJoin('assistant', $this->model->table.'.assistant_id', '=', 'assistant.id')
         ->select($this->model->table.'.id',
-            'rb_order_status.name_'.$this->language.' as status_name', 
+            'rb_order_status.name_'.$this->language.' as status_name',
             'rb_order_status.color as status_color',
             'patient.full_name as patient_name',
             'reception.full_name as reception_name',
+            'assistant.full_name as assistant_name',
             $this->model->table.'.status_id',
             $this->model->table.'.created_at')
         ->where($this->model->table.'.branch_id', $branch_id)
@@ -89,7 +91,7 @@ class OrderRepository extends Repository
         $query = $this->join('rb_order_status', $this->model->table.'.status_id', '=', 'rb_order_status.id')
         ->join('patient', $this->model->table.'.patient_id', '=', 'patient.id')
         ->select($this->model->table.'.id',
-            'rb_order_status.name_'.$this->language.' as status_name', 
+            'rb_order_status.name_'.$this->language.' as status_name',
             'rb_order_status.color as status_color',
             'patient.iin',
             'patient.full_name as patient_name',

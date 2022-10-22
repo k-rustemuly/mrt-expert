@@ -30,10 +30,15 @@ class AddService
     {
         $this->patient_id = $patient_id;
         $user = auth('reception')->user();
+        if(!$user){
+            $user = auth('assistant')->user();
+            $insert["assistant_id"] = $user->id;
+        }else{
+            $insert["reception_id"] = $user->id;
+        }
         $branch_id = $user->branch_id;
-        $reception_id = $user->id;
         $patient_login_id = $this->getAuthDataPatient();
-        $insert = ["branch_id" => $branch_id, "patient_id" => $this->patient_id, "reception_id" => $reception_id, "patient_login_id" => $patient_login_id]; 
+        $insert = array_merge($insert, ["branch_id" => $branch_id, "patient_id" => $this->patient_id, "patient_login_id" => $patient_login_id]);
         $order = $this->repository->create($insert);
         if($order != null)
             return new SuccessPayload(__("New order success added"), $order->id);
