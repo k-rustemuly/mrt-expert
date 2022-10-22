@@ -24,17 +24,22 @@ class ListForAssistantService extends TableType
 
     public $status_id;
 
+    public $paginations;
+
     public function __construct(Repository $repository)
     {
         $this->repository = $repository;
     }
 
-    public function handle($status_id = 0)
+    public function handle($status_id = 0, $search = array(), $filter = array())
     {
         $this->status_id = $status_id;
         $user = auth('assistant')->user();
         $this->headers = $this->getHeader();
-        $this->datas = $this->repository->getAllByStatusId($user->branch_id, $status_id);
+        $pagination = $this->repository->getAllByStatusId($user->branch_id, $status_id, $search, $filter);
+        $this->datas = $pagination["data"];
+        unset($pagination["data"]);
+        $this->paginations = $pagination;
         $this->actions = $this->getAction();
         return $this->getData();
     }

@@ -18,7 +18,7 @@ class ListForAssistantAction
     public function __invoke(Request $request)
     {
         return $this->responder->withResponse(
-            $this->service->handle($request->status_id)
+            $this->service->handle($request->status_id, $request->search, $request->filter)
         )->respond();
     }
 }

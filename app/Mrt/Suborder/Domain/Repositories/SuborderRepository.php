@@ -123,7 +123,7 @@ class SuborderRepository extends ReferenceRepository
         return  $this->where('branch_id', $branch_id)->where('order_id', $order_id)->where('id', $suborder_id)->where('status_id', SuborderStatus::CREATED)->delete();
     }
 
-    public function getAllByStatusId($branch_id, $status_id)
+    public function getAllByStatusId($branch_id, $status_id, $search = array(), $filter = array())
     {
         $query = $this->join('rb_subservice', $this->model->table.'.subservice_id', '=', 'rb_subservice.id')
         ->join('rb_service', 'rb_subservice.service_id', '=', 'rb_service.id')
@@ -135,13 +135,21 @@ class SuborderRepository extends ReferenceRepository
             'rb_service.name_'.$this->language.' as service_name',
             $this->model->table.'.status_id',
             $this->model->table.'.appointment_date')
-        ->where($this->model->table.'.branch_id', $branch_id)
-        ->orderByDesc($this->model->table.'.created_at');
+        ->where($this->model->table.'.branch_id', $branch_id);
         if($status_id > 0)
         {
-            $query->where($this->model->table.'.status_id', $status_id);
+            $query = $query->where($this->model->table.'.status_id', $status_id);
         }
-        return $query->get()->all();
+        if(is_array($search))
+        {
+            if(isset($search['full_name']))
+            {
+                $value = $search['full_name'];
+                $query = $query->where('patient.full_name', 'like', "%{$value}%");
+            }
+        }
+        $query = $query->orderByDesc($this->model->table.'.created_at');
+        return $query->jsonPaginate()->toArray();
     }
 
     public function getAllByDateRange($branch_id, $start_date, $end_date)
