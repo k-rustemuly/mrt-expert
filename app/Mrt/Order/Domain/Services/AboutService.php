@@ -181,10 +181,10 @@ class AboutService extends BlockType
                     "visibility" => "spoiler",
                     "value" => $values["password"],
                 ],
-                // "status" => [
-                //     "value" => $values["status_name"],
-                //     "color" => $values["status_color"],
-                // ],
+                "status" => [
+                    "value" => $values["status_name"],
+                    "color" => $values["status_color"],
+                ],
                 "reception_name" => [
                     "value" => $values["reception_name"],
                 ],
