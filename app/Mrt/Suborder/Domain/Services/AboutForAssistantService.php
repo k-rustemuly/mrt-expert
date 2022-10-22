@@ -86,8 +86,8 @@ class AboutForAssistantService extends BlockType
             ];
         }
         $aboutSuborder["conclusion_file"][] = $aboutSuborder["conclusion_file_url"] ? [
-            "url" => $aboutSuborder["conclusion_file_name"],
-            "name" => $aboutSuborder["conclusion_file_url"],
+            "url" => $aboutSuborder["conclusion_file_url"],
+            "name" => $aboutSuborder["conclusion_file_name"],
         ] : null;
         $this->actions = $this->getActions();
         $this->headers = $this->getHeader($aboutSuborder);
