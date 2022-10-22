@@ -26,6 +26,8 @@ class ListForAssistantService extends TableType
 
     public $paginations;
 
+    public $title = "suborder";
+
     public function __construct(Repository $repository)
     {
         $this->repository = $repository;
@@ -41,6 +43,10 @@ class ListForAssistantService extends TableType
         unset($pagination["data"]);
         $this->paginations = $pagination;
         $this->actions = $this->getAction();
+        if($status_id){
+            $this->title.=".".((int)$status_id);
+        }
+        $this->title = __($this->title.".title");
         return $this->getData();
     }
 
