@@ -43,12 +43,15 @@ class AboutService extends BlockType
     }
 
     /**
-     * @param string $order_id ID 
+     * @param string $order_id ID
      */
     public function handle($order_id = 0)
     {
         $this->order_id = $order_id;
         $user = auth('reception')->user();
+        if(!$user){
+            $user = auth('assistant')->user();
+        }
         $this->branch_id = $user->branch_id;
 
         $aboutOrder = $this->repository->getById($order_id);
@@ -82,11 +85,11 @@ class AboutService extends BlockType
         return $this->getData();
     }
 
-    /** 
+    /**
      * Подзаказы блок
-     * 
+     *
      * @param array<mixed> $values Данные для заполнение данных блока
-     * 
+     *
      * @return array<mixed>
     */
     private function getSuborderBlock(array $values = array())
@@ -136,11 +139,11 @@ class AboutService extends BlockType
         ];
     }
 
-    /** 
+    /**
      * Главный блок
-     * 
+     *
      * @param array<mixed> $values Данные для заполнение данных блока
-     * 
+     *
      * @return array<mixed>
     */
     private function getMainBlock(array $values = array())
@@ -186,9 +189,9 @@ class AboutService extends BlockType
 
     /**
      * Заголовки
-     * 
+     *
      * @param array $values
-     * 
+     *
      * @return array<mixed>
      */
     private function getHeader()
@@ -220,14 +223,14 @@ class AboutService extends BlockType
 
     /**
      * @param string $type
-     * 
+     *
      * @return array<mixed>
      */
     private function getActions($type = "default", $data = array())
     {
         $actions = array(
             "reception" => [
-                "create_subservice" => 
+                "create_subservice" =>
                     Action::_()
                         ->requestType("post")
                         ->requestUrl(route('reception.order.subservice.create', ['locale' => App::currentLocale(), 'order_id' => $this->order_id]))
