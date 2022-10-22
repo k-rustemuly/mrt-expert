@@ -334,7 +334,7 @@
     "suborder.action.create.name" : "Добавить нового пациента",
     "suborder.action.create.hint" : " ",
     "one_order.file" : "Заключение",
-    "suborder.title" : "Заказы",
+    "suborder.title" : "Все заказы",
     "suborder.title.1" : "Заказы (Создано)",
     "suborder.title.2" : "Заказы (В ожидании отклика доктора)",
     "suborder.title.3" : "Заказы (В обработке у доктора)",

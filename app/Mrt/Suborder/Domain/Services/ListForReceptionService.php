@@ -44,7 +44,7 @@ class ListForReceptionService extends TableType
         $this->paginations = $pagination;
         $this->actions = $this->getAction();
         if($status_id){
-            $this->title.=".".$status_id;
+            $this->title.=".".((int)$status_id);
         }
         $this->title = __($this->title.".title");
         return $this->getData();
