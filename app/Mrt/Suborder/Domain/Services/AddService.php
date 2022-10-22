@@ -19,6 +19,9 @@ class AddService
     public function handle($order_id = 0, $data = [])
     {
         $user = auth('reception')->user();
+        if(!$user){
+            $user = auth('assistant')->user();
+        }
         $branch_id = $user->branch_id;
         $data["branch_id"] = $branch_id;
         $data["order_id"] = $order_id;

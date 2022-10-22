@@ -17,11 +17,14 @@ class SubserviceDeleteService
     }
 
     /**
-     * @param string $order_id ID 
+     * @param string $order_id ID
      */
     public function handle($order_id = 0, $suborder_id = 0)
     {
         $user = auth('reception')->user();
+        if(!$user){
+            $user = auth('assistant')->user();
+        }
         $branch_id = $user->branch_id;
         if(!$this->repository->deleteByBranchId($branch_id, $order_id, $suborder_id))
         {
