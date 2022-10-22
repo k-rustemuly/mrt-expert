@@ -15,6 +15,7 @@ class Block {
         "name" => null,
         "values" => null,
         "action" => null,
+        "position" => "default",
         "status" => [
             "id" => 0,
             "name" => null,
@@ -32,8 +33,8 @@ class Block {
     }
 
     /**
-     * 
-     * @param string $status_id 
+     *
+     * @param string $status_id
      */
     public function status(string $status_id = "0")
     {
@@ -42,8 +43,8 @@ class Block {
     }
 
     /**
-     * 
-     * @param string $name 
+     *
+     * @param string $name
      */
     public function name(string $name = "")
     {
@@ -52,8 +53,8 @@ class Block {
     }
 
     /**
-     * 
-     * @param string $type 
+     *
+     * @param string $type
      */
     public function type(string $type = "")
     {
@@ -61,10 +62,21 @@ class Block {
         return $this;
     }
 
+    /**
+     *
+     * @param string $position
+     */
+    public function position(string $position = "")
+    {
+        $this->etalon["position"] = $position;
+        return $this;
+    }
+
+
 
     /**
-     * 
-     * @param array<mixed> $action 
+     *
+     * @param array<mixed> $action
      */
     public function action(array $action = array())
     {
@@ -73,9 +85,9 @@ class Block {
     }
 
     /**
-     * 
+     *
      * @param array<mixed>
-     * 
+     *
      * @return array<mixed>
      */
     public function values($values = array())

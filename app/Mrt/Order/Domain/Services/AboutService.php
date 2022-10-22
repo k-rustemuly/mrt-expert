@@ -61,6 +61,7 @@ class AboutService extends BlockType
         $this->headers = $this->getHeader($aboutOrder);
         $this->blocks = array(
             "main_info" => Block::_()
+                        ->position("left")
                         ->values($this->getMainBlock($aboutOrder)),
             "subservice" => Block::_()
                         ->action($this->getActions("reception"))

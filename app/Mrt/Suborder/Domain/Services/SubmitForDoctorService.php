@@ -71,7 +71,9 @@ class SubmitForDoctorService
             $send_sms = true;
             foreach ($suborders as $suborder)
             {
-                if((isset($suborder->status_id) && $suborder->status_id != SuborderStatus::COMPLETED) || (isset($suborder["status_id"]) && $suborder["status_id"] != SuborderStatus::COMPLETED))
+                if(
+                    (isset($suborder->status_id) && $suborder->status_id != SuborderStatus::COMPLETED) ||
+                    (isset($suborder["status_id"]) && $suborder["status_id"] != SuborderStatus::COMPLETED))
                 {
                     $send_sms = false;
                 }
