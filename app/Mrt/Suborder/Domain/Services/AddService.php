@@ -32,7 +32,7 @@ class AddService
         $data["order_id"] = $order_id;
         $suborder = $this->repository->create($data);
         if($suborder != null){
-            $this->orderRepository->update($order_id, ["status_id" => OrderStatus::REGISTERED]);
+            $this->orderRepository->updateById($order_id, ["status_id" => OrderStatus::REGISTERED]);
             return new SuccessPayload(__("New suborder success added"));
         }
 

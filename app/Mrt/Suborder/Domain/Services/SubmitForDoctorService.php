@@ -90,7 +90,7 @@ class SubmitForDoctorService
                 $smsc = config('integration.smsc')["route"];
                 $route = $smsc."&phones=".$phone_number."&mes=".urlencode($message);
                 Http::get($route);
-                $this->orderRepository->update($order_id, ["status_id" => OrderStatus::COMPLETED]);
+                $this->orderRepository->updateById($order_id, ["status_id" => OrderStatus::COMPLETED]);
             }
             return new SuccessPayload(__("Suborder success updated"), $route);
         }
