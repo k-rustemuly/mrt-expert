@@ -15,6 +15,8 @@ class ListService extends BlockType
 
     public $blocks;
 
+    public $headers;
+
     public $prefix = "reception";
 
     public function __construct()
@@ -29,6 +31,7 @@ class ListService extends BlockType
                     ->action($this->getActions("first"))
                     ->values($this->getFirst()),
             );
+        $this->headers = $this->getHeader();
         return $this->getData();
     }
 
