@@ -291,6 +291,8 @@ Route::group([
 
                     Route::get('/all', \App\Mrt\Report\Actions\ListReportAction::class);
 
+                    Route::post('/first', \App\Mrt\Report\Actions\ListReportAction::class)->name('first');
+
                 });
 
             });

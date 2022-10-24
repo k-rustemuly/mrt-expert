@@ -80,12 +80,12 @@ class ListService extends BlockType
                 "from_date" => Field::_()
                                 ->init(new Date())
                                 ->onUpdate("visible", true)
-                                ->value(date("Y-m-d H:i"))
+                                ->value(date("Y-m-d"))
                                 ->render(),
                 "to_date" => Field::_()
                                 ->init(new Date())
                                 ->onUpdate("visible", true)
-                                ->value(date("Y-m-d H:i"))
+                                ->value(date("Y-m-d"))
                                 ->render(),
             ]
         ];
