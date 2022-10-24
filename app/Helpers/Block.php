@@ -4,8 +4,16 @@ namespace App\Helpers;
 class Block {
 
     const VERIFIED = "1";
+
     const NOT_VERIFIED = "2";
+
     const EDITED = "3";
+
+    const EXTERNAL_FILE_UPLOAD = "external_file_upload";
+
+    const EXTERNAL_FILE_VIEW = "external_file_view";
+
+    const EXTERNAL_TABLE = "external_table";
 
     /**
      * @var array<mixed>
@@ -72,7 +80,16 @@ class Block {
         return $this;
     }
 
-
+    /**
+     *
+     * @param string $key
+     * @param string|array|int $value
+     */
+    public function custom(string $key, $value = null)
+    {
+        $this->etalon[$key] = $value;
+        return $this;
+    }
 
     /**
      *

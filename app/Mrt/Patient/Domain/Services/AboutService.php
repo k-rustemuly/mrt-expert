@@ -32,6 +32,8 @@ class AboutService extends BlockType
 
     public $patient_id;
 
+    public $prefix = "reception";
+
     public function __construct(Repository $repository, SubserviceRepository $subserviceRepository)
     {
         $this->repository = $repository;
@@ -44,7 +46,7 @@ class AboutService extends BlockType
     public function handle($patient_id = 0)
     {
         $this->patient_id = $patient_id;
-
+        if(auth('assistant')->user()) $this->prefix = "assistant";
         $aboutPatient = $this->repository->getById($patient_id);
         if(empty($aboutPatient)) throw new MainException("You dont have permission or record not found");
 
@@ -53,7 +55,11 @@ class AboutService extends BlockType
         $this->blocks = array(
             "main_info" => Block::_()
                         ->position("left")
-                        ->values($this->getMainBlock($aboutPatient))
+                        ->values($this->getMainBlock($aboutPatient)),
+            "order" => Block::_()
+                        ->type(Block::EXTERNAL_TABLE)
+                        ->custom("data_url", route($this->prefix.'.patient.order.list', ['locale' => App::currentLocale(), 'patient_id' => $patient_id]))
+                        ->values(),
             );
         return $this->getData();
     }

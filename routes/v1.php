@@ -175,7 +175,7 @@ Route::group([
 
                         Route::group(['prefix' => 'order', 'as' => 'order.'], function() {
 
-                            Route::get('', \App\Mrt\Order\Actions\PatientListAction::class);
+                            Route::get('', \App\Mrt\Order\Actions\PatientListAction::class)->name('list');
 
                             Route::post('/new', \App\Mrt\Order\Actions\AddAction::class)->name('create');
 
@@ -241,7 +241,7 @@ Route::group([
 
                         Route::group(['prefix' => 'order', 'as' => 'order.'], function() {
 
-                            Route::get('', \App\Mrt\Order\Actions\PatientListAction::class);
+                            Route::get('', \App\Mrt\Order\Actions\PatientListAction::class)->name('list');
 
                             Route::post('/new', \App\Mrt\Order\Actions\AddAction::class)->name('create');
 

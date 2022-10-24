@@ -138,6 +138,7 @@
     "patient.action.create.name" : "Добавить нового пациента",
     "patient.action.create.hint" : " ",
     "one_patient.block.main_info.name" : "О пациенте",
+    "one_patient.block.order.name" : "Обращении",
     "one_patient.block.values.iin.name" : "ИИН",
     "one_patient.block.values.full_name.name" : "ФИО",
     "one_patient.block.values.email.name" : "Email",
