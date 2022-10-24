@@ -33,7 +33,7 @@ class AboutService extends BlockType
     }
 
     /**
-     * @param string $branch_id ID 
+     * @param string $branch_id ID
      */
     public function handle($branch_id = 0)
     {
@@ -46,16 +46,20 @@ class AboutService extends BlockType
         $this->headers = $this->getHeader($aboutBranch);
         $this->blocks = array(
             "main_info" => Block::_()
-                        ->values($this->getMainBlock($aboutBranch))
+                        ->values($this->getMainBlock($aboutBranch)),
+            "admin" => Block::_()
+                        ->type(Block::EXTERNAL_TABLE)
+                        ->custom("data_url", route('super-admin.branch.admin.list', ['locale' => App::currentLocale(), 'branch_id' => $branch_id]))
+                        ->values(),
             );
         return $this->getData();
     }
 
-    /** 
+    /**
      * Главный блок
-     * 
+     *
      * @param array<mixed> $values Данные для заполнение данных блока
-     * 
+     *
      * @return array<mixed>
     */
     private function getMainBlock(array $values = array())
@@ -78,9 +82,9 @@ class AboutService extends BlockType
 
     /**
      * Заголовки
-     * 
+     *
      * @param array $values
-     * 
+     *
      * @return array<mixed>
      */
     private function getHeader(array $values = array())
@@ -115,14 +119,14 @@ class AboutService extends BlockType
 
     /**
      * @param string $type
-     * 
+     *
      * @return array<mixed>
      */
     private function getActions($type = "default")
     {
         $actions = array(
             "default" => array(
-                "edit" => 
+                "edit" =>
                     Action::_()
                     ->requestType("put")
                     ->requestUrl(route('super-admin.branch.update', ['locale' => App::currentLocale(), 'branch_id' => $this->branch_id]))

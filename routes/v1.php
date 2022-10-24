@@ -27,7 +27,7 @@ Route::group([
 
                         Route::group(['prefix' => 'admin', 'as' => 'admin.'], function() {
 
-                            Route::get('/', \App\Mrt\Admin\Actions\ListAction::class);
+                            Route::get('/', \App\Mrt\Admin\Actions\ListAction::class)->name('list');
 
                             Route::post('/', \App\Mrt\Admin\Actions\AddAction::class)->name('create');
 

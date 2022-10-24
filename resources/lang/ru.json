@@ -81,6 +81,7 @@
     "branch.action.create.name" : "Добавить новый филиал",
     "branch.action.create.hint" : " ",
     "one_branch.block.main_info.name" : "О филиале",
+    "one_branch.block.admin.name" : "Админстраторы",
     "reception.action.create.name" : "Добавить ресепшн",
     "reception.action.create.hint" : " ",
     "admin.action.create.name" : "Добавить админа",
