@@ -6,10 +6,11 @@ use App\Domain\Services\TableType;
 use App\Mrt\Suborder\Domain\Repositories\SuborderRepository as Repository;
 use App\Helpers\FieldTypes\Number;
 use App\Helpers\FieldTypes\Text;
+use App\Helpers\FieldTypes\Reference;
 use App\Helpers\FieldTypes\Email;
 use App\Helpers\FieldTypes\Date;
-use App\Helpers\FieldTypes\PhoneNumber;
 use App\Helpers\FieldTypes\Boolean;
+use App\Helpers\FieldTypes\PhoneNumber;
 use App\Helpers\Field;
 use Illuminate\Support\Facades\App;
 use App\Helpers\Action;
@@ -85,6 +86,10 @@ class ListAllForReceptionService extends TableType
                         ->onUpdate("visible")
                         ->maxLength(255)
                         ->render(),
+            "status_id" => Field::_()
+                    ->init(new Reference())
+                    ->key('status')
+                    ->render(),
         ];
     }
 

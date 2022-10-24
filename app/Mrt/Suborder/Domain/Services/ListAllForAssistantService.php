@@ -9,6 +9,7 @@ use App\Helpers\FieldTypes\Text;
 use App\Helpers\FieldTypes\Email;
 use App\Helpers\FieldTypes\Date;
 use App\Helpers\FieldTypes\Boolean;
+use App\Helpers\FieldTypes\Reference;
 use App\Helpers\FieldTypes\PhoneNumber;
 use App\Helpers\Field;
 use Illuminate\Support\Facades\App;
@@ -85,6 +86,10 @@ class ListAllForAssistantService extends TableType
                         ->onUpdate("visible")
                         ->maxLength(255)
                         ->render(),
+            "status_id" => Field::_()
+                    ->init(new Reference())
+                    ->key('status')
+                    ->render(),
         ];
     }
 

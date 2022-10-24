@@ -52,7 +52,7 @@ class AboutService extends BlockType
         $this->headers = $this->getHeader($aboutPatient);
         $this->blocks = array(
             "main_info" => Block::_()
-                        ->position("left")
+                        // ->position("left")
                         ->values($this->getMainBlock($aboutPatient))
             );
         return $this->getData();
