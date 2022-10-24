@@ -5,7 +5,7 @@ namespace App\Mrt\Report\Actions;
 use App\Mrt\Report\Domain\Services\ListService as Service;
 use App\Responders\JsonResponder as Responder;
 
-class LocalAction
+class ListReportAction
 {
 
     public function __construct(Responder $responder, Service $service)
