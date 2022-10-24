@@ -46,6 +46,7 @@ class AboutService extends BlockType
         $this->headers = $this->getHeader($aboutBranch);
         $this->blocks = array(
             "main_info" => Block::_()
+                        ->position('left')
                         ->values($this->getMainBlock($aboutBranch)),
             "admin" => Block::_()
                         ->type(Block::EXTERNAL_TABLE)
