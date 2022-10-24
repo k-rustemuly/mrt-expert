@@ -39,7 +39,7 @@ class AboutService extends BlockType
     }
 
     /**
-     * @param string $patient_id ID 
+     * @param string $patient_id ID
      */
     public function handle($patient_id = 0)
     {
@@ -52,16 +52,17 @@ class AboutService extends BlockType
         $this->headers = $this->getHeader($aboutPatient);
         $this->blocks = array(
             "main_info" => Block::_()
+                        ->position("left")
                         ->values($this->getMainBlock($aboutPatient))
             );
         return $this->getData();
     }
 
-    /** 
+    /**
      * Главный блок
-     * 
+     *
      * @param array<mixed> $values Данные для заполнение данных блока
-     * 
+     *
      * @return array<mixed>
     */
     private function getMainBlock(array $values = array())
@@ -87,9 +88,9 @@ class AboutService extends BlockType
 
     /**
      * Заголовки
-     * 
+     *
      * @param array $values
-     * 
+     *
      * @return array<mixed>
      */
     private function getHeader(array $values = array())
@@ -130,14 +131,14 @@ class AboutService extends BlockType
 
     /**
      * @param string $type
-     * 
+     *
      * @return array<mixed>
      */
     private function getActions($type = "default")
     {
         $actions = array(
             "default" => array(
-                "edit" => 
+                "edit" =>
                     Action::_()
                     ->requestType("put")
                     ->requestUrl(route('reception.patient.update', ['locale' => App::currentLocale(), 'patient_id' => $this->patient_id]))
