@@ -11,6 +11,7 @@ use App\Exceptions\MainException;
 use Illuminate\Support\Facades\App;
 use App\Helpers\Field;
 use App\Helpers\FieldTypes\Textarea;
+use App\Helpers\FieldTypes\Text;
 use App\Helpers\FieldTypes\DateTime;
 use App\Helpers\FieldTypes\Reference;
 use App\Helpers\FieldTypes\Boolean;
@@ -217,14 +218,19 @@ class AboutService extends BlockType
                                     ->onUpdate("visible", true)
                                     ->render(),
                 "appointment_date" => Field::_()
-                                        ->init(new DateTime())
-                                        ->onUpdate("visible", true)
-                                        ->value(date("Y-m-d H:i"))
-                                        ->render(),
+                                    ->init(new DateTime())
+                                    ->onUpdate("visible", true)
+                                    ->value(date("Y-m-d H:i"))
+                                    ->render(),
                 "is_kmis"  => Field::_()
                             ->init(new Boolean())
                             ->onUpdate("visible")
                             ->value(0)
+                            ->render(),
+                "sender" => Field::_()
+                            ->init(new Text())
+                            ->onUpdate("visible")
+                            ->maxlength(255)
                             ->render(),
                 "reception_comment" => Field::_()
                                         ->init(new Textarea())

@@ -38,6 +38,7 @@ class SuborderRepository extends ReferenceRepository
             $this->model->table.'.status_id',
             $this->model->table.'.appointment_date',
             $this->model->table.'.reception_comment',
+            $this->model->table.'.sender',
             $this->model->table.'.assistant_comment',
             $this->model->table.'.doctor_comment',
             $this->model->table.'.doctors',

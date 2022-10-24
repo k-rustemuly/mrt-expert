@@ -5,17 +5,10 @@ namespace App\Mrt\Suborder\Domain\Services;
 use App\Domain\Services\BlockType;
 use App\Mrt\Suborder\Domain\Repositories\SuborderRepository as Repository;
 use App\Mrt\Order\Domain\Repositories\OrderRepository;
-use App\Helpers\Action;
 use App\Helpers\Block;
 use App\Exceptions\MainException;
 use Illuminate\Support\Facades\App;
-use App\Helpers\Field;
-use App\Helpers\FieldTypes\File;
-use App\Helpers\FieldTypes\DateTime;
-use App\Helpers\FieldTypes\Reference;
-use App\Helpers\FieldTypes\Textarea;
 use Carbon\Carbon;
-use App\Mrt\SuborderStatus\Domain\Models\SuborderStatus;
 use App\Mrt\Doctor\Domain\Repositories\DoctorRepository;
 
 class AboutForReceptionService extends BlockType
@@ -127,6 +120,10 @@ class AboutForReceptionService extends BlockType
                 "is_kmis" => [
                     "name" => __($this->name.".is_kmis"),
                     "value" => $values["is_kmis"] ? __("yes") : __("no")
+                ],
+                "sender" => [
+                    "name" => __($this->name.".sender"),
+                    "value" => $values["sender"],
                 ],
                 "status_name" => [
                     "name" => __($this->name.".status_name"),
