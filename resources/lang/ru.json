@@ -198,7 +198,7 @@
     "one_order.header.is_kmis.name" : "КМИС",
     "one_order.header.is_kmis.hint" : " ",
     "one_order.header.sender.name" : "Направил(а)",
-    "one_order.header.sender.hint" : " ",
+    "one_order.header.sender.hint" : "Это необязательное поле",
     "one_order.suborder" : "Услуга №:number",
     "order.action.new.name" : "Создать новый заказ",
     "order.action.new.hint" : " ",
