@@ -28,6 +28,7 @@ class ListService extends BlockType
         if(auth('assistant')->user()) $this->prefix = "assistant";
         $this->blocks = array(
             "first" => Block::_()
+                    ->position("left")
                     ->action($this->getActions("first"))
                     ->values($this->getFirst()),
             );
