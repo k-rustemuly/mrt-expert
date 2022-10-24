@@ -58,6 +58,7 @@ class AboutService extends BlockType
                         ->values($this->getMainBlock($aboutPatient)),
             "order" => Block::_()
                         ->type(Block::EXTERNAL_TABLE)
+                        ->name("order")
                         ->custom("data_url", route($this->prefix.'.patient.order.list', ['locale' => App::currentLocale(), 'patient_id' => $patient_id]))
                         ->values(),
             );

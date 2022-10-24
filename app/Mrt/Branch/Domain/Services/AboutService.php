@@ -49,6 +49,7 @@ class AboutService extends BlockType
                         ->position('left')
                         ->values($this->getMainBlock($aboutBranch)),
             "admin" => Block::_()
+                        ->name("branch-admin")
                         ->type(Block::EXTERNAL_TABLE)
                         ->custom("data_url", route('super-admin.branch.admin.list', ['locale' => App::currentLocale(), 'branch_id' => $branch_id]))
                         ->values(),

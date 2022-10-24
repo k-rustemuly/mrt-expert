@@ -23,6 +23,8 @@ class ListForReceptionService extends TableType
 
     public $actions;
 
+    public $title = "order.title";
+
     public function __construct(Repository $repository)
     {
         $this->repository = $repository;
