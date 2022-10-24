@@ -49,7 +49,7 @@ class AboutForDoctorService extends BlockType
     }
 
     /**
-     * @param string $suborder_id ID 
+     * @param string $suborder_id ID
      */
     public function handle($suborder_id = 0)
     {
@@ -73,10 +73,10 @@ class AboutForDoctorService extends BlockType
                 "name" => $aboutSuborder["file_name"],
             ];
         }
-        
+
         $this->actions = $this->getActions();
         $this->headers = $this->getHeader($aboutOrder);
-        
+
         $suborder_action = array();
         switch($aboutSuborder["status_id"])
         {
@@ -88,9 +88,10 @@ class AboutForDoctorService extends BlockType
             break;
         }
         $this->blocks = array(
-            "branch_info" => Block::_()
-                            ->values($this->getBranchBlock($aboutBranch)),
+            // "branch_info" => Block::_()
+            //                 ->values($this->getBranchBlock($aboutBranch)),
             "order_info" => Block::_()
+                        ->position("left")
                         ->values($this->getMainBlock($aboutOrder)),
             "suborder_info" => Block::_()
                         ->action($suborder_action)
@@ -98,11 +99,11 @@ class AboutForDoctorService extends BlockType
             );
         return $this->getData();
     }
-    /** 
+    /**
      * Филиал блок
-     * 
+     *
      * @param array<mixed> $values Данные для заполнение данных блока
-     * 
+     *
      * @return array<mixed>
     */
     private function getBranchBlock(array $values = array())
@@ -117,11 +118,11 @@ class AboutForDoctorService extends BlockType
         ];
     }
 
-    /** 
+    /**
      * Подзаказы блок
-     * 
+     *
      * @param array<mixed> $values Данные для заполнение данных блока
-     * 
+     *
      * @return array<mixed>
     */
     private function getSuborderBlock(array $values = array())
@@ -173,11 +174,11 @@ class AboutForDoctorService extends BlockType
         ];
     }
 
-    /** 
+    /**
      * Главный блок
-     * 
+     *
      * @param array<mixed> $values Данные для заполнение данных блока
-     * 
+     *
      * @return array<mixed>
     */
     private function getMainBlock(array $values = array())
@@ -209,9 +210,9 @@ class AboutForDoctorService extends BlockType
 
     /**
      * Заголовки
-     * 
+     *
      * @param array $values
-     * 
+     *
      * @return array<mixed>
      */
     private function getHeader($values = array())
@@ -236,21 +237,21 @@ class AboutForDoctorService extends BlockType
                                 ->init(new Html())
                                 ->onUpdate("visible", true)
                                 ->render(),
-                
+
             ],
             "reject" => [
                 "doctor_comment" => Field::_()
                                 ->init(new Text())
                                 ->onUpdate("visible")
                                 ->render(),
-                
+
             ]
         ];
     }
 
     /**
      * @param string $type
-     * 
+     *
      * @return array<mixed>
      */
     private function getActions($type = "default")
