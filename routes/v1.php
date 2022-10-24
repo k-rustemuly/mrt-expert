@@ -206,6 +206,13 @@ Route::group([
                     });
 
                 });
+
+                Route::group(['prefix' => 'report', 'as' => 'report.'], function() {
+
+                    Route::get('/all', \App\Mrt\Report\Actions\ListReportAction::class);
+
+                });
+
             });
 
         });
@@ -277,6 +284,13 @@ Route::group([
                     });
 
                 });
+
+                Route::group(['prefix' => 'report', 'as' => 'report.'], function() {
+
+                    Route::get('/all', \App\Mrt\Report\Actions\ListReportAction::class);
+
+                });
+
             });
 
         });

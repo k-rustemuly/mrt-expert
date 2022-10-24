@@ -61,7 +61,7 @@ class AboutForDoctorService extends BlockType
         if(empty($aboutSuborder)) throw new MainException("You dont have permission or record not found");
 
         $aboutOrder = $this->orderRepository->getById($aboutSuborder["order_id"]);
-        $aboutBranch = $this->branchRepository->getFullInfoById($aboutSuborder["branch_id"]);
+        // $aboutBranch = $this->branchRepository->getFullInfoById($aboutSuborder["branch_id"]);
 
         $aboutSuborder["file"] = array();
         if($aboutSuborder["file_id"] && $aboutSuborder["file_id"] > 0)
