@@ -86,10 +86,6 @@ class ListAllForReceptionService extends TableType
                         ->onUpdate("visible")
                         ->maxLength(255)
                         ->render(),
-            "status_id" => Field::_()
-                    ->init(new Reference())
-                    ->key('status')
-                    ->render(),
         ];
     }
 

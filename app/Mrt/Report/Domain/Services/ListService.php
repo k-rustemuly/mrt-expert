@@ -6,7 +6,7 @@ use App\Domain\Services\BlockType;
 use App\Helpers\Action;
 use Illuminate\Support\Facades\App;
 use App\Helpers\Field;
-use App\Helpers\FieldTypes\DateTime;
+use App\Helpers\FieldTypes\Date;
 use App\Helpers\Block;
 
 class ListService extends BlockType
@@ -78,12 +78,12 @@ class ListService extends BlockType
         return [
             "first_generate" => [
                 "from_date" => Field::_()
-                                ->init(new DateTime())
+                                ->init(new Date())
                                 ->onUpdate("visible", true)
                                 ->value(date("Y-m-d H:i"))
                                 ->render(),
                 "to_date" => Field::_()
-                                ->init(new DateTime())
+                                ->init(new Date())
                                 ->onUpdate("visible", true)
                                 ->value(date("Y-m-d H:i"))
                                 ->render(),
