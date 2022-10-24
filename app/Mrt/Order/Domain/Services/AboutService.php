@@ -188,6 +188,9 @@ class AboutService extends BlockType
                 "reception_name" => [
                     "value" => $values["reception_name"],
                 ],
+                "assistant_name" => [
+                    "value" => $values["assistant_name"],
+                ],
                 "created_at" => [
                     "value" => Carbon::parse($values["created_at"])->locale(App::currentLocale())->timezone('Asia/Aqtau')->isoFormat('LLLL'),
                 ],

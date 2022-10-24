@@ -21,7 +21,8 @@ class OrderRepository extends Repository
     {
         $query = $this->join('rb_order_status', $this->model->table.'.status_id', '=', 'rb_order_status.id')
         ->join('patient', $this->model->table.'.patient_id', '=', 'patient.id')
-        ->join('reception', $this->model->table.'.reception_id', '=', 'reception.id')
+        ->leftJoin('reception', $this->model->table.'.reception_id', '=', 'reception.id')
+        ->leftJoin('assistant', $this->model->table.'.assistant_id', '=', 'assistant.id')
         ->join('patient_login', $this->model->table.'.patient_login_id', '=', 'patient_login.id')
         ->select($this->model->table.'.id',
             'rb_order_status.name_'.$this->language.' as status_name',
@@ -33,6 +34,7 @@ class OrderRepository extends Repository
             'patient.email',
             'patient.phone_number',
             'reception.full_name as reception_name',
+            'assistant.full_name as assistant_name',
             'patient_login.login',
             'patient_login.password',
             $this->model->table.'.created_at',
