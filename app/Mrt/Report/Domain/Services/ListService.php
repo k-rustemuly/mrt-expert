@@ -21,6 +21,7 @@ class ListService extends BlockType
             "first" => Block::_()
                     ->values($this->getFirst()),
             );
+        return $this->getData();
     }
 
     private function getFirst()
