@@ -42,7 +42,7 @@ class MacroServiceProvider extends ServiceProvider
                 'version' => 'latest',
             ]);
 
-            $adapter = new AwsS3Adapter($client, $config['bucket'], $path, ['ResponseContentDisposition' => 'attachment; filename="aaa.zip"']);
+            $adapter = new AwsS3Adapter($client, $config['bucket'], $path, ['ResponseContentDisposition' => 'attachment; filename=aaa.zip']);
             $filesystem = new Filesystem($adapter);
 
             return $overWrite
