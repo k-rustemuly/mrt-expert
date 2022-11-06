@@ -23,8 +23,8 @@ class UploadService
     {
         $name = $file->getClientOriginalName();
         $extension = $file->extension(); // Determine the file's extension based on the file's MIME type...
-        $name = substr($name, 0, (strlen($extension)+1)*-1);
-        $unique_name = $name.' '.$file->hashName(); // Generate a unique, random name...
+        $realname = substr($name, 0, (strlen($extension)+1)*-1);
+        $unique_name = $realname.' '.$file->hashName(); // Generate a unique, random name...
         $filepath = $this->generatePath();
         $config = Config::get('filesystems.disks.s3');
         if(File::streamUpload($filepath, $unique_name, $file, false))

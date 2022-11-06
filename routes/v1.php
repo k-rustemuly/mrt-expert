@@ -347,6 +347,9 @@ Route::group([
             Route::get('/pdf', \App\Mrt\Upload\Actions\PdfAction::class);
 
             Route::post('/upload', \App\Mrt\Upload\Actions\UploadAction::class);
+
+            Route::get('/download', \App\Mrt\Upload\Actions\DownloadAction::class);
+
             //Route::post('/upload', \App\Mrt\Upload\Actions\LocalAction::class);
         });
 
