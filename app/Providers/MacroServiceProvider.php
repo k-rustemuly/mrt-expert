@@ -42,15 +42,29 @@ class MacroServiceProvider extends ServiceProvider
                 'version' => 'latest',
             ]);
 
-            $adapter = new AwsS3Adapter($client, $config['bucket'], $path);
+            $adapter = new AwsS3Adapter($client, $config['bucket'], $path, ['Content-Disposition' => 'attachment; filename="aaa.zip"']);
             $filesystem = new Filesystem($adapter);
 
             return $overWrite
                     ? $filesystem->putStream($fileName, $resource)
-                    : $filesystem->writeStream($fileName, $resource, [
-                        'ResponseContentType' => 'application/octet-stream',
-                        'ResponseContentDisposition' => 'attachment; filename=aaa.zip',
-                    ]);
+                    : $filesystem->writeStream($fileName, $resource);
+        });
+
+        File::macro('streamDownload', function($path, $fileName) {
+
+            $config = Config::get('filesystems.disks.s3');
+            $client = new S3Client([
+                'credentials' => [
+                    'key'    => $config['key'],
+                    'secret' => $config['secret'],
+                ],
+                'region' => $config['region'],
+                'version' => 'latest',
+            ]);
+
+            $adapter = new AwsS3Adapter($client, $config['bucket'], $path);
+            $filesystem = new Filesystem($adapter);
+            return $filesystem->temporaryUrl();
         });
     }
 }
