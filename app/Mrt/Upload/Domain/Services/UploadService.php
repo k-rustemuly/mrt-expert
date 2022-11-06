@@ -22,8 +22,9 @@ class UploadService
     public function handle($file = null, $files = array())
     {
         $name = $file->getClientOriginalName();
-        $unique_name = $name.' '.$file->hashName(); // Generate a unique, random name...
         $extension = $file->extension(); // Determine the file's extension based on the file's MIME type...
+        $name = substr($name, 0, (strlen($extension)+1)*-1);
+        $unique_name = $name.' '.$file->hashName(); // Generate a unique, random name...
         $filepath = $this->generatePath();
         $config = Config::get('filesystems.disks.s3');
         if(File::streamUpload($filepath, $unique_name, $file, false))
@@ -35,7 +36,7 @@ class UploadService
                     "uuid" => $uuid,
                     "name" => $name,
                     "path" => $path,
-                    "url" => urlencode($url),
+                    "url" => $url,
                     "extension" => $extension
                 ])["id"];
             return new GenericPayload(["id" => $upload_id, "uuid" => $uuid]);
