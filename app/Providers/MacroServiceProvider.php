@@ -29,7 +29,7 @@ class MacroServiceProvider extends ServiceProvider
     public function boot()
     {
         File::macro('streamUpload', function($path, $fileName, $file, $overWrite = true) {
-            
+
             // Set up S3 connection.
             $resource = fopen($file->getRealPath(), 'r+');
             $config = Config::get('filesystems.disks.s3');
@@ -45,9 +45,12 @@ class MacroServiceProvider extends ServiceProvider
             $adapter = new AwsS3Adapter($client, $config['bucket'], $path);
             $filesystem = new Filesystem($adapter);
 
-            return $overWrite 
-                    ? $filesystem->putStream($fileName, $resource) 
-                    : $filesystem->writeStream($fileName, $resource);
+            return $overWrite
+                    ? $filesystem->putStream($fileName, $resource)
+                    : $filesystem->writeStream($fileName, $resource,     [
+                        'ResponseContentType' => 'application/octet-stream',
+                        'ResponseContentDisposition' => 'attachment; filename=file2.jpg',
+                    ]);
         });
     }
 }

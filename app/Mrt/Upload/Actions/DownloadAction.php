@@ -16,7 +16,7 @@ class DownloadAction
         return redirect(Storage::disk('s3')->temporaryUrl(
             $request->path,
             now()->addMinutes(60),
-            ['ContentDisposition' => 'attachment; filename="'+$request->name+'"']
+            ['ResponseContentDisposition' => 'attachment; filename="'+$request->name+'"']
         ));
     }
 }

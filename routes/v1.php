@@ -344,6 +344,7 @@ Route::group([
         });
 
         Route::group(['prefix' => 'file', 'as' => 'file.'], function() {
+
             Route::get('/pdf', \App\Mrt\Upload\Actions\PdfAction::class);
 
             Route::post('/upload', \App\Mrt\Upload\Actions\UploadAction::class);
