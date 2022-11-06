@@ -349,7 +349,7 @@ Route::group([
 
             Route::post('/upload', \App\Mrt\Upload\Actions\UploadAction::class);
 
-            Route::get('/download', \App\Mrt\Upload\Actions\DownloadAction::class);
+            Route::get('/download', \App\Mrt\Upload\Actions\DownloadAction::class)->name('download');
 
             //Route::post('/upload', \App\Mrt\Upload\Actions\LocalAction::class);
         });

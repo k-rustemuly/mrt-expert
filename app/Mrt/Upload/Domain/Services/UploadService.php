@@ -26,11 +26,11 @@ class UploadService
         $realname = substr($name, 0, (strlen($extension)+1)*-1);
         $unique_name = $realname.' '.$file->hashName(); // Generate a unique, random name...
         $filepath = $this->generatePath();
-        $config = Config::get('filesystems.disks.s3');
+        // $config = Config::get('filesystems.disks.s3');
         if(File::streamUpload($filepath, $unique_name, $file, false))
         {
             $path = $filepath."/".$unique_name;
-            $url = $config['url'].$path;
+            $url = route('file.download', ['locale' => 'ru', 'path' => $path, 'name' => $name]);
             $uuid = Str::orderedUuid();
             $upload_id = $this->repository->create([
                     "uuid" => $uuid,
