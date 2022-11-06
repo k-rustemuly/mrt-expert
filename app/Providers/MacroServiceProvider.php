@@ -47,9 +47,9 @@ class MacroServiceProvider extends ServiceProvider
 
             return $overWrite
                     ? $filesystem->putStream($fileName, $resource)
-                    : $filesystem->writeStream($fileName, $resource,     [
+                    : $filesystem->writeStream($fileName, $resource, [
                         'ResponseContentType' => 'application/octet-stream',
-                        'ResponseContentDisposition' => 'attachment; filename=file2.jpg',
+                        'ResponseContentDisposition' => 'attachment; filename=aaa.zip',
                     ]);
         });
     }
