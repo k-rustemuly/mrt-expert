@@ -7,6 +7,7 @@ use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\File;
 use League\Flysystem\AwsS3v3\AwsS3Adapter;
+use Illuminate\Support\Facades\Storage;
 use League\Flysystem\Filesystem;
 
 class MacroServiceProvider extends ServiceProvider
@@ -47,11 +48,10 @@ class MacroServiceProvider extends ServiceProvider
 
             return $overWrite
                     ? $filesystem->putStream($fileName, $resource)
-                    : $filesystem->writeStream($fileName, $resource, ['ResponseContentDisposition' => 'attachment; filename=aaa.zip']);
+                    : $filesystem->writeStream($fileName, $resource);
         });
 
         File::macro('streamDownload', function($path, $fileName) {
-
             $config = Config::get('filesystems.disks.s3');
             $client = new S3Client([
                 'credentials' => [
@@ -63,8 +63,17 @@ class MacroServiceProvider extends ServiceProvider
             ]);
 
             $adapter = new AwsS3Adapter($client, $config['bucket'], $path);
-            $filesystem = new Filesystem($adapter);
-            return $filesystem->temporaryUrl();
+            $disk = Storage::disk('s3');
+            if ($disk->exists($path)) {
+                $command = $adapter->getClient()->getCommand('GetObject', [
+                    'Bucket'                     => $config['bucket'],
+                    'Key'                        => $path,
+                    'ResponseContentDisposition' => 'attachment; filename="'.$fileName.'"'
+                ]);
+                $request = $adapter->getClient()->createPresignedRequest($command, '+30 minutes');
+                return (string) $request->getUri();
+            }
+            return $path;
         });
     }
 }
