@@ -11,6 +11,7 @@ use App\Exceptions\MainException;
 use Illuminate\Support\Facades\App;
 use App\Helpers\Field;
 use App\Helpers\FieldTypes\File;
+use App\Helpers\FieldTypes\Aws;
 use App\Helpers\FieldTypes\DateTime;
 use App\Helpers\FieldTypes\Reference;
 use App\Helpers\FieldTypes\Textarea;
@@ -255,6 +256,12 @@ class AboutForAssistantService extends BlockType
                             ->maxSelect(-1)
                             ->value($values["doctors"])
                             ->onUpdate("visible", true)
+                            ->render(),
+                "file1" => Field::_()
+                            ->init(new Aws())
+                            ->accept(".zip,.rar")
+                            ->onUpdate("visible", true)
+                            ->value($values["file"])
                             ->render(),
                 "file" => Field::_()
                                 ->init(new File())
