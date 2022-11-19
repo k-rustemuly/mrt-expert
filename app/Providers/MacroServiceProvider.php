@@ -64,7 +64,7 @@ class MacroServiceProvider extends ServiceProvider
 
             $adapter = new AwsS3Adapter($client, $config['bucket'], $path);
             $disk = Storage::disk('s3');
-            $filename_utf8_url_encoded = utf8_encode($fileName);
+            $fileName = utf8_encode($fileName);
             // $fileName = "some.zip";
             if ($disk->exists($path)) {
                 $command = $adapter->getClient()->getCommand('GetObject', [
