@@ -257,18 +257,18 @@ class AboutForAssistantService extends BlockType
                             ->value($values["doctors"])
                             ->onUpdate("visible", true)
                             ->render(),
-                "file1" => Field::_()
+                "file" => Field::_()
                             ->init(new Aws())
                             ->accept(".zip,.rar")
                             ->onUpdate("visible", true)
                             ->value($values["file"])
                             ->render(),
-                "file" => Field::_()
-                                ->init(new File())
-                                ->accept(".zip,.rar")
-                                ->onUpdate("visible", true)
-                                ->value($values["file"])
-                                ->render(),
+                // "file" => Field::_()
+                //                 ->init(new File())
+                //                 ->accept(".zip,.rar")
+                //                 ->onUpdate("visible", true)
+                //                 ->value($values["file"])
+                //                 ->render(),
                 "assistant_comment" => Field::_()
                                 ->init(new Textarea())
                                 ->onUpdate("visible")
