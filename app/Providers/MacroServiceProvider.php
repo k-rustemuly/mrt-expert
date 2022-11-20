@@ -54,7 +54,6 @@ class MacroServiceProvider extends ServiceProvider
 
         File::macro('streamDownload', function($path, $fileName) {
             $config = Config::get('filesystems.disks.s3');
-            dd($config);
             $client = new S3Client([
                 'credentials' => [
                     'key'    => $config['key'],

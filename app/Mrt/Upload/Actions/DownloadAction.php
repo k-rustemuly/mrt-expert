@@ -13,7 +13,6 @@ class DownloadAction
 
     public function __invoke(Request $request)
     {
-        return redirect("https://google.com");
         return redirect(File::streamDownload($request->path, $request->name));
     }
 }
