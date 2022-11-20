@@ -14,14 +14,6 @@ class DownloadAction
 
     public function __invoke(Request $request)
     {
-        return redirect(Storage::temporaryUrl(
-            $request->path,
-            now()->addMinutes(5),
-            [
-                'ResponseContentType' => 'application/octet-stream',
-                'ResponseContentDisposition' => 'attachment; filename='.utf8_encode($request->name),
-            ]
-            ));
-        return redirect(File::streamDownload($request->path, $request->name));
+        return redirect(config("filesystems.disks.s3.url").$request->path);
     }
 }
