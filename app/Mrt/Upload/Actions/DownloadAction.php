@@ -14,7 +14,7 @@ class DownloadAction
 
     public function __invoke(Request $request)
     {
-        return redirect(Storage::disk('s3')->temporaryUrl(
+        return redirect(Storage::temporaryUrl(
             $request->path,
             now()->addMinutes(5),
             [
