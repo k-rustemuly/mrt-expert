@@ -19,7 +19,7 @@ class DownloadAction
             now()->addMinutes(5),
             [
                 'ResponseContentType' => 'application/octet-stream',
-                'ResponseContentDisposition' => 'attachment; filename="'.utf8_encode($request->name).'"',
+                'ResponseContentDisposition' => 'attachment; filename='.utf8_encode($request->name),
             ]
             ));
         return redirect(File::streamDownload($request->path, $request->name));
