@@ -22,7 +22,7 @@ class AwsUploadService
         $extension = $data["extension"];
         $path = $data["path"];
         $uuid = $data["uuid"];
-        $url = route('file.download', ['locale' => 'ru', 'path' => $path, 'name' => $name]);
+        $url = config("filesystems.s3.url").$path;
         $uuid = Str::orderedUuid();
         $upload_id = $this->repository->create([
                 "uuid" => $uuid,
