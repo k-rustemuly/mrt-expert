@@ -6,6 +6,7 @@ use Aws\S3\S3Client;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Log;
 use League\Flysystem\AwsS3v3\AwsS3Adapter;
 use Illuminate\Support\Facades\Storage;
 use League\Flysystem\Filesystem;
@@ -61,7 +62,7 @@ class MacroServiceProvider extends ServiceProvider
                 'region' => $config['region'],
                 'version' => 'latest',
             ]);
-
+            dd($config);
             $adapter = new AwsS3Adapter($client, $config['bucket'], $path);
             $disk = Storage::disk('s3');
             $fileName = utf8_encode($fileName);

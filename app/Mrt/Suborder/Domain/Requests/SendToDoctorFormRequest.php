@@ -11,7 +11,7 @@ class SendToDoctorFormRequest extends APIRequest
     {
         return [
             'doctors' => 'required|array|min:1',
-            'file' => 'required|uuid',
+            'file' => 'required|string',
             'assistant_comment' => 'sometimes|required|string',
         ];
     }
