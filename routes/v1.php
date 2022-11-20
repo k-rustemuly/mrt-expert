@@ -349,6 +349,8 @@ Route::group([
 
             Route::post('/upload', \App\Mrt\Upload\Actions\UploadAction::class);
 
+            Route::put('/upload', \App\Mrt\Upload\Actions\AwsUploadAction::class);
+
             Route::get('/download', \App\Mrt\Upload\Actions\DownloadAction::class)->name('download');
 
             //Route::post('/upload', \App\Mrt\Upload\Actions\LocalAction::class);
