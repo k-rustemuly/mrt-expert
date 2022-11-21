@@ -79,18 +79,18 @@ class ListForReceptionService extends TableType
     /**
      * действия для каждой строки
      *
-     * @param string|int $suborder_id Айди
+     * @param array|object $object
      *
      * @return array<mixed>
     */
-    public function action($suborder_id = 0)
+    public function action($object = null)
     {
         return [
-            "view" =>  Action::_()
-                ->requestType("view")
-                ->requestUrl(route('reception.suborder.view', ['locale' => App::currentLocale(), 'suborder_id' => $suborder_id]))
-                ->type("info")
-                ->render(),
+            "view" => Action::_()
+                    ->requestType("view")
+                    ->requestUrl(route('reception.suborder.view', ['locale' => App::currentLocale(), 'suborder_id' => $object["id"]]))
+                    ->type("info")
+                    ->render(),
         ];
     }
 

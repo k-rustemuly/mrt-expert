@@ -57,7 +57,7 @@ abstract class TableType
             $data = $row["data"];
             for($i=0; $i<count($data); $i++)
             {
-                $data[$i]["action"] = $this->action($data[$i]["id"]);
+                $data[$i]["action"] = $this->action($data[$i]);
                 foreach ($optimize as $key => $arr)
                 {
                     foreach ($arr as $item)

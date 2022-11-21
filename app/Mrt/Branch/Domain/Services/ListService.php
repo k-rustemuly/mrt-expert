@@ -39,7 +39,7 @@ class ListService extends TableType
 
     /**
      * Заголовки
-     * 
+     *
      * @return array<mixed>
      */
     private function getHeader()
@@ -69,19 +69,19 @@ class ListService extends TableType
         ];
     }
 
-    /** 
+    /**
      * действия для каждой строки
-     * 
-     * @param string|int $branch_id Айди 
-     * 
+     *
+     * @param array|object $object
+     *
      * @return array<mixed>
     */
-    public function action($branch_id = 0)
+    public function action($object = null)
     {
         return [
             "view" =>  Action::_()
                 ->requestType("put")
-                ->requestUrl(route('super-admin.branch.view', ['locale' => App::currentLocale(), 'branch_id' => $branch_id]))
+                ->requestUrl(route('super-admin.branch.view', ['locale' => App::currentLocale(), 'branch_id' => $object["id"]]))
                 ->type("info")
                 ->render(),
         ];
@@ -89,7 +89,7 @@ class ListService extends TableType
 
     /**
      * Глабольные действии
-     * 
+     *
      * @return array<mixed>
      */
     private function getAction()

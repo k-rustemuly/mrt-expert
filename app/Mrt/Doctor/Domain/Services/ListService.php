@@ -39,7 +39,7 @@ class ListService extends TableType
 
     /**
      * Заголовки
-     * 
+     *
      * @return array<mixed>
      */
     private function getHeader()
@@ -74,24 +74,24 @@ class ListService extends TableType
         ];
     }
 
-    /** 
+    /**
      * действия для каждой строки
-     * 
-     * @param string|int $doctor_id Айди 
-     * 
+     *
+     * @param array|object $object
+     *
      * @return array<mixed>
     */
-    public function action($doctor_id = 0)
+    public function action($object = null)
     {
         return [
             "view" =>  Action::_()
                 ->requestType("get")
-                ->requestUrl(route('branch-admin.doctor.view', ['locale' => App::currentLocale(), 'doctor_id' => $doctor_id]))
+                ->requestUrl(route('branch-admin.doctor.view', ['locale' => App::currentLocale(), 'doctor_id' => $object["id"]]))
                 ->type("info")
                 ->render(),
             "update" =>  Action::_()
                 ->requestType("put")
-                ->requestUrl(route('branch-admin.doctor.update', ['locale' => App::currentLocale(), 'doctor_id' => $doctor_id]))
+                ->requestUrl(route('branch-admin.doctor.update', ['locale' => App::currentLocale(), 'doctor_id' => $object["id"]]))
                 ->type("info")
                 ->render(),
         ];
@@ -99,7 +99,7 @@ class ListService extends TableType
 
     /**
      * Глабольные действии
-     * 
+     *
      * @return array<mixed>
      */
     private function getAction()

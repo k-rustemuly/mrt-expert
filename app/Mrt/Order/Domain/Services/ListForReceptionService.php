@@ -72,16 +72,16 @@ class ListForReceptionService extends TableType
     /**
      * действия для каждой строки
      *
-     * @param string|int $order_id Айди
+     * @param array|object $object
      *
      * @return array<mixed>
     */
-    public function action($order_id = 0)
+    public function action($object = null)
     {
         return [
             "view" =>  Action::_()
                 ->requestType("view")
-                ->requestUrl(route('reception.order.view', ['locale' => App::currentLocale(), 'order_id' => $order_id]))
+                ->requestUrl(route('reception.order.view', ['locale' => App::currentLocale(), 'order_id' => $object["id"]]))
                 ->type("info")
                 ->render(),
         ];

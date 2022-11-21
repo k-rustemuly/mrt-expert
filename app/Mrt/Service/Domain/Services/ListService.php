@@ -38,7 +38,7 @@ class ListService extends TableType
 
     /**
      * Заголовки
-     * 
+     *
      * @return array<mixed>
      */
     private function getHeader()
@@ -57,19 +57,19 @@ class ListService extends TableType
         ];
     }
 
-    /** 
+    /**
      * действия для каждой строки
-     * 
-     * @param string|int $service_id Айди 
-     * 
+     *
+     * @param array|object $object
+     *
      * @return array<mixed>
     */
-    public function action($service_id = 0)
+    public function action($object = null)
     {
         return [
             "delete" =>  Action::_()
                 ->requestType("delete")
-                ->requestUrl(route('branch-admin.service.delete', ['locale' => App::currentLocale(), 'service_id' => $service_id]))
+                ->requestUrl(route('branch-admin.service.delete', ['locale' => App::currentLocale(), 'service_id' => $object["id"]]))
                 ->type("info")
                 ->render(),
         ];
@@ -77,7 +77,7 @@ class ListService extends TableType
 
     /**
      * Глабольные действии
-     * 
+     *
      * @return array<mixed>
      */
     private function getAction()

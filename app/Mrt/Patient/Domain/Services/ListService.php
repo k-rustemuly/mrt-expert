@@ -96,16 +96,16 @@ class ListService extends TableType
     /**
      * действия для каждой строки
      *
-     * @param string|int $patient_id Айди
+     * @param array|object $object
      *
      * @return array<mixed>
     */
-    public function action($patient_id = 0)
+    public function action($object = null)
     {
         return [
             "view" =>  Action::_()
                 ->requestType("get")
-                ->requestUrl(route('reception.patient.view', ['locale' => App::currentLocale(), 'patient_id' => $patient_id]))
+                ->requestUrl(route('reception.patient.view', ['locale' => App::currentLocale(), 'patient_id' => $object["id"]]))
                 ->type("info")
                 ->render(),
         ];

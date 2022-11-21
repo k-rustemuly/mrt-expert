@@ -32,7 +32,7 @@ class SubserviceService extends TableType
     }
 
     /**
-     * @param string $order_id ID 
+     * @param string $order_id ID
      */
     public function handle($order_id = 0)
     {
@@ -44,23 +44,23 @@ class SubserviceService extends TableType
         return $this->getData();
     }
 
-    /** 
+    /**
      * действия для каждой строки
-     * 
-     * @param string|int $subservice_id Айди 
-     * 
+     *
+     * @param array|object $object
+     *
      * @return array<mixed>
     */
-    public function action($subservice_id = 0)
+    public function action($object = null)
     {
         return [];
     }
 
     /**
      * Заголовки
-     * 
+     *
      * @param array $values
-     * 
+     *
      * @return array<mixed>
      */
     private function getHeader()
@@ -75,7 +75,7 @@ class SubserviceService extends TableType
 
     /**
      * @param string $type
-     * 
+     *
      * @return array<mixed>
      */
     private function getActions($type = "default")
