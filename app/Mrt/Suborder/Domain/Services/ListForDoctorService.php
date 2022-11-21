@@ -41,7 +41,7 @@ class ListForDoctorService extends TableType
 
     /**
      * Заголовки
-     * 
+     *
      * @return array<mixed>
      */
     private function getHeader()
@@ -59,14 +59,17 @@ class ListForDoctorService extends TableType
             "subservice_name" => Field::_()
                             ->init(new Text())
                             ->render(),
+            "appointment_date" => Field::_()
+                            ->init(new Text())
+                            ->render(),
         ];
     }
 
-    /** 
+    /**
      * действия для каждой строки
-     * 
-     * @param string|int $suborder_id Айди 
-     * 
+     *
+     * @param string|int $suborder_id Айди
+     *
      * @return array<mixed>
     */
     public function action($suborder_id = 0)
@@ -82,7 +85,7 @@ class ListForDoctorService extends TableType
 
     /**
      * Глобальные действии
-     * 
+     *
      * @return array<mixed>
      */
     private function getAction()
