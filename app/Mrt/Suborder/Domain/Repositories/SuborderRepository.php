@@ -174,7 +174,7 @@ class SuborderRepository extends ReferenceRepository
         return $query->get()->all();
     }
 
-    public function getAllByDoctorIdAndStatusId($doctor_id, $status_id)
+    public function getAllByDoctorIdAndStatusId($doctor_id, $status_id, $filter)
     {
         $query = $this->join('rb_subservice', $this->model->table.'.subservice_id', '=', 'rb_subservice.id')
         ->join('rb_service', 'rb_subservice.service_id', '=', 'rb_service.id')
@@ -187,8 +187,12 @@ class SuborderRepository extends ReferenceRepository
             'patient.full_name',
             'rb_subservice.name_'.$this->language.' as subservice_name',
             'rb_service.name_'.$this->language.' as service_name')
-        ->where($this->model->table.'.status_id', $status_id)
         ->where($this->model->table.'.doctors', 'like' ,"%@".$doctor_id."@%");
+        if($status_id > 0) $query->where($this->model->table.'.status_id', $status_id);
+        foreach($filter as $row => $direction){
+            if($direction == "ASC") $query->orderByAsc($row);
+            else $query->orderByDesc($row);
+        }
         return $query->get()->all();
     }
 

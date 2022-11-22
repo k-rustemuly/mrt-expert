@@ -17,8 +17,13 @@ class ListForDoctorAction
 
     public function __invoke(Request $request)
     {
+        $status_id = isset($request->status_id) ? $request->status_id : 0;
+        $filter = [];
+        if(isset($request->filter)){
+            $filter = $request->filter;
+        }
         return $this->responder->withResponse(
-            $this->service->handle($request->status_id)
+            $this->service->handle($status_id, $filter)
         )->respond();
     }
 }

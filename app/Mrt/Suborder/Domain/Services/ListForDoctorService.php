@@ -29,12 +29,12 @@ class ListForDoctorService extends TableType
         $this->repository = $repository;
     }
 
-    public function handle($status_id = 0)
+    public function handle($status_id = 0, $filter = array())
     {
         $this->status_id = $status_id;
         $user = auth('doctor')->user();
         $this->headers = $this->getHeader();
-        $this->datas = $this->repository->getAllByDoctorIdAndStatusId($user->id, $status_id);
+        $this->datas = $this->repository->getAllByDoctorIdAndStatusId($user->id, $status_id, $filter);
         $this->actions = $this->getAction();
         return $this->getData();
     }
@@ -75,12 +75,12 @@ class ListForDoctorService extends TableType
     public function action($object = null)
     {
         return [
-            "view" =>  Action::_()
+            "view" => Action::_()
                     ->requestType("view")
                     ->requestUrl(route('doctor.suborder.view', ['locale' => App::currentLocale(), 'suborder_id' => $object["id"]]))
                     ->type("info")
                     ->render(),
-            "download" =>  Action::_()
+            "download" => Action::_()
                     ->requestType("download")
                     ->requestUrl($object["url"])
                     ->type("success")
