@@ -192,11 +192,11 @@ class SuborderRepository extends ReferenceRepository
         foreach($filter as $row => $direction){
             switch($row){
                 case "full_name":
-                    if($direction == "ASC") $query = $query->orderByAsc('patient.'.$row);
-                    else $query = $query->orderByDesc('patient.'.$row);
+                    if(strtolower($direction) == "asc") $query = $query->orderBy('patient.full_name');
+                    else $query = $query->orderByDesc('patient.full_name');
                 break;
                 case "appointment_date":
-                    if($direction == "ASC") $query = $query->orderByAsc($this->model->table.'.'.$row);
+                    if(strtolower($direction) == "asc") $query = $query->orderBy($this->model->table.'.'.$row);
                     else $query = $query->orderByDesc($this->model->table.'.'.$row);
                 break;
             }
