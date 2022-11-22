@@ -361,9 +361,9 @@
     "report.header.from_date.hint" : " ",
     "report.header.to_date.name" : "По",
     "report.header.to_date.hint" : " ",
-    "" : "",
-    "" : "",
-    "" : "",
+    "acceptByDoctor" : "Принять заявку",
+    "downloadApplication" : "Скачать вложение",
+    "openOnNewTab" : "Открыть в новой вкладке",
     "" : "",
     "" : "",
     "" : ""

@@ -261,4 +261,24 @@ class SuborderRepository extends ReferenceRepository
         $query = $this->where('order_id', $order_id)->where('id', '!=', $suborder_id);
         return $query->get()->all();
     }
+
+    public function firstReport($date){
+        // 	ДАТА	ФИО	ВИД ИССЛЕДОВАНИЯ	НАПРАВИЛ	ПРИМЕЧАНИЕ	ОПЛАТА	ВИД ОПЛАТЫ	ТЕЛЕФОНЫ	ВРАЧИ
+        $query = $this->join('rb_subservice', $this->model->table.'.subservice_id', '=', 'rb_subservice.id')
+        ->join('orders', $this->model->table.'.order_id', '=', 'orders.id')
+        ->join('patient', 'orders.patient_id', '=', 'patient.id')
+        ->select(
+            $this->model->table.'.created_at',
+            'patient.full_name',
+            'rb_subservice.name_'.$this->language.' as subservice_name',
+            $this->model->table.'.sender',
+            $this->model->table.'.is_kmis',
+            'patient.phone_number',
+            $this->model->table.'.doctors',
+            )
+        ->where($this->model->table.'.created_at', '>=' , $date." 00:00:00")
+        ->where($this->model->table.'.created_at', '<=' , $date." 23:59:59")
+        ->orderBy($this->model->table.'.created_at');
+        return $query->get()->all();
+    }
 }

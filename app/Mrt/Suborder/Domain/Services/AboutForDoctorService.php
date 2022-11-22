@@ -40,6 +40,8 @@ class AboutForDoctorService extends BlockType
 
     public $doctor_id = 0;
 
+    public $title = "Title";
+
     public function __construct(Repository $repository, OrderRepository $orderRepository, DoctorRepository $doctorRepository, BranchRepository $branchRepository)
     {
         $this->repository = $repository;
@@ -183,6 +185,7 @@ class AboutForDoctorService extends BlockType
     */
     private function getMainBlock(array $values = array())
     {
+        $this->title = $values["patient_name"];
         return [
                 "iin" => [
                     "value" => $values["iin"],

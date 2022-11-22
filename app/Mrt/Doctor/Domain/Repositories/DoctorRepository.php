@@ -23,4 +23,8 @@ class DoctorRepository extends Repository
     {
         return $this->model->where("subservices", "like", "%@".$subservice_id."@%")->where("is_active", 1)->get()->all();
     }
+
+    public function getMin(){
+        return $this->model->select('id', 'full_name')->get()->all();
+    }
 }

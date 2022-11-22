@@ -41,7 +41,7 @@ class Field{
         return self::$_instance;
     }
 
-    public function init($model) 
+    public function init($model)
     {
         $this->model = $model;
         $this->etalon = array_merge($this->etalon, $model->array);
@@ -49,11 +49,11 @@ class Field{
     }
 
     /**
-     * 
+     *
      * @param string $visibility visible|invisible|disabled
      * @param bool is_required
      */
-    public function onUpdate(string $visibility = "visible", bool $is_required = false) 
+    public function onUpdate(string $visibility = "visible", bool $is_required = false)
     {
         $this->etalon["on_update"]["is_required"] = $is_required;
         $this->etalon["on_update"]["visibility"] = $visibility;
@@ -61,11 +61,11 @@ class Field{
     }
 
     /**
-     * 
+     *
      * @param string $visibility visible|invisible|disabled
      * @param bool is_required
      */
-    public function onCreate(string $visibility = "visible", bool $is_required = false) 
+    public function onCreate(string $visibility = "visible", bool $is_required = false)
     {
         $this->etalon["on_create"]["is_required"] = $is_required;
         $this->etalon["on_create"]["visibility"] = $visibility;
@@ -73,17 +73,17 @@ class Field{
     }
 
     /**
-     * 
+     *
      * @param string $visibility visible|invisible|spoiler
      */
-    public function onView(string $visibility = "visible") 
+    public function onView(string $visibility = "visible")
     {
         $this->etalon["on_view"]["visibility"] = $visibility;
         return $this;
     }
 
     /**
-     * 
+     *
      * @param int $length
      */
     public function minLength(int $length = 0)
@@ -93,7 +93,7 @@ class Field{
     }
 
     /**
-     * 
+     *
      * @param int $length
      */
     public function maxLength(int $length = 0)
@@ -103,7 +103,7 @@ class Field{
     }
 
     /**
-     * 
+     *
      * @param int $number
      */
     public function min(int $number = 0)
@@ -112,7 +112,7 @@ class Field{
         return $this;
     }
     /**
-     * 
+     *
      * @param array|string|int $value
      */
     public function value($value = null)
@@ -122,7 +122,7 @@ class Field{
     }
 
     /**
-     * 
+     *
      * @param int $number
      */
     public function max(int $number = 0)
@@ -132,7 +132,7 @@ class Field{
     }
 
     /**
-     * 
+     *
      * @param string $date Y-m-d H:i:s
      */
     public function minDate(?string $date = null)
@@ -142,7 +142,7 @@ class Field{
     }
 
     /**
-     * 
+     *
      * @param string $date Y-m-d H:i:s
      */
     public function maxDate(?string $date = null)
@@ -152,8 +152,8 @@ class Field{
     }
 
     /**
-     * 
-     * @param bool 
+     *
+     * @param bool
      */
     public function isPicker(bool $picker = false)
     {
@@ -162,7 +162,7 @@ class Field{
     }
 
     /**
-     * 
+     *
      * @param string $url
      */
     public function url(?string $url = null)
@@ -172,7 +172,7 @@ class Field{
     }
 
     /**
-     * 
+     *
      * @param string $preview
      */
     public function preview(?string $preview = null)
@@ -182,7 +182,7 @@ class Field{
     }
 
     /**
-     * 
+     *
      * @param string $name
      */
     public function tagName(?string $name = null)
@@ -192,7 +192,7 @@ class Field{
     }
 
     /**
-     * 
+     *
      * @param string|int $id
      */
     public function tagId($id = "")
@@ -202,7 +202,7 @@ class Field{
     }
 
     /**
-     * 
+     *
      * @param string $key
      */
     public function key(?string $key = null)
@@ -212,7 +212,7 @@ class Field{
     }
 
     /**
-     * 
+     *
      * @param bool
      */
     public function isFuture(bool $future = false)
@@ -222,7 +222,7 @@ class Field{
     }
 
     /**
-     * 
+     *
      * @param bool $is_block
      */
     public function render(bool $is_block = false)
@@ -233,7 +233,7 @@ class Field{
     }
 
     /**
-     * 
+     *
      * @param int $max_file
      */
     public function maxFile(int $max_file = 0)
@@ -243,7 +243,7 @@ class Field{
     }
 
     /**
-     * 
+     *
      * @param int $max_select
      */
     public function maxSelect(int $max_select = 0)
@@ -253,7 +253,7 @@ class Field{
     }
 
     /**
-     * 
+     *
      * @param int $max_size_byte
      */
     public function maxSizeByte(int $max_size_byte = 0)
@@ -263,8 +263,8 @@ class Field{
     }
 
     /**
-     * 
-     * @param string $id 
+     *
+     * @param string $id
      */
     public function link(string $id = "")
     {
@@ -273,8 +273,17 @@ class Field{
     }
 
     /**
-     * 
-     * @param string $accept 
+     *
+     */
+    public function toSort()
+    {
+        $this->etalon["sortable"] = true;
+        return $this;
+    }
+
+    /**
+     *
+     * @param string $accept
      */
     public function accept(string $accept = "")
     {
@@ -283,7 +292,7 @@ class Field{
     }
 
     /**
-     * 
+     *
      * @param string $reference_url
      */
     public function referenceUrl(?string $reference_url = null)

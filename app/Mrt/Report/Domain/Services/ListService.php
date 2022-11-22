@@ -58,9 +58,10 @@ class ListService extends BlockType
         $actions = array(
             "first" => [
                 "first_generate" => Action::_()
-                                        ->requestType("post")
-                                        ->requestUrl(route($this->prefix.'.report.first', ['locale' => App::currentLocale()]))
-                                        ->render(),
+                                    ->requestType("post")
+                                    ->requestUrl(route($this->prefix.'.report.first', ['locale' => App::currentLocale()]))
+                                    ->afterResponse("download_response")
+                                    ->render(),
             ],
         );
         return $actions[$type]??[];
@@ -81,7 +82,7 @@ class ListService extends BlockType
                 "from_date" => Field::_()
                                 ->init(new Date())
                                 ->onUpdate("visible", true)
-                                ->value(date("Y-m-d"))
+                                ->value(date("Y-m-")."01")
                                 ->render(),
                 "to_date" => Field::_()
                                 ->init(new Date())

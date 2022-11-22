@@ -24,6 +24,9 @@ abstract class BlockType
         if(isset($this->datas)){
             $row["data"] = $this->datas;
         }
+        if(isset($this->title)){
+            $row["title"] = $this->title;
+        }
         return new GenericPayload($this->parse($row));
     }
 
@@ -38,7 +41,7 @@ abstract class BlockType
                     $row["block"][$key]["name"] = __($name.".block.".$key.".name");
                 if(is_array($row["block"][$key]["values"]))
                 {
-                    foreach(array_keys($row["block"][$key]["values"]) as $item) 
+                    foreach(array_keys($row["block"][$key]["values"]) as $item)
                     {
                         if(!isset($row["block"][$key]["values"][$item]["visibility"]))
                         {
@@ -50,7 +53,7 @@ abstract class BlockType
                         }
                         if(!isset($row["block"][$key]["values"][$item]["name"]) || !$row["block"][$key]["values"][$item]["name"])
                             $row["block"][$key]["values"][$item]["name"] = __($name.".block.values.".$item.".name");
-                    }    
+                    }
                 }
                 if(is_array($row["block"][$key]["action"]))
                 {
@@ -144,7 +147,7 @@ abstract class BlockType
                     }
                 }
             }
-            
+
         }
         return $row;
     }

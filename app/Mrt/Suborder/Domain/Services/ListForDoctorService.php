@@ -52,6 +52,7 @@ class ListForDoctorService extends TableType
                             ->render(),
             "full_name" => Field::_()
                             ->init(new Text())
+                            ->toSort()
                             ->render(),
             "service_name" => Field::_()
                             ->init(new Text())
@@ -61,6 +62,7 @@ class ListForDoctorService extends TableType
                             ->render(),
             "appointment_date" => Field::_()
                             ->init(new Text())
+                            ->toSort()
                             ->render(),
         ];
     }
@@ -74,18 +76,29 @@ class ListForDoctorService extends TableType
     */
     public function action($object = null)
     {
-        return [
+        $array = [];
+        if($object["status_id"] == 2)
+            $array["accept"] = Action::_()
+                                ->requestType("put")
+                                ->requestUrl(route('doctor.suborder.under_treatment', ['locale' => App::currentLocale(), 'suborder_id' => $object["id"]]))
+                                ->type("success")
+                                ->hint(__("acceptByDoctor"))
+                                ->afterResponse("delete_row")
+                                ->render();
+        return array_merge($array, [
+            "download" => Action::_()
+                        ->requestType("download")
+                        ->requestUrl($object["url"])
+                        ->type("success")
+                        ->hint(__("downloadApplication"))
+                        ->render(),
             "view" => Action::_()
                     ->requestType("view")
                     ->requestUrl(route('doctor.suborder.view', ['locale' => App::currentLocale(), 'suborder_id' => $object["id"]]))
                     ->type("info")
+                    ->hint(__("openOnNewTab"))
                     ->render(),
-            "download" => Action::_()
-                    ->requestType("download")
-                    ->requestUrl($object["url"])
-                    ->type("success")
-                    ->render(),
-        ];
+        ]);
     }
 
     /**
