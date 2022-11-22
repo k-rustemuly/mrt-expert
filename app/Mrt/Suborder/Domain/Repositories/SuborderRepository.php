@@ -190,8 +190,16 @@ class SuborderRepository extends ReferenceRepository
         ->where($this->model->table.'.doctors', 'like' ,"%@".$doctor_id."@%");
         if($status_id > 0) $query->where($this->model->table.'.status_id', $status_id);
         foreach($filter as $row => $direction){
-            if($direction == "ASC") $query->orderByAsc($row);
-            else $query->orderByDesc($row);
+            switch($row){
+                case "full_name":
+                    if($direction == "ASC") $query->orderByAsc('patient.'.$row);
+                    else $query->orderByDesc('patient.'.$row);
+                break;
+                case "appointment_date":
+                    if($direction == "ASC") $query->orderByAsc($this->model->table.'.'.$row);
+                    else $query->orderByDesc($this->model->table.'.'.$row);
+                break;
+            }
         }
         return $query->get()->all();
     }
