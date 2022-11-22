@@ -23,7 +23,7 @@ class ListForDoctorAction
             $filter = $request->filter;
         }
         return $this->responder->withResponse(
-            array_merge($this->service->handle($status_id, $filter),$filter)
+            $this->service->handle($status_id, $filter)
         )->respond();
     }
 }
