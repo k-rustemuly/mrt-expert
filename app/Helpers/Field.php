@@ -314,4 +314,14 @@ class Field{
             return array_intersect_key($array, array_fill_keys($keys, '1'));
         }
     }
+
+    /**
+     *
+     * @param int $rows
+     */
+    public function rows(int $rows = 0)
+    {
+        $this->etalon["rows"] = $rows;
+        return $this;
+    }
 }

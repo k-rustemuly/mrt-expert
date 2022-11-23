@@ -234,10 +234,12 @@ class AboutForDoctorService extends BlockType
                                 ->render(),
                 "research" => Field::_()
                                 ->init(new Html())
+                                ->rows(12)
                                 ->onUpdate("visible", true)
                                 ->render(),
                 "conclusion" => Field::_()
                                 ->init(new Html())
+                                ->rows(12)
                                 ->onUpdate("visible", true)
                                 ->render(),
 
