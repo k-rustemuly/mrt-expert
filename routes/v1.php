@@ -157,6 +157,8 @@ Route::group([
 
                         Route::get('/doctors', \App\Mrt\Doctor\Actions\ListForSuborderAction::class)->name('doctors');
 
+                        Route::put('/cancel', \App\Mrt\Suborder\Actions\CancelAction::class)->name('cancel');
+
                     });
 
                 });
@@ -282,6 +284,8 @@ Route::group([
                     Route::group(['prefix' => '/{suborder_id}', 'where' => ['suborder_id' => '[0-9]+']], function() {
 
                         Route::get('', \App\Mrt\Suborder\Actions\AboutForReceptionAction::class)->name('view');
+
+                        Route::put('/cancel', \App\Mrt\Suborder\Actions\CancelAction::class)->name('cancel');
 
                     });
 

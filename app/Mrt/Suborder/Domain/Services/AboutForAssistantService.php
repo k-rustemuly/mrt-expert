@@ -293,6 +293,13 @@ class AboutForAssistantService extends BlockType
                                     ->onUpdate("visible")
                                     ->value($values["assistant_comment"])
                                     ->render(),
+            ],
+            "cancel" => [
+                "cancel_comment" => Field::_()
+                                        ->init(new Textarea())
+                                        ->onCreate("visible", true)
+                                        ->onUpdate("visible", true)
+                                        ->render(),
             ]
         ];
     }
@@ -317,6 +324,14 @@ class AboutForAssistantService extends BlockType
                             ->requestType("put")
                             ->requestUrl(route('assistant.suborder.update', ['locale' => App::currentLocale(), 'suborder_id' => $this->suborder_id]))
                             ->render(),
+                "cancel" =>
+                            Action::_()
+                                    ->requestType("put")
+                                    ->requestUrl(route('assistant.suborder.cancel', ['locale' => App::currentLocale(), 'suborder_id' => $this->suborder_id]))
+                                    ->name(__($this->name.".suborder.cancel.name"))
+                                    ->hint(__($this->name.".suborder.cancel.hint"))
+                                    ->type("error")
+                                    ->render(),
             ),
             "waiting" => array(
                 // "waiting_update" =>  Action::_()

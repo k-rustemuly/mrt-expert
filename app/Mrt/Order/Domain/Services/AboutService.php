@@ -236,6 +236,13 @@ class AboutService extends BlockType
                                         ->init(new Textarea())
                                         ->onUpdate("visible")
                                         ->render(),
+            ],
+            "cancel" => [
+                "cancel_comment" => Field::_()
+                                        ->init(new Textarea())
+                                        ->onCreate("visible", true)
+                                        ->onUpdate("visible", true)
+                                        ->render(),
             ]
         ];
     }
@@ -281,6 +288,14 @@ class AboutService extends BlockType
                             ->hint(__($this->name.".suborder.delete.hint"))
                             ->type("error")
                             ->render(),
+                "cancel" =>
+                            Action::_()
+                                    ->requestType("put")
+                                    ->requestUrl(route('reception.suborder.cancel', ['locale' => App::currentLocale(), 'suborder_id' => $suborder_id]))
+                                    ->name(__($this->name.".suborder.cancel.name"))
+                                    ->hint(__($this->name.".suborder.cancel.hint"))
+                                    ->type("error")
+                                    ->render(),
             ]
         );
         return $actions[$type]??[];

@@ -23,7 +23,7 @@ class SuborderStatus extends Model
     const UNDER_TREATMENT = '3';
 
     /**
-     * @var string Отозвано 
+     * @var string Отозвано
      */
     const REVOKED = '4';
 
@@ -36,6 +36,11 @@ class SuborderStatus extends Model
      * @var string Завершен
      */
     const COMPLETED = '6';
+
+    /**
+     * @var string Отменен
+     */
+    const CANCELED = '7';
 
     public $table = 'rb_suborder_status';
 

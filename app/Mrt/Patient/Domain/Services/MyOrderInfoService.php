@@ -32,7 +32,7 @@ class MyOrderInfoService extends BlockType
     }
 
     /**
-     * @param string $patient_id ID 
+     * @param string $patient_id ID
      */
     public function handle()
     {
@@ -49,11 +49,22 @@ class MyOrderInfoService extends BlockType
         for($i=0; $i<count($suborders); $i++)
         {
             $aboutSuborder = $suborders[$i]->toArray();
-            
-            $aboutSuborder["file"][] = $aboutSuborder["file_url"] ? [
-                "url" => $aboutSuborder["file_url"],
-                "name" => $aboutSuborder["file_name"],
+
+            $aboutSuborder["file"] = array();
+            if($aboutSuborder["file_id"] && $aboutSuborder["file_id"] > 0)
+            {
+                $aboutSuborder["file"][] = [
+                    "id" => $aboutSuborder["file_id"],
+                    "uuid" => $aboutSuborder["file_uuid"],
+                    "url" => $aboutSuborder["file_url"],
+                    "name" => $aboutSuborder["file_name"],
+                ];
+            }
+            $aboutSuborder["conclusion_file"][] = $aboutSuborder["conclusion_file_url"] ? [
+                "url" => $aboutSuborder["conclusion_file_url"],
+                "name" => $aboutSuborder["conclusion_file_name"],
             ] : null;
+
             $this->blocks["suborder_".$i] = Block::_()
                                             ->name(__($this->name.".suborder", ['number' => $i+1]))
                                             ->values($this->getSuborderBlock($aboutSuborder));
@@ -61,11 +72,11 @@ class MyOrderInfoService extends BlockType
         return $this->getData();
     }
 
-    /** 
+    /**
      * Подзаказы блок
-     * 
+     *
      * @param array<mixed> $values Данные для заполнение данных блока
-     * 
+     *
      * @return array<mixed>
     */
     private function getSuborderBlock(array $values = array())
@@ -88,15 +99,20 @@ class MyOrderInfoService extends BlockType
                     "type" => "file",
                     "name" => __($this->name.".file"),
                     "value" => $values["file"]
-                ]
+                ],
+                "conclusion_file" => [
+                    "type" => "file",
+                    "name" => __($this->name.".conclusion_file"),
+                    "value" => $values["conclusion_file"],
+                ],
         ];
     }
 
-    /** 
+    /**
      * Главный блок
-     * 
+     *
      * @param array<mixed> $values Данные для заполнение данных блока
-     * 
+     *
      * @return array<mixed>
     */
     private function getMainBlock(array $values = array())

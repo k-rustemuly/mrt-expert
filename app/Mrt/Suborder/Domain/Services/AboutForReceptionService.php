@@ -8,7 +8,11 @@ use App\Mrt\Order\Domain\Repositories\OrderRepository;
 use App\Helpers\Block;
 use App\Exceptions\MainException;
 use Illuminate\Support\Facades\App;
+use App\Helpers\Field;
+use App\Helpers\FieldTypes\Textarea;
 use Carbon\Carbon;
+use App\Helpers\Action;
+use App\Mrt\SuborderStatus\Domain\Models\SuborderStatus;
 use App\Mrt\Doctor\Domain\Repositories\DoctorRepository;
 
 class AboutForReceptionService extends BlockType
@@ -83,13 +87,17 @@ class AboutForReceptionService extends BlockType
             "name" => $aboutSuborder["conclusion_file_name"],
         ] : null;
         $this->headers = $this->getHeader($aboutSuborder);
-
+        $suborder_action_name = "default";
+        if($aboutSuborder["status_id"] == SuborderStatus::CREATED){
+            $suborder_action_name = "created";
+        }
         $this->blocks = array(
             "order_info" => Block::_()
                         ->position("left")
                         ->values($this->getMainBlock($aboutOrder)),
             "suborder_info" => Block::_()
-                        ->values($this->getSuborderBlock($aboutSuborder))
+                            ->action($this->getActions($suborder_action_name))
+                            ->values($this->getSuborderBlock($aboutSuborder))
             );
         return $this->getData();
     }
@@ -226,6 +234,13 @@ class AboutForReceptionService extends BlockType
     private function getHeader($values = array())
     {
         return [
+            "cancel" => [
+                "cancel_comment" => Field::_()
+                                        ->init(new Textarea())
+                                        ->onCreate("visible", true)
+                                        ->onUpdate("visible", true)
+                                        ->render(),
+            ]
         ];
     }
 
@@ -237,6 +252,16 @@ class AboutForReceptionService extends BlockType
     private function getActions($type = "default")
     {
         $actions = array(
+            "created" => [
+                "cancel" =>
+                            Action::_()
+                                    ->requestType("put")
+                                    ->requestUrl(route('reception.suborder.cancel', ['locale' => App::currentLocale(), 'suborder_id' => $this->suborder_id]))
+                                    ->name(__($this->name.".suborder.cancel.name"))
+                                    ->hint(__($this->name.".suborder.cancel.hint"))
+                                    ->type("error")
+                                    ->render(),
+            ]
         );
         return $actions[$type]??[];
     }
