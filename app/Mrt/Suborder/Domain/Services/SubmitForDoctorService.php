@@ -53,8 +53,8 @@ class SubmitForDoctorService
             $data["appointment_date"] = $aboutSuborder["appointment_date"];
             $data["doctor_name"] = $aboutDoctor["full_name"];
             $pdf = Pdf::loadView('mrt', $data);
-            $filename = Str::orderedUuid().".pdf";
-            $path = 'pdf/'.$filename;
+            $filename = $data["full_name"]." ".$suborder_id.".pdf";
+            $path = 'pdf/'.date('Y').'/'.date('m').'/'.date('d').'/'.$filename;
             Storage::put($path, $pdf->output());
             $url = Storage::url($path);
             $uuid = Str::orderedUuid();
@@ -66,7 +66,6 @@ class SubmitForDoctorService
                 "url" => $url
             ])["id"];
             $this->repository->updateConclusion($suborder_id, $upload_id);
-
             $order_id = $aboutSuborder["order_id"];
             $suborders = $this->repository->getAllByOrderId($order_id);
             $send_sms = true;
@@ -74,7 +73,8 @@ class SubmitForDoctorService
             {
                 if(
                     (isset($suborder->status_id) && $suborder->status_id != SuborderStatus::COMPLETED) ||
-                    (isset($suborder["status_id"]) && $suborder["status_id"] != SuborderStatus::COMPLETED))
+                    (isset($suborder["status_id"]) && $suborder["status_id"] != SuborderStatus::COMPLETED)
+                )
                 {
                     $send_sms = false;
                 }
