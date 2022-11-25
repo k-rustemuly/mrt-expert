@@ -36,6 +36,8 @@ class AboutForReceptionService extends BlockType
 
     public $branch_id = 0;
 
+    public $title;
+
     public function __construct(Repository $repository, OrderRepository $orderRepository, DoctorRepository $doctorRepository)
     {
         $this->repository = $repository;
@@ -99,6 +101,7 @@ class AboutForReceptionService extends BlockType
                             ->action($this->getActions($suborder_action_name))
                             ->values($this->getSuborderBlock($aboutSuborder))
             );
+        $this->title = $aboutOrder["patient_name"];
         return $this->getData();
     }
 

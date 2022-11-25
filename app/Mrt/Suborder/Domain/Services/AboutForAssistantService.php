@@ -40,6 +40,8 @@ class AboutForAssistantService extends BlockType
 
     public $branch_id = 0;
 
+    public $title;
+
     public function __construct(Repository $repository, OrderRepository $orderRepository, DoctorRepository $doctorRepository)
     {
         $this->repository = $repository;
@@ -114,6 +116,7 @@ class AboutForAssistantService extends BlockType
                         ->action($suborder_action)
                         ->values($this->getSuborderBlock($aboutSuborder))
             );
+        $this->title = $aboutOrder["patient_name"];
         return $this->getData();
     }
 
