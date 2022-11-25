@@ -75,7 +75,10 @@ class AboutForDoctorService extends BlockType
                 "name" => $aboutSuborder["file_name"],
             ];
         }
-
+        $aboutSuborder["conclusion_file"][] = $aboutSuborder["conclusion_file_url"] ? [
+            "url" => $aboutSuborder["conclusion_file_url"],
+            "name" => $aboutSuborder["conclusion_file_name"],
+        ] : null;
         $this->actions = $this->getActions();
         $this->headers = $this->getHeader($aboutOrder);
 
@@ -164,6 +167,11 @@ class AboutForDoctorService extends BlockType
                     "type" => "file",
                     "name" => __($this->name.".file"),
                     "value" => $values["file"],
+                ],
+                "conclusion_file" => [
+                    "type" => "file",
+                    "name" => __($this->name.".conclusion_file"),
+                    "value" => $values["conclusion_file"],
                 ],
                 "created_at" => [
                     "name" => __($this->name.".created_at"),
