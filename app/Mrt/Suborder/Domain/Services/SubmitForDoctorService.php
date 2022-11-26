@@ -88,7 +88,7 @@ class SubmitForDoctorService
                 $password = $auth_info["password"];
                 $message = __("Patient sms", ["login" => $login, "password" => $password]);
                 $smsc = config('integration.smsc')["route"];
-                $route = $smsc."&phones=".$phone_number."&mes=".urlencode($message);
+                $route = $smsc."&phones=".$phone_number."&mes=".urlencode($message)."&id=".$order_id;
                 Http::get($route);
                 $this->orderRepository->updateById($order_id, ["status_id" => OrderStatus::COMPLETED]);
             }

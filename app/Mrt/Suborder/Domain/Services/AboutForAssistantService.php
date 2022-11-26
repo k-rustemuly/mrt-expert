@@ -93,12 +93,14 @@ class AboutForAssistantService extends BlockType
             "name" => $aboutSuborder["conclusion_file_name"],
         ] : null;
 
-        $aboutSuborder["additional_file"][] = $aboutSuborder["additional_file_url"] ? [
+        $aboutSuborder["additional_file"] = array();
+        if($aboutSuborder["additional_file_url"])
+        $aboutSuborder["additional_file"][] = [
             "id" => $aboutSuborder["additional_file_id"],
             "uuid" => $aboutSuborder["additional_file_uuid"],
             "url" => $aboutSuborder["additional_file_url"],
             "name" => $aboutSuborder["additional_file_name"],
-        ] : null;
+        ];
         $this->actions = $this->getActions();
         $this->headers = $this->getHeader($aboutSuborder);
 
@@ -283,12 +285,12 @@ class AboutForAssistantService extends BlockType
                                 ->onUpdate("visible")
                                 ->value($values["assistant_comment"])
                                 ->render(),
-                // "additional_file" => Field::_()
-                //                 ->init(new Aws())
-                //                 ->accept(".zip,.rar,.pdf,.jpg,.jpeg,.png,.docx,.doc")
-                //                 ->onUpdate("visible")
-                //                 ->value($values["additional_file"])
-                //                 ->render(),
+                "additional_file" => Field::_()
+                                ->init(new Aws())
+                                ->accept(".zip,.rar,.pdf,.jpg,.jpeg,.png,.docx,.doc")
+                                ->onUpdate("visible")
+                                ->value($values["additional_file"])
+                                ->render(),
             ],
             "update" => [
                 "appointment_date" => Field::_()
