@@ -63,6 +63,7 @@ class SuborderRepository extends ReferenceRepository
         ->join('rb_service', 'rb_subservice.service_id', '=', 'rb_service.id')
         ->leftJoin('upload', $this->model->table.'.file', '=', 'upload.id')
         ->leftJoin('upload as conclusion', $this->model->table.'.conclusion_file_id', '=', 'conclusion.id')
+        ->leftJoin('upload as additional', $this->model->table.'.additional_file', '=', 'additional.id')
         ->select($this->model->table.'.id',
             'rb_suborder_status.name_'.$this->language.' as status_name',
             'rb_subservice.name_'.$this->language.' as subservice_name',
@@ -76,12 +77,15 @@ class SuborderRepository extends ReferenceRepository
             $this->model->table.'.appointment_date',
             $this->model->table.'.doctor_comment',
             $this->model->table.'.doctors',
+            $this->model->table.'.additional_file',
             'upload.id as file_id',
             'upload.uuid as file_uuid',
             'upload.name as file_name',
             'upload.url as file_url',
             'conclusion.name as conclusion_file_name',
             'conclusion.url as conclusion_file_url',
+            'additional.name as additional_file_name',
+            'additional.url as additional_file_url',
             $this->model->table.'.created_at',
             $this->model->table.'.updated_at')
         ->where($this->model->table.'.doctors', 'like' ,"%@".$doctor_id."@%")

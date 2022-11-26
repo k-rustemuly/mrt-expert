@@ -255,6 +255,7 @@
     "one_suborder.id" : "ID",
     "one_suborder.service_name" : "Наименование услуги",
     "one_suborder.conclusion_file" : "Заключение",
+    "one_suborder.additional_file" : "Дополнительный файл",
     "one_suborder.subservice_name" : "Наименование подуслуги",
     "one_suborder.status_name" : "Статус",
     "one_suborder.appointment_date" : "Назначенное время",
