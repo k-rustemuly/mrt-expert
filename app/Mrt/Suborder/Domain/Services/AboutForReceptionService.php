@@ -88,6 +88,11 @@ class AboutForReceptionService extends BlockType
             "url" => $aboutSuborder["conclusion_file_url"],
             "name" => $aboutSuborder["conclusion_file_name"],
         ] : null;
+
+        $aboutSuborder["additional_file"][] = $aboutSuborder["additional_file_url"] ? [
+            "url" => $aboutSuborder["additional_file_url"],
+            "name" => $aboutSuborder["additional_file_name"],
+        ] : null;
         $this->headers = $this->getHeader($aboutSuborder);
         $suborder_action_name = "default";
         if($aboutSuborder["status_id"] == SuborderStatus::CREATED){
@@ -171,6 +176,11 @@ class AboutForReceptionService extends BlockType
                     "type" => "file",
                     "name" => __($this->name.".file"),
                     "value" => $values["file"],
+                ],
+                "additional_file" => [
+                    "type" => "file",
+                    "name" => __($this->name.".additional_file"),
+                    "value" => $values["additional_file"],
                 ],
                 "created_at" => [
                     "name" => __($this->name.".created_at"),
