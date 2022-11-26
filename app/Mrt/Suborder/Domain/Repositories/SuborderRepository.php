@@ -48,6 +48,8 @@ class SuborderRepository extends ReferenceRepository
             'upload.url as file_url',
             'conclusion.name as conclusion_file_name',
             'conclusion.url as conclusion_file_url',
+            'additional.id as additional_file_id',
+            'additional.uuid as additional_file_uuid',
             'additional.name as additional_file_name',
             'additional.url as additional_file_url',
             $this->model->table.'.created_at',

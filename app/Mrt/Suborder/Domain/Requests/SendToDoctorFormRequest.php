@@ -13,6 +13,7 @@ class SendToDoctorFormRequest extends APIRequest
             'doctors' => 'required|array|min:1',
             'file' => 'required|string',
             'assistant_comment' => 'sometimes|required|string',
+            'additional_file' => 'sometimes|required|string',
         ];
     }
 

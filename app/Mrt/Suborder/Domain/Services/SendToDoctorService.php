@@ -28,6 +28,7 @@ class SendToDoctorService
         $data["doctors"] = "@".implode('@', $data["doctors"])."@";
         $data["file"] = $this->uploadRepository->getIdByUuid($data["file"]);
         $data["status_id"] = SuborderStatus::WAITING;
+        $data["additional_file"] = isset($data["additional_file"]) ? $this->uploadRepository->getIdByUuid($data["additional_file"]) : 0;
         $suborder = $this->repository->updateByBranchId($branch_id, $suborder_id, $data);
         if($suborder != null)
             return new SuccessPayload(__("Suborder success updated"));

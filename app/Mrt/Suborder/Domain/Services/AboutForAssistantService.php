@@ -94,6 +94,8 @@ class AboutForAssistantService extends BlockType
         ] : null;
 
         $aboutSuborder["additional_file"][] = $aboutSuborder["additional_file_url"] ? [
+            "id" => $aboutSuborder["additional_file_id"],
+            "uuid" => $aboutSuborder["additional_file_uuid"],
             "url" => $aboutSuborder["additional_file_url"],
             "name" => $aboutSuborder["additional_file_name"],
         ] : null;
@@ -276,16 +278,16 @@ class AboutForAssistantService extends BlockType
                             ->onUpdate("visible", true)
                             ->value($values["file"])
                             ->render(),
-                // "file" => Field::_()
-                //                 ->init(new File())
-                //                 ->accept(".zip,.rar")
-                //                 ->onUpdate("visible", true)
-                //                 ->value($values["file"])
-                //                 ->render(),
                 "assistant_comment" => Field::_()
                                 ->init(new Textarea())
                                 ->onUpdate("visible")
                                 ->value($values["assistant_comment"])
+                                ->render(),
+                "additional_file" => Field::_()
+                                ->init(new Aws())
+                                ->accept(".zip,.rar,.pdf,.jpg,.jpeg,.png,.docx,.doc")
+                                ->onUpdate("visible")
+                                ->value($values["additional_file"])
                                 ->render(),
             ],
             "update" => [
