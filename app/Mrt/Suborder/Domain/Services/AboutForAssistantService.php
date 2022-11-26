@@ -283,12 +283,12 @@ class AboutForAssistantService extends BlockType
                                 ->onUpdate("visible")
                                 ->value($values["assistant_comment"])
                                 ->render(),
-                "additional_file" => Field::_()
-                                ->init(new Aws())
-                                ->accept(".zip,.rar,.pdf,.jpg,.jpeg,.png,.docx,.doc")
-                                ->onUpdate("visible")
-                                ->value($values["additional_file"])
-                                ->render(),
+                // "additional_file" => Field::_()
+                //                 ->init(new Aws())
+                //                 ->accept(".zip,.rar,.pdf,.jpg,.jpeg,.png,.docx,.doc")
+                //                 ->onUpdate("visible")
+                //                 ->value($values["additional_file"])
+                //                 ->render(),
             ],
             "update" => [
                 "appointment_date" => Field::_()
