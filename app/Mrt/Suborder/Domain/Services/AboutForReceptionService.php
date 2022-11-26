@@ -14,6 +14,8 @@ use Carbon\Carbon;
 use App\Helpers\Action;
 use App\Mrt\SuborderStatus\Domain\Models\SuborderStatus;
 use App\Mrt\Doctor\Domain\Repositories\DoctorRepository;
+use App\Helpers\FieldTypes\Text;
+use App\Helpers\FieldTypes\Html;
 
 class AboutForReceptionService extends BlockType
 {
@@ -93,10 +95,20 @@ class AboutForReceptionService extends BlockType
             "url" => $aboutSuborder["additional_file_url"],
             "name" => $aboutSuborder["additional_file_name"],
         ] : null;
-        $this->headers = $this->getHeader($aboutSuborder);
+
+        $to_header = [
+            "iin" => $aboutOrder["iin"],
+            "patient_name" => $aboutOrder["patient_name"],
+            "research" => $aboutSuborder["research"],
+            "conclusion" => $aboutSuborder["conclusion"]
+        ];
+        $this->headers = $this->getHeader($to_header);
+
         $suborder_action_name = "default";
         if($aboutSuborder["status_id"] == SuborderStatus::CREATED){
             $suborder_action_name = "created";
+        }else if($aboutSuborder["status_id"] == SuborderStatus::COMPLETED){
+            $suborder_action_name = "completed";
         }
         $this->blocks = array(
             "order_info" => Block::_()
@@ -253,7 +265,32 @@ class AboutForReceptionService extends BlockType
                                         ->onCreate("visible", true)
                                         ->onUpdate("visible", true)
                                         ->render(),
-            ]
+            ],
+            "edit" => [
+                "iin" => Field::_()
+                        ->init(new Text())
+                        ->onUpdate("disabled")
+                        ->value($values["iin"])
+                        ->render(),
+                "patient_name" => Field::_()
+                                ->init(new Text())
+                                ->onUpdate("disabled")
+                                ->value($values["patient_name"])
+                                ->render(),
+                "research" => Field::_()
+                                ->init(new Html())
+                                ->rows(12)
+                                ->onUpdate("visible", true)
+                                ->value($values["research"])
+                                ->render(),
+                "conclusion" => Field::_()
+                                ->init(new Html())
+                                ->rows(12)
+                                ->value($values["conclusion"])
+                                ->onUpdate("visible", true)
+                                ->render(),
+
+            ],
         ];
     }
 
@@ -274,6 +311,16 @@ class AboutForReceptionService extends BlockType
                                     ->hint(__($this->name.".suborder.cancel.hint"))
                                     ->type("error")
                                     ->render(),
+            ],
+            "completed" => [
+                "edit" =>
+                        Action::_()
+                                ->requestType("put")
+                                ->requestUrl(route('reception.suborder.edit', ['locale' => App::currentLocale(), 'suborder_id' => $this->suborder_id]))
+                                ->name(__($this->name.".suborder.edit.name"))
+                                ->hint(__($this->name.".suborder.edit.hint"))
+                                ->type("error")
+                                ->render(),
             ]
         );
         return $actions[$type]??[];

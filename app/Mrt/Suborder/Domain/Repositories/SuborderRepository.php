@@ -42,6 +42,8 @@ class SuborderRepository extends ReferenceRepository
             $this->model->table.'.assistant_comment',
             $this->model->table.'.doctor_comment',
             $this->model->table.'.doctors',
+            $this->model->table.'.research',
+            $this->model->table.'.conclusion',
             'upload.id as file_id',
             'upload.uuid as file_uuid',
             'upload.name as file_name',
@@ -81,6 +83,8 @@ class SuborderRepository extends ReferenceRepository
             $this->model->table.'.appointment_date',
             $this->model->table.'.doctor_comment',
             $this->model->table.'.doctors',
+            $this->model->table.'.research',
+            $this->model->table.'.conclusion',
             'upload.id as file_id',
             'upload.uuid as file_uuid',
             'upload.name as file_name',
@@ -239,9 +243,21 @@ class SuborderRepository extends ReferenceRepository
     {
         return  $this->where('doctors', 'like', "%@".$doctor_id."@%")
                 ->where('id', $suborder_id)
-                ->where('status_id', SuborderStatus::UNDER_TREATMENT)
+                ->where(function($query) {
+                    $query->where('status_id', SuborderStatus::UNDER_TREATMENT)
+                            ->orWhere('status_id', SuborderStatus::COMPLETED);
+                })
                 ->update($data);
     }
+
+    public function submitByBranchId($branch_id, $suborder_id, $data)
+    {
+        return  $this->where('branch_id', $branch_id)
+                ->where('id', $suborder_id)
+                ->where('status_id', SuborderStatus::COMPLETED)
+                ->update($data);
+    }
+
 
     public function getAllByOrderIdPatient($order_id)
     {
@@ -295,5 +311,20 @@ class SuborderRepository extends ReferenceRepository
         ->where($this->model->table.'.created_at', '<=' , $date." 23:59:59")
         ->orderBy($this->model->table.'.created_at');
         return $query->get()->all();
+    }
+
+    public function getMinInfo($id)
+    {
+        $query = $this->join('rb_subservice', $this->model->table.'.subservice_id', '=', 'rb_subservice.id')
+        ->join('rb_service', 'rb_subservice.service_id', '=', 'rb_service.id')
+        ->select($this->model->table.'.doctors',
+                $this->model->table.'.created_at',
+                'rb_subservice.name_'.$this->language.' as subservice_name',
+                'rb_service.name_'.$this->language.' as service_name',
+            $this->model->table.'.order_id',
+            $this->model->table.'.appointment_date')
+        ->where($this->model->table.'.id', $id);
+        $result = $query->first();
+        return $result ? $result->toArray() : [];
     }
 }

@@ -287,6 +287,8 @@ Route::group([
 
                         Route::put('/cancel', \App\Mrt\Suborder\Actions\CancelAction::class)->name('cancel');
 
+                        Route::put('/edit', \App\Mrt\Suborder\Actions\EditConclusionAction::class)->name('edit');
+
                     });
 
                 });
@@ -318,6 +320,8 @@ Route::group([
                         Route::get('', \App\Mrt\Suborder\Actions\AboutForDoctorAction::class)->name('view');
 
                         Route::put('', \App\Mrt\Suborder\Actions\TreatmentForDoctorAction::class)->name('under_treatment');
+
+                        Route::put('/edit', \App\Mrt\Suborder\Actions\EditConclusionAction::class)->name('edit');
 
                         Route::put('/submit', \App\Mrt\Suborder\Actions\SubmitForDoctorAction::class)->name('submit');
 
@@ -358,6 +362,12 @@ Route::group([
             Route::get('/download', \App\Mrt\Upload\Actions\DownloadAction::class)->name('download');
 
             //Route::post('/upload', \App\Mrt\Upload\Actions\LocalAction::class);
+        });
+
+        Route::group(['prefix' => 'smsc', 'as' => 'smsc.'], function() {
+
+            Route::post('/webhook', \App\Mrt\Upload\Actions\PdfAction::class);
+
         });
 
     });

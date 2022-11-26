@@ -84,7 +84,13 @@ class AboutForDoctorService extends BlockType
             "name" => $aboutSuborder["additional_file_name"],
         ] : null;
         $this->actions = $this->getActions();
-        $this->headers = $this->getHeader($aboutOrder);
+        $to_header = [
+            "iin" => $aboutOrder["iin"],
+            "patient_name" => $aboutOrder["patient_name"],
+            "research" => $aboutSuborder["research"],
+            "conclusion" => $aboutSuborder["conclusion"]
+        ];
+        $this->headers = $this->getHeader($to_header);
 
         $suborder_action = array();
         switch($aboutSuborder["status_id"])
@@ -95,6 +101,10 @@ class AboutForDoctorService extends BlockType
             case SuborderStatus::UNDER_TREATMENT:
                 $suborder_action = $this->getActions("under_treatment");
             break;
+            case SuborderStatus::COMPLETED:
+                $suborder_action = $this->getActions("completed");
+            break;
+
         }
         $this->blocks = array(
             // "branch_info" => Block::_()
@@ -267,7 +277,32 @@ class AboutForDoctorService extends BlockType
                                 ->onUpdate("visible")
                                 ->render(),
 
-            ]
+            ],
+            "edit" => [
+                "iin" => Field::_()
+                        ->init(new Text())
+                        ->onUpdate("disabled")
+                        ->value($values["iin"])
+                        ->render(),
+                "patient_name" => Field::_()
+                                ->init(new Text())
+                                ->onUpdate("disabled")
+                                ->value($values["patient_name"])
+                                ->render(),
+                "research" => Field::_()
+                                ->init(new Html())
+                                ->rows(12)
+                                ->onUpdate("visible", true)
+                                ->value($values["research"])
+                                ->render(),
+                "conclusion" => Field::_()
+                                ->init(new Html())
+                                ->rows(12)
+                                ->value($values["conclusion"])
+                                ->onUpdate("visible", true)
+                                ->render(),
+
+            ],
         ];
     }
 
@@ -296,6 +331,13 @@ class AboutForDoctorService extends BlockType
                             ->type("info")
                             ->requestType("put")
                             ->requestUrl(route('doctor.suborder.under_treatment', ['locale' => App::currentLocale(), 'suborder_id' => $this->suborder_id]))
+                            ->render(),
+            ),
+            "completed" => array(
+                "edit" =>  Action::_()
+                            ->type("info")
+                            ->requestType("put")
+                            ->requestUrl(route('doctor.suborder.edit', ['locale' => App::currentLocale(), 'suborder_id' => $this->suborder_id]))
                             ->render(),
             )
         );
