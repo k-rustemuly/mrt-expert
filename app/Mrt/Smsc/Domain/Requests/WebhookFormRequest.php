@@ -15,7 +15,6 @@ class WebhookFormRequest extends APIRequest
             'status' => 'sometimes',
             'time' => 'sometimes',
             'err' => 'sometimes',
-            'cost' => 'sometimes',
         ];
     }
 
