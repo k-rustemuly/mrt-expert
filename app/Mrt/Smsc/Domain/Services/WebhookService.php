@@ -3,24 +3,22 @@
 namespace App\Mrt\Smsc\Domain\Services;
 
 use App\Domain\Payloads\SuccessPayload;
-use Illuminate\Support\Facades\Log;
+use App\Mrt\Smsc\Domain\Repositories\SmscMessageRepository as Repository;
 
 class WebhookService
 {
 
+    protected $repository;
+
+    public function __construct(Repository $repository)
+    {
+        $this->repository = $repository;
+    }
+
     public function handle($data = [])
     {
-        $message_id = $data["id"];
-        $phone = $data["phone"];
-        $status = $data["status"];
-        $time = $data["time"];
-        $err = $data["err"];
-        Log::error("message_id: ".$message_id);
-        Log::error("phone: ".$phone);
-        Log::error("status: ".$status);
-        Log::error("time: ".$time);
-        Log::error("err: ".$err);
-        return new SuccessPayload(__("New admin success added"), $data);
+        $this->repository->create($data);
+        return new SuccessPayload(__("Log success added"), $data);
     }
 
 }
