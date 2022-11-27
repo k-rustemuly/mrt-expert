@@ -366,7 +366,7 @@ Route::group([
 
         Route::group(['prefix' => 'smsc', 'as' => 'smsc.'], function() {
 
-            Route::post('/webhook', \App\Mrt\Upload\Actions\PdfAction::class);
+            Route::post('/webhook', \App\Mrt\Smsc\Actions\WebhookAction::class);
 
         });
 
