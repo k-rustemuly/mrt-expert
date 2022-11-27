@@ -15,11 +15,11 @@ class WebhookService
         $status = $data["status"];
         $time = $data["time"];
         $err = $data["err"];
-        Log::debug("message_id: ".$message_id);
-        Log::debug("phone: ".$phone);
-        Log::debug("status: ".$status);
-        Log::debug("time: ".$time);
-        Log::debug("err: ".$err);
+        Log::error("message_id: ".$message_id);
+        Log::error("phone: ".$phone);
+        Log::error("status: ".$status);
+        Log::error("time: ".$time);
+        Log::error("err: ".$err);
         return new SuccessPayload(__("New admin success added"), $data);
     }
 
