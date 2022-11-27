@@ -9,6 +9,6 @@ class SmscMessageModel extends Model
 
     public $table = 'smsc_message_status';
 
-    protected $guarded = ['id'];
+    protected $guarded = [];
 
 }
