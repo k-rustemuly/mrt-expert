@@ -15,6 +15,7 @@ use App\Mrt\Upload\Domain\Repositories\UploadRepository;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Carbon\Carbon;
 use App\Mrt\Doctor\Domain\Repositories\DoctorRepository;
+use Aws\S3\S3Client;
 
 class SubmitForDoctorService
 {
@@ -57,8 +58,14 @@ class SubmitForDoctorService
             $filename = $data["full_name"]." ".$uuid.".pdf";
             $date = Carbon::parse($aboutSuborder["created_at"])->format('Y/m/d');
             $path = 'pdf/'.$date.'/'.$filename;
-            Storage::put($path, $pdf->output());
-            $url = Storage::url($path);
+            $url = "not found";
+            // if(Storage::put($path, $pdf->output())){
+            //     $url = Storage::url($path);
+            // }else{
+                Storage::disk('s3')->put($path, $pdf->output());
+                $url = config("filesystems.disks.s3.url").$path;
+            // }
+
             $upload_id = $this->uploadRepository->create([
                 "uuid" => $uuid,
                 "name" => $filename,
