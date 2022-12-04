@@ -287,8 +287,8 @@ class AboutForAssistantService extends BlockType
                                 ->render(),
                 "additional_file" => Field::_()
                                 ->init(new Aws())
-                                // ->accept(".zip,.rar,.pdf,.jpg,.jpeg,.png,.docx,.doc")
-                                ->accept(".zip,.rar,.pdf")
+                                ->accept(".zip,.rar,.pdf,.jpg,.jpeg,.png,.docx,.doc")
+                                //->accept(".zip,.rar,.pdf")
                                 ->onUpdate("visible")
                                 ->value($values["additional_file"])
                                 ->render(),
