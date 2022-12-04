@@ -64,8 +64,11 @@ class EditConclusionService
             $filename = $data["full_name"]." ".$uuid.".pdf";
             $date = Carbon::parse($aboutSuborder["created_at"])->format('Y/m/d');
             $path = 'pdf/'.$date.'/'.$filename;
-            Storage::put($path, $pdf->output());
-            $url = Storage::url($path);
+            // Storage::put($path, $pdf->output());
+            // $url = Storage::url($path);
+            Storage::disk('s3')->put($path, $pdf->output());
+            $url = config("filesystems.disks.s3.url").$path;
+
             $upload_id = $this->uploadRepository->create([
                 "uuid" => $uuid,
                 "name" => $filename,
