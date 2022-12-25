@@ -326,7 +326,7 @@
     "my_order.appointment_date" : "Назначенное время",
     "my_order.file" : "Снимок",
     "my_order.conclusion_file" : "Заключение",
-    "Patient sms" : "Получите свой результат на сайте  https://mrt-expert.kz. Логин :login, пароль :password",
+    "Patient sms" : "Получите свой результат на сайте https://mrt-expert.kz/results/ Логин :login, пароль :password",
     "suborder.header.full_name.name" : "ФИО",
     "suborder.header.full_name.hint" : " ",
     "suborder.header.status.name" : "Статус",
