@@ -35,7 +35,7 @@ class ListForDoctorService extends TableType
         $user = auth('doctor')->user();
         $this->headers = $this->getHeader();
         $this->datas = $this->repository->getAllByDoctorIdAndStatusId($user->id, $status_id, $filter);
-        $this->actions = $this->getAction();
+        $this->actions = $this->getAction($status_id);
         return $this->getData();
     }
 
@@ -106,14 +106,17 @@ class ListForDoctorService extends TableType
      *
      * @return array<mixed>
      */
-    private function getAction()
+    private function getAction($status_id = 0)
     {
+        if($status_id == 2)
         return [
             "accept_all" =>  Action::_()
                             ->requestType("put")
                             ->requestUrl(route('doctor.suborder.under_treatment_all', ['locale' => App::currentLocale()]))
                             ->type("success")
                             ->render(),
+        ];
+        return [
         ];
     }
 
