@@ -380,8 +380,8 @@
     "one_suborder.suborder.edit.hint" : "Возможность редактировать заключение",
     "one_suborder.header.cancel_comment.name" : "Причина отмены",
     "one_suborder.header.cancel_comment.hint" : " ",
-    "" : "",
-    "" : "",
+    "suborder.action.accept_all.name" : "Принять все заявки",
+    "suborder.action.accept_all.hint" : " ",
     "" : "",
     "" : "",
     "" : ""
