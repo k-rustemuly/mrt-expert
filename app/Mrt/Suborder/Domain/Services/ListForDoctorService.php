@@ -109,12 +109,11 @@ class ListForDoctorService extends TableType
     private function getAction()
     {
         return [
-            // "new" =>  Action::_()
-            //     ->requestType("post")
-            //     ->requestUrl(route('reception.patient.order.create', ['locale' => App::currentLocale(), 'status_id' => $this->status_id]))
-            //     ->type("success")
-            //     ->afterResponse("open_result")
-            //     ->render(),
+            "accept_all" =>  Action::_()
+                            ->requestType("put")
+                            ->requestUrl(route('doctor.suborder.under_treatment_all', ['locale' => App::currentLocale()]))
+                            ->type("success")
+                            ->render(),
         ];
     }
 

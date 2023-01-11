@@ -315,6 +315,8 @@ Route::group([
 
                     Route::get('/', \App\Mrt\Suborder\Actions\ListForDoctorAction::class);
 
+                    Route::put('/all', \App\Mrt\Suborder\Actions\TreatmentAllForDoctorAction::class)->name('under_treatment_all');
+
                     Route::group(['prefix' => '/{suborder_id}', 'where' => ['suborder_id' => '[0-9]+']], function() {
 
                         Route::get('', \App\Mrt\Suborder\Actions\AboutForDoctorAction::class)->name('view');
