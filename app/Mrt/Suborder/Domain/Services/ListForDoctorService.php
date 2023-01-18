@@ -29,12 +29,12 @@ class ListForDoctorService extends TableType
         $this->repository = $repository;
     }
 
-    public function handle($status_id = 0, $filter = array())
+    public function handle($status_id = 0, $filter = array(), $search = array())
     {
         $this->status_id = $status_id;
         $user = auth('doctor')->user();
         $this->headers = $this->getHeader();
-        $this->datas = $this->repository->getAllByDoctorIdAndStatusId($user->id, $status_id, $filter);
+        $this->datas = $this->repository->getAllByDoctorIdAndStatusId($user->id, $status_id, $filter, $search);
         $this->actions = $this->getAction($status_id);
         return $this->getData();
     }

@@ -22,8 +22,12 @@ class ListForDoctorAction
         if(isset($request->filter)){
             $filter = $request->filter;
         }
+        $search = [];
+        if(isset($request->search)){
+            $search = $request->search;
+        }
         return $this->responder->withResponse(
-            $this->service->handle($status_id, $filter)
+            $this->service->handle($status_id, $filter, $search)
         )->respond();
     }
 }

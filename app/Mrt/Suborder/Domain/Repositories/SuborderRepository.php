@@ -188,7 +188,7 @@ class SuborderRepository extends ReferenceRepository
         return $query->get()->all();
     }
 
-    public function getAllByDoctorIdAndStatusId($doctor_id, $status_id, $filter)
+    public function getAllByDoctorIdAndStatusId($doctor_id, $status_id, $filter, $search = array())
     {
         $query = $this->join('rb_subservice', $this->model->table.'.subservice_id', '=', 'rb_subservice.id')
         ->join('rb_service', 'rb_subservice.service_id', '=', 'rb_service.id')
@@ -213,6 +213,13 @@ class SuborderRepository extends ReferenceRepository
                 case "appointment_date":
                     if(strtolower($direction) == "asc") $query = $query->orderBy($this->model->table.'.'.$row);
                     else $query = $query->orderByDesc($this->model->table.'.'.$row);
+                break;
+            }
+        }
+        foreach($search as $row => $value){
+            switch($row){
+                case "full_name":
+                    $query = $query->where('patient.full_name', 'like', $value.'%');
                 break;
             }
         }
