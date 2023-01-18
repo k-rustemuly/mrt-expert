@@ -219,7 +219,7 @@ class SuborderRepository extends ReferenceRepository
         foreach($search as $row => $value){
             switch($row){
                 case "full_name":
-                    $query = $query->where('patient.full_name', 'like', $value.'%');
+                    $query = $query->where('patient.full_name', 'like', '%'.$value.'%');
                 break;
             }
         }
