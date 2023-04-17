@@ -55,7 +55,7 @@ class SubmitForDoctorService
             $data["doctor_name"] = $aboutDoctor["full_name"];
             $pdf = Pdf::loadView('mrt', $data);
             $uuid = Str::orderedUuid();
-            $filename = $data["full_name"]." ".$uuid.".pdf";
+            $filename = $data["full_name"]." ".$suborder_id.".pdf";
             $date = Carbon::parse($aboutSuborder["created_at"])->format('Y/m/d');
             $path = 'pdf/'.$date.'/'.$filename;
             $url = "not found";
